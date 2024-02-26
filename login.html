@@ -1,0 +1,60 @@
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Styles CSS -->
+    <link rel="stylesheet" href="login.css">
+    </style>
+    <title>Login</title>
+
+</head>
+
+<body>
+
+    <div class="parent">
+
+
+
+    </div>
+    <center>
+        <main id="form">
+            <h2>Login</h2>
+            <form name="login">
+                <input class="box" type="text" name="userid" placeholder="Usuario..." />
+                <input type="password" class="box" name="pswrd" placeholder="Contraseña..." />
+                <input class=buttonsoli type="button" onclick="check(this.form)" value="Entrar" />
+            </form>
+            <a href="https://t.me/LedesmitaTV/9" target="_blank"> <button>Solicitar cuenta</button></a>
+    </center>
+
+    <!-- Aqui puedes poner varios usuarios -->
+
+    <script>
+        // Objeto que contiene las credenciales de usuario
+        var users = {
+            "LedesmitaTV": "LedesmitaTV2024",
+            "Admin": "Admin",
+            // Agrega más usuarios y contraseñas según sea necesario
+        };
+
+        function check(form) {
+            var userid = form.userid.value;
+            var password = form.pswrd.value;
+
+            // Verificar si las credenciales son válidas
+            if (users.hasOwnProperty(userid) && users[userid] === password) {
+                // Redireccionar o realizar acciones después del inicio de sesión exitoso
+                alert("Inicio de sesión exitoso para " + userid);
+                // Ejemplo de redireccionamiento
+                window.location = "index.html";
+            } else {
+                // Mostrar mensaje de error si las credenciales son incorrectas
+                alert("Usuario y/o contraseña son incorrectas");
+            }
+        }
+    </script>
+</body>
+
+</html>
