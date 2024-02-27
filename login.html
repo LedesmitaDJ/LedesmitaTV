@@ -1,55 +1,51 @@
 <html>
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <!-- Styles CSS -->
+    <!-- Estilos CSS -->
     <link rel="stylesheet" href="login.css">
-    </style>
     <title>Login</title>
-
 </head>
-
 <body>
-
-    <div class="parent">
-
-
-
-    </div>
+    <div class="parent"></div>
     <center>
         <main id="form">
             <h2>Login</h2>
             <form name="login">
                 <input class="box" type="text" name="userid" placeholder="Usuario..." />
                 <input type="password" class="box" name="pswrd" placeholder="Contraseña..." />
-                <input class=buttonsoli type="button" onclick="check(this.form)" value="Entrar" />
+                <input class="buttonsoli" type="button" onclick="check(this.form)" value="Entrar" />
             </form>
             <a href="https://t.me/LedesmitaTV/9" target="_blank"> <button>Solicitar cuenta</button></a>
+        </main>
     </center>
 
-    <!-- Aqui puedes poner varios usuarios -->
-
-    <script>
-        // Objeto que contiene las credenciales de usuario
+    <script language="javascript">
+        // Definir el objeto usuarios con pares válidos de nombre de usuario-contraseña
         var users = {
+            "admin1": "admin",
             "LedesmitaTV": "LedesmitaTV2024",
-            "Admin": "Admin",
-            "Premium": "Premium",
-            // Agrega más usuarios y contraseñas según sea necesario
+            "admin2": "admin",
+            "LedesmitaTVPremium": "LedesmitaTV2024"
         };
 
         function check(form) {
             var userid = form.userid.value;
             var password = form.pswrd.value;
-
-            // Verificar si las credenciales son válidas
+            // Comprueba si el nombre de usuario y la contraseña introducidos coinciden con las entradas del objeto usuarios
             if (users.hasOwnProperty(userid) && users[userid] === password) {
-                // Redireccionar o realizar acciones después del inicio de sesión exitoso
                 alert("Inicio de sesión exitoso para " + userid);
-                // Ejemplo de redireccionamiento
-                window.location = "go:Home";
+
+                // Redirigir a la página adecuada después de iniciar sesión con éxito
+                if (userid === "admin1") {
+                    window.location = "go:Home";
+                } else if (userid === "LedesmitaTV") {
+                    window.location = "go:Home";
+                } else if (userid === "admin2") {
+                    window.location = "go:Home-Premium";
+                } else if (userid === "LedesmitaTVPremium") {
+                    window.location = "go:Home-Premium";
+                }
             } else {
                 // Mostrar mensaje de error si las credenciales son incorrectas
                 alert("Usuario y/o contraseña son incorrectas");
@@ -57,5 +53,4 @@
         }
     </script>
 </body>
-
 </html>
