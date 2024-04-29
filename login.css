@@ -9,6 +9,9 @@
     border-radius: 10px;
     font-size: 20px;
     outline: none;
+    font-family: "Audiowide", sans-serif;
+    font-weight: 400;
+    font-style: normal;
 }
 
 input[type=text] {
@@ -22,6 +25,9 @@ input[type=text] {
     border: 1px solid #ffffff;
     box-sizing: border-box;
     outline: none;
+    font-family: "Audiowide", sans-serif;
+    font-weight: 400;
+    font-style: normal;
 }
 
 input:focus {
@@ -113,9 +119,15 @@ body {
 
 h2 {
     color: white;
+    font-family: "Audiowide", sans-serif;
+    font-weight: 400;
+    font-style: normal;
 }
 
 button {
+    font-family: "Audiowide", sans-serif;
+    font-weight: 400;
+    font-style: normal;
     padding: 10px;
     background-color: rgb(61, 68, 149, 0.4);
     border: none;
