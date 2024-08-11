@@ -1,0 +1,180 @@
+@font-face {
+    font-family: 'LedesmitaTV Font';
+    src: url('../font/Audiowide-Regular.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'NYE Font';
+    src: url('../font/Shentox-Bold.ttf') format('truetype');
+}
+
+.container-timer {
+    position: relative;
+    display: inline-block;
+    text-align: center;
+}
+
+#countdown {
+    text-align: right;
+    margin-top: 20px;
+}
+
+.timer1 {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -5%);
+    color: white;
+    padding: 10px;
+    border-radius: 10px;
+    font-family: 'LedesmitaTV Font', sans-serif;
+    font-size: 14px;
+    font-weight: bold;
+    color: #ffffff;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.timer2 {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-5%, -50%);
+    color: white;
+    padding: 10px;
+    border-radius: 10px;
+    font-family: 'LedesmitaTV Font', sans-serif;
+    font-size: 14px;
+    font-weight: bold;
+    color: #ffffff;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.timer3 {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-2%, -50%);
+    color: white;
+    padding: 10px;
+    border-radius: 10px;
+    font-family: 'NYE Font', sans-serif;
+    font-size: 14px;
+    font-weight: bold;
+    color: #ffffff;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.timer-video {
+    position: absolute;
+    top: 48%;
+    right: 50%;
+    transform: translate(-75%, -50%);
+    width: 25%;
+    height: auto;
+}
+
+.container-timer button {
+    font-size: 14px;
+    padding: 10px;
+    background-color: #007BFF;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.timer-button1 {
+    display: none;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -5%);
+    font-family: 'LedesmitaTV Font', sans-serif;
+    font-weight: bold;
+    color: #ffffff;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.timer-button2 {
+    display: none;
+    position: absolute;
+    top: 50%;
+    right: 50%;
+    transform: translate(125%, -50%);
+    font-family: 'LedesmitaTV Font', sans-serif;
+    font-weight: bold;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.timer-button3 {
+    display: none;
+    position: absolute;
+    top: 50%;
+    right: 50%;
+    transform: translate(125%, -50%);
+    font-family: 'NYE Font', sans-serif;
+    font-weight: bold;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+#timer1 {
+    font-family: 'LedesmitaTV Font', sans-serif;
+    font-size: 14px;
+    font-weight: bold;
+    color: #ffffff;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+#timer2 {
+    font-family: 'LedesmitaTV Font', sans-serif;
+    font-size: 14px;
+    font-weight: bold;
+    color: #ffffff;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+#timer3 {
+    font-family: 'NYE Font', sans-serif;
+    font-size: 14px;
+    font-weight: bold;
+    color: #ffffff;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.background-timer {
+    width: 100%;
+    height: auto;
+}
+
+.botoncenter {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.botonNYE {
+    background-color: #3498db;
+    color: #fff;
+    padding: 20px 40px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    text-align: center;
+    font-size: 20px;
+}
+
+.botonNYE:hover {
+    background-color: #2980b9;
+}
+
+@media only screen and (max-width: 600px) {
+    .timer {
+        font-size: 4vw;
+        /* Ajusta el tamaño de la fuente para pantallas más pequeñas */
+        padding: 2vw;
+        /* Ajusta el padding para pantallas más pequeñas */
+        border-radius: 2vw;
+        /* Ajusta el border-radius para pantallas más pequeñas */
+    }
+}
