@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <meta name="author" content="LedesmitApp">
+  <meta name="keywords" content="LedesmitApp, App, Store, AppStorely">
+  <meta name="description" content="Sube tus aplicaciones en AppStorely.">
+
+  <meta property="og:image" content="img/miniatura.png">
+  <meta property="og:title" content="AppStorely">
+
+  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+
+  <style>
+    /* Estilos generales */
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+      margin: 0;
+      padding: 0;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 20px;
+      background-color: #fff;
+      box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    h1 {
+      text-align: center;
+    }
+
+    /* Estilos para las preguntas y respuestas */
+    .faq-item {
+      margin-bottom: 20px;
+    }
+
+    .question {
+      font-weight: bold;
+      cursor: pointer;
+      border: 1px solid #ccc;
+      padding: 10px;
+      background-color: #f9f9f9;
+    }
+
+    .answer {
+      display: none;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-top: none;
+    }
+
+    /* Estilo para el botón de volver arriba */
+    #back-to-top {
+      display: none;
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background-color: #007bff;
+      color: #fff;
+      padding: 10px 15px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    /* Estilos básicos para los botones */
+    .button {
+      display: inline-block;
+      padding: 10px 20px;
+      background-color: #007BFF;
+      color: #fff;
+      text-decoration: none;
+      border-radius: 5px;
+      margin: 5px;
+      font-size: 16px;
+      transition: background-color 0.3s;
+    }
+
+    .button:hover {
+      background-color: #0056b3;
+    }
+
+    /* Estilos para los logos utilizando FontAwesome */
+    .button i {
+      margin-right: 5px;
+    }
+
+    /* Personaliza el tamaño y color de los logos */
+    .button .fa-home {
+      font-size: 100px;
+      color: #fff;
+    }
+
+    .button .fa-shield-halved {
+      font-size: 100px;
+      color: #fff;
+    }
+
+    .button .fa-book {
+      font-size: 100px;
+      color: #fff;
+    }
+
+    .button .fa-cloud-arrow-down {
+      font-size: 100px;
+      color: #fff;
+    }
+
+    .button .fa-circle-info {
+      font-size: 100px;
+      color: #fff;
+    }
+
+    /* Contenedor de botones */
+    .button-container {
+      text-align: center;
+      margin-top: 20px;
+    }
+  </style>
+
+  <title>Preguntas Frecuentes</title>
+</head>
+
+<body background="pixel-jeff-chill-mario-2023-2.gif" style="background-size: cover; background-attachment: fixed;">
+  <div class="container">
+    <h1>Preguntas Frecuentes</h1>
+
+    <div class="button-container">
+      <a href="preguntas-frecuentes-1.html" class="button">
+        <i class="fas fa-home"></i><br><br>Información General</a>
+      <a href="#" class="button">
+        <i class="fa-solid fa-shield-halved"></i><br><br>Privacidad y Seguridad</a>
+      <a href="#" class="button">
+        <i class="fa-solid fa-book"></i><br><br>Políticas y Términos</a>
+      <a href="#" class="button">
+        <i class="fa-solid fa-cloud-arrow-down"></i><br><br>Descargas y Actualizaciones</a>
+      <a href="#" class="button">
+        <i class="fa-solid fa-circle-info"></i><br><br>Contacto y Soporte</a>
+    </div>
+
+    <button id="back-to-top">Volver arriba</button>
+
+    <script>
+      // JavaScript para mostrar/ocultar respuestas
+      const questions = document.querySelectorAll('.question');
+      questions.forEach(question => {
+        question.addEventListener('click', () => {
+          const answer = question.nextElementSibling;
+          answer.style.display = answer.style.display === 'block' ? 'none' : 'block';
+        });
+      });
+
+      // JavaScript para el botón de volver arriba
+      const backToTopButton = document.getElementById('back-to-top');
+      window.addEventListener('scroll', () => {
+        if (window.scrollY > 200) {
+          backToTopButton.style.display = 'block';
+        } else {
+          backToTopButton.style.display = 'none';
+        }
+      });
+
+      backToTopButton.addEventListener('click', () => {
+        window.scrollTo({
+          top: 0,
+          behavior: 'smooth'
+        });
+      });
+    </script>
+</body>
+
+</html>
