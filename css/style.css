@@ -52,6 +52,19 @@ header {
 .section h2 button:hover {
     background-color: #0056b3;
 }
+.section button {
+    font-family: 'LedesmitaTV Font', sans-serif;
+    font-weight: bold;
+    padding: 10px 20px;
+    border: none;
+    background-color: #007BFF;
+    color: #fff;
+    cursor: pointer;
+    border-radius: 5px;
+}
+.section button:hover {
+    background-color: #0056b3;
+}
 .section .content {
     display: flex;
     overflow-x: auto;
