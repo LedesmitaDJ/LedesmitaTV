@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Enlace al CSS de Video.js -->
+  <link href="https://vjs.zencdn.net/7.14.3/video-js.css" rel="stylesheet" />
+  <!-- Enlace al CSS opcional de Video.js para mejorar la apariencia -->
+
+  <!-- Enlace al CSS del selector de calidad -->
+  <link href="https://unpkg.com/videojs-hls-quality-selector/dist/css/videojs-hls-quality-selector.css"
+    rel="stylesheet" />
+
+  <title>TV - En Vivo</title>
+</head>
+
+<body>
+
+  <body>
+    <center>
+      <video id="my-video" class="video-js vjs-default-skin" controls preload="auto" width="auto" height="auto"
+        poster="logo2-ledesmita-tv.png" autoplay muted data-setup="{}">
+        <source src="http://190.211.102.42:4000/play/a01d/index.m3u8"
+          type="application/x-mpegURL">
+        Tu navegador no soporta la etiqueta de video.
+      </video>
+    </center>
+
+    <!-- Enlace al JavaScript de Video.js -->
+    <script src="https://vjs.zencdn.net/7.14.3/video.min.js"></script>
+    <!-- Enlace al plugin videojs-http-streaming -->
+    <script src="https://vjs.zencdn.net/7.14.3/videojs-http-streaming.min.js"></script>
+    <!-- Enlace al plugin de selección de calidad -->
+    <script src="https://unpkg.com/videojs-hls-quality-selector/dist/videojs-hls-quality-selector.min.js"></script>
+    <!-- Script adicional para habilitar la selección de calidad -->
+    <script>
+      var player = videojs('my-video');
+      player.hlsQualitySelector();
+    </script>
+  </body>
+
+</html>
