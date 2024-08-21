@@ -30,5 +30,8 @@ startCountdown("Aug 17, 2024 06:00:00", "timer1", "days1", "hours1", "minutes1",
 // Inicializa el segundo contador (puedes cambiar la fecha)
 startCountdown("Aug 31, 2024 18:00:00", "timer2", "days2", "hours2", "minutes2", "seconds2", "liveButton2");
 
-// Inicializa el segundo contador (puedes cambiar la fecha)
+// Inicializa el tercer contador (puedes cambiar la fecha)
 startCountdown("Dec 31, 2024 18:00:00", "timer3", "days3", "hours3", "minutes3", "seconds3", "liveButton3");
+
+// Inicializa el cuarto contador (puedes cambiar la fecha)
+startCountdown("Oct 2, 2024 10:42:59", "timer4", "days4", "hours4", "minutes4", "seconds4", "liveButton4");
