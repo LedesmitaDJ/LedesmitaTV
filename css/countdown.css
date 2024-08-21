@@ -15,6 +15,13 @@
     font-style: normal;
 }
 
+@font-face {
+    font-family: 'Eclipse Font';
+    src: url('../font/OstrichSans-Heavy.otf') format('opentype');
+    font-weight: normal;
+    font-style: normal;
+}
+
 .container-timer {
     position: relative;
     display: inline-block;
@@ -71,6 +78,21 @@
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
 }
 
+.timer4 {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(50%, -50%);
+    color: white;
+    padding: 10px;
+    border-radius: 10px;
+    font-family: 'Eclipse Font', sans-serif;
+    font-size: 18px;
+    font-weight: bold;
+    color: #ffffff;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
 .timer-video {
     position: absolute;
     top: 48%;
@@ -118,8 +140,19 @@
     position: absolute;
     top: 50%;
     right: 50%;
-    transform: translate(125%, -50%);
+    transform: translate(50%, -50%);
     font-family: 'NYE Font', sans-serif;
+    font-weight: bold;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.timer-button4 {
+    display: none;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(125%, -50%);
+    font-family: 'Eclipse Font', sans-serif;
     font-weight: bold;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
 }
@@ -143,6 +176,14 @@
 #timer3 {
     font-family: 'NYE Font', sans-serif;
     font-size: 14px;
+    font-weight: bold;
+    color: #ffffff;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+#timer4 {
+    font-family: 'Eclipse Font', sans-serif;
+    font-size: 18px;
     font-weight: bold;
     color: #ffffff;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
