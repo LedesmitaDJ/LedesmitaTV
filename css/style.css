@@ -6,7 +6,7 @@ body {
     display: block;
 }
 header {
-    background: linear-gradient(to bottom, #0f3b7b, #60ceff); /* Aquí defines los colores del degradado */
+    background: linear-gradient(to bottom, #015dac, #0077ff); /* Aquí defines los colores del degradado */
     color: #fff;
     padding: 10px 20px;
     text-align: center;
@@ -92,7 +92,7 @@ header {
 }
 
 footer {
-    background: linear-gradient(to bottom, #0f3b7b, #0f3b7b); /* Aquí defines los colores del degradado */
+    background: linear-gradient(to bottom, #015dac, #0077ff); /* Aquí defines los colores del degradado */
     color: #fff;
     text-align: center;
     padding: 10px;
