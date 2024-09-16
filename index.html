@@ -8,6 +8,17 @@
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/countdown.css">
 
+    <!-- Owl Carousel CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css">
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css">
+
+    <!-- JQuery (necesario para Owl Carousel) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+    <!-- Owl Carousel JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
+
     <title>Ledesmita TV</title>
 </head>
 
@@ -58,6 +69,29 @@
             </div>
         </div>
 
+        <br>
+
+        <!-- Owl Carousel -->
+        <center>
+            <div class="owl-carousel" style="display: block;position: relative;width: 100%;height: 100%;">
+                <div class="item">
+                    <a href="http://action_share" target="_blank">
+                        <img src="img/Banner-AD-Home09.png" alt="Compartir App">
+                    </a>
+                </div>
+                <div class="item">
+                    <a href="http://action_noads" target="_blank">
+                        <img src="img/Banner-AD-Home05.png" alt="Quitar Anuncios">
+                    </a>
+                </div>
+                <div class="item">
+                    <a href="go:LTV" target="_blank">
+                        <img src="img/Banner-AD-Home10.png" alt="Ledesmita TV en vivo">
+                    </a>
+                </div>
+            </div>
+        </center>
+
         <!-- Sección de Eventos -->
         <div class="section">
             <h2>
@@ -67,9 +101,10 @@
                         más</button></a>
             </h2>
             <div class="content">
-                
+
                 <div class="item">
-                    <a href="go:Evento6"><img src="img/WC-Sub20-Fem-2024-200x300.png" alt="Mundial Sub20 Femenino Colombia 2024"></a>
+                    <a href="go:Evento6"><img src="img/WC-Sub20-Fem-2024-200x300.png"
+                            alt="Mundial Sub20 Femenino Colombia 2024"></a>
                     <p>31 Agosto - 22 Septiembre 2024</p>
                 </div>
                 <div class="item">
@@ -81,7 +116,8 @@
                     <p>2 Octubre 2024</p>
                 </div>
                 <div class="item">
-                    <a href="go:Evento7"><img src="img/Times-Square-NYE-2025-200x300.png" alt="Times Square NYE 2025"></a>
+                    <a href="go:Evento7"><img src="img/Times-Square-NYE-2025-200x300.png"
+                            alt="Times Square NYE 2025"></a>
                     <p>31 Diciembre 2024</p>
                 </div>
             </div>
@@ -119,7 +155,7 @@
                         <img src="img/Caracol-TV-200x200.png" alt="Caracol TV"></a>
                     <p>Caracol TV</p>
                 </div>
-                
+
                 <div class="item">
                     <a href="go:RCNTV"><img src="img/RCN-TV-200x200.png" alt="RCN TV"></a>
                     <p>RCN TV</p>
@@ -143,11 +179,11 @@
             </div>
         </div>
 
-        
 
-        
 
-        
+
+
+
 
         <!-- Sección Countdown Evento -->
         <center>
@@ -174,10 +210,10 @@
             </div>
         </center>
 
-        
-        
 
-        
+
+
+
 
         <!-- Sección de NASA en Vivo -->
         <div class="section">
@@ -196,7 +232,7 @@
             </div>
         </div>
 
-        
+
 
         <!-- Sección Countdown Evento -->
         <center>
@@ -271,6 +307,32 @@
     <footer>
         <p>&copy; 2021 - <span id="year"></span> Ledesmita TV.<br>Todos los derechos reservados.</p>
     </footer>
+
+    <!-- Inicialización de Owl Carousel -->
+    <script>
+        $(document).ready(function(){
+          $(".owl-carousel").owlCarousel({
+            loop: true,
+            margin: 10,
+            responsiveClass: true,
+            autoplay: true,
+            autoplayTimeout: 3000,
+            nav: false, // Desactiva los botones de navegación
+            dots: false, // Desactiva los puntos de navegación
+            responsive: {
+              0: {
+                items: 1
+              },
+              600: {
+                items: 2
+              },
+              1000: {
+                items: 3
+              }
+            }
+          });
+        });
+      </script>
 
     <script src="js/pop-up.js"></script>
     <script src="js/year.js"></script>
