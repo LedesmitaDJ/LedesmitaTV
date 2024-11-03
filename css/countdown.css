@@ -27,6 +27,13 @@
     src: url('../font/FWC2026-CondensedBlack.ttf') format('truetype');
 }
 
+@font-face {
+    font-family: 'Eliminatorias2026 Font';
+    src: url('../font/Branding-Black.otf') format('opentype');
+    font-weight: normal;
+    font-style: normal;
+}
+
 .container-timer {
     position: relative;
     display: inline-block;
@@ -61,7 +68,7 @@
     color: white;
     padding: 10px;
     border-radius: 10px;
-    font-family: 'WC2024 Font', sans-serif;
+    font-family: 'Eliminatorias2026 Font', sans-serif;
     font-size: 18px;
     font-weight: bold;
     color: #ffffff;
@@ -143,7 +150,7 @@
     top: 50%;
     right: 50%;
     transform: translate(125%, -50%);
-    font-family: 'WC2024 Font', sans-serif;
+    font-family: 'Eliminatorias2026 Font', sans-serif;
     font-weight: bold;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
 }
@@ -179,7 +186,7 @@
 }
 
 #timer2 {
-    font-family: 'WC2024 Font', sans-serif;
+    font-family: 'Eliminatorias2026 Font', sans-serif;
     font-size: 18px;
     font-weight: bold;
     color: #ffffff;
