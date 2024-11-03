@@ -28,7 +28,7 @@ function startCountdown(targetDate, timerId, daysId, hoursId, minutesId, seconds
 startCountdown("Jun 11, 2026 12:00:00", "timer1", "days1", "hours1", "minutes1", "seconds1", "liveButton1");
 
 // Inicializa el segundo contador (puedes cambiar la fecha)
-startCountdown("Aug 31, 2024 18:00:00", "timer2", "days2", "hours2", "minutes2", "seconds2", "liveButton2");
+startCountdown("Nov 14, 2024 16:00:00", "timer2", "days2", "hours2", "minutes2", "seconds2", "liveButton2");
 
 // Inicializa el tercer contador (puedes cambiar la fecha)
 startCountdown("Dec 31, 2024 18:00:00", "timer3", "days3", "hours3", "minutes3", "seconds3", "liveButton3");
