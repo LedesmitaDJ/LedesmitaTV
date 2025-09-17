@@ -1,6 +1,6 @@
 // Definir los intervalos de tiempo para cada iframe
 const intervalosIframe1 = [
-    { inicio: "2025-08-20T17:00:00", fin: "2025-08-20T18:00:00" },
+    { inicio: "2025-11-10T12:00:00", fin: "2025-08-20T18:00:00" },
     { inicio: "2025-08-21T17:00:00", fin: "2025-08-21T18:00:00" },
     { inicio: "2025-08-22T17:00:00", fin: "2025-08-22T18:00:00" },
     { inicio: "2025-08-23T17:00:00", fin: "2025-08-23T18:00:00" },
@@ -19,7 +19,7 @@ const intervalosIframe2 = [
 ];
 
 function verificarFechaHora() {
-    const iframe1 = document.getElementById("tvenvivo");
+    const iframe1 = document.getElementById("tvcaracol");
     const iframe2 = document.getElementById("tvsports");
     const ahora = new Date();
 
