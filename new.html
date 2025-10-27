@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Times Square NYE</title>
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            font-family: Arial, sans-serif;
+            color: white;
+            text-align: center;
+            /* Color de fondo de respaldo */
+            background-color: #333;
+            /* Cambia este color según prefieras */
+        }
+
+        /* Video de fondo para pantallas grandes (desktop) */
+        #background-video-desktop {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: -1;
+        }
+
+        /* Video de fondo para pantallas pequeñas (responsive) */
+        #background-video-mobile {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: -1;
+            display: none;
+            /* Oculto por defecto */
+        }
+
+        /* Imagen de fondo de respaldo (pantalla completa, si el video no carga) */
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('img/NYE-Fondo2.png');
+            /* Reemplaza con tu URL de imagen */
+            background-size: cover;
+            background-position: center;
+            z-index: -2;
+        }
+
+        h1 {
+            font-size: 3rem;
+            /* Tamaño base, se ajusta en media queries */
+            margin: 0;
+        }
+
+        p {
+            font-size: 1.5rem;
+            /* Tamaño base, se ajusta en media queries */
+            margin: 0.5rem 0 0 0;
+        }
+
+        /* Estilo del botón */
+        .button {
+            display: inline-block;
+            padding: 10px 20px;
+            margin-top: 1rem;
+            background-color: #007bff;
+            /* Color azul del botón */
+            color: white;
+            text-decoration: none;
+            border: none;
+            border-radius: 5px;
+            font-size: 1.2rem;
+            transition: background-color 0.3s;
+        }
+
+        .button:hover {
+            background-color: #0056b3;
+            /* Color más oscuro al pasar el mouse */
+        }
+
+        /* Media queries para responsividad */
+        @media (max-width: 768px) {
+            #background-video-desktop {
+                display: none;
+                /* Oculta el video de desktop */
+            }
+
+            #background-video-mobile {
+                display: block;
+                /* Muestra el video de mobile */
+            }
+
+            h1 {
+                font-size: 2rem;
+                /* Reduce tamaño en tablets y móviles */
+            }
+
+            p {
+                font-size: 1.2rem;
+                /* Reduce tamaño en tablets y móviles */
+            }
+
+            .button {
+                font-size: 1.25rem;
+                /* Reduce tamaño del botón en tablets y móviles */
+                padding: 8px 16px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 1.5rem;
+                /* Aún más pequeño en móviles pequeños */
+            }
+
+            p {
+                font-size: 1rem;
+                /* Aún más pequeño en móviles pequeños */
+            }
+
+            .button {
+                font-size: 1.25rem;
+                /* Aún más pequeño en móviles pequeños */
+                padding: 6px 12px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Video de fondo para pantallas grandes (desktop) -->
+    <video id="background-video-desktop" autoplay loop muted>
+        <source src="vid/NYEFondo.webm" type="video/webm">
+        <!-- Reemplaza con tu URL de video para desktop -->
+        Tu navegador no soporta el elemento de video.
+    </video>
+
+    <!-- Video de fondo para pantallas pequeñas (responsive) -->
+    <video id="background-video-mobile" autoplay loop muted>
+        <source src="vid/NYEFondo-Movile.webm" type="video/webm">
+        <!-- Reemplaza con tu URL de video para mobile (diferente si quieres) -->
+        Tu navegador no soporta el elemento de video.
+    </video>
+
+    <!-- Contenido centrado (por encima del video) -->
+    <div class="video">
+        <video id="video" width="205" height="205" autoplay hidden="true" loop="true">
+            <source src="vid/Times-Square-Ball-2026.webm" type="video/webm" />
+        </video>
+    </div>
+    <h1>Times Square NYE</h1>
+    <p>Mira este evento en la App de Ledesmita TV.</p>
+    <a href="https://play.google.com/store/apps/details?id=com.ledesmita.tv" target="_blank" class="button">📱 Descargar ⬇️</a> <!-- Reemplaza con tu URL real -->
+</body>
+
+</html>
