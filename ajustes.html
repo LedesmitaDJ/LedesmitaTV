@@ -1,638 +1,122 @@
-<html>
-   <head>
-      <title>Peliculas</title>
-      <link href="style.css" rel="stylesheet" type="text/css">
-      <link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css">
-      </link>
-      <link href="icon.png" rel="apple-touch-icon">
-      </link>
-      <style type="text/css">
-         html{height:100%}
-         body {font-family: sans-serif; font-weight: 300;
-         min-height: 100%;
-         background: rgb(51,51,51); /* Old browsers */
-         background: -moz-linear-gradient(top,  rgba(51,51,51,1) 0%, rgba(31,31,31,1) 100%);
-         background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(51,51,51,1)), color-stop(100%,rgba(31,31,31,1)));
-         background: -webkit-linear-gradient(top,  rgba(51,51,51,1) 0%,rgba(31,31,31,1) 100%);
-         background: -o-linear-gradient(top,  rgba(51,51,51,1) 0%,rgba(31,31,31,1) 100%);
-         background: -ms-linear-gradient(top,  rgba(51,51,51,1) 0%,rgba(31,31,31,1) 100%);
-         background: linear-gradient(to bottom,  rgba(51,51,51,1) 0%,rgba(31,31,31,1) 100%);
-         }
-         .container{padding: 10px;}
-         .title{
-         font-weight: 700;
-         color: #E74c3c;
-         text-align: center;
-         margin: 10px 0 20px;
-         font-size: 20px;
-         }
-         .content{font-size: 22px; line-height:20px; color: #ffffff}
-         .imagepadding{
-         border: solid 4px #1f1f1f;
-         -webkit-box-sizing: border-box;
-         -moz-box-sizing: border-box;
-         box-sizing: border-box; 
-         }
-         .start{
-         background: #2ECC71;
-         color: #fff;
-         font-size: 10px;
-         font-weight: 500;
-         margin-top: -42px;
-         float: left;
-         z-index: 2;
-         position: relative;
-         border-radius: 30px;
-         padding: 4px 7px;
-         margin-left: 7px;
-         }
-         .addpeli{
-         margin: 20px auto 10px;
-         display: inline-block;
-         padding: 12px 20px;
-         border: solid 2px #2Ecc71;
-         border-radius: 4px;
-         color: #2Ecc71;
-         font-weight: 500;
-         font-size: 15px;
-         }
-         h5 {
-         color:Red;
-         } 
-         h2{
-         color:White;
-         } 
-      </style>
-   </head>
-   <body>
-      <div class="content">
-      
-         <br>
-         <br>
-         <center>
-            <h6>Ajustes</h6>
-         </center>         <a href="#">
-         <img class="imagepadding" src="https://i.ibb.co/10KS5x3/AJUSTES.png" width="100%" />
-         </a>
-         
-        
-      </div>
-      <!DOCTYPE html>
-      <html lang="es">
-         <head>
-            <title></title>
-            <meta charset="utf-8">
-            <style>
-               @media (max-width:500px){
-               * {
-               margin: 0;
-               padding: 0;
-               box-sizing: border-box;
-               font-family: monospace;
-               }
-               body{
-               background-color: #000000;
-               }
-               header label{
-               display: block;
-               }
-               .menu{
-               position: absolute;
-              top: 289px;
-               left: 10px;
-               right: 10px;  
-               }
-               .menu ul{
-               display: block;
-               background: White;
-               }
-               .menu ul ul{
-               display: none;
-               }
-               .menu a{
-               display: block;
-               padding: 15px 20px;
-               color: #000;
-               text-decoration: none;
-               }
-               .menu ul li{
-               display: block;
-               border-bottom: 5px solid rgba(0,0,0);
-               }
-               .menu ul li:hover ul{
-               display: none;
-               position: static;
-               }
-               .menu ul li ul{
-               background: #131313;
-               } 
-               }
-               @media (max-width:400px){
-               * {
-               margin: 0;
-               padding: 0;
-               box-sizing: border-box;
-               font-family: monospace;
-               }
-               body{
-               background-color: #000000;
-               }
-               header label{
-               display: block;
-               }
-               .menu{
-               position: absolute;
-              top: 289px;
-               left: 10px;
-               right: 10px;  
-               }
-               .menu ul{
-               display: block;
-               background: White;
-               }
-               .menu ul ul{
-               display: none;
-               }
-               .menu a{
-               display: block;
-               padding: 15px 20px;
-               color: #000;
-               text-decoration: none;
-               }
-               .menu ul li{
-               display: block;
-               border-bottom: 5px solid rgba(0,0,0);
-               }
-               .menu ul li:hover ul{
-               display: none;
-               position: static;
-               }
-               .menu ul li ul{
-               background: #131313;
-               } 
-               }
-               @media (max-width:300px){
-               * {
-               margin: 0;
-               padding: 0;
-               box-sizing: border-box;
-               font-family: monospace;
-               }
-               body{
-               background-color: #000000;
-               }
-               header label{
-               display: block;
-               }
-               .menu{
-               position: absolute;
-              top: 289px;
-               left: 10px;
-               right: 10px;  
-               }
-               .menu ul{
-               display: block;
-               background: White;
-               }
-               .menu ul ul{
-               display: none;
-               }
-               .menu a{
-               display: block;
-               padding: 15px 20px;
-               color: #000;
-               text-decoration: none;
-               }
-               .menu ul li{
-               display: block;
-               border-bottom: 5px solid rgba(0,0,0);
-               }
-               .menu ul li:hover ul{
-               display: none;
-               position: static;
-               }
-               .menu ul li ul{
-               background: #131313;
-               } 
-               }
-               @media (max-width:200px){
-               * {
-               margin: 0;
-               padding: 0;
-               box-sizing: border-box;
-               font-family: monospace;
-               }
-               body{
-               background-color: #000000;
-               }
-               header label{
-               display: block;
-               }
-               .menu{
-               position: absolute;
-              top: 289px;
-               left: 10px;
-               right: 10px;  
-               }
-               .menu ul{
-               display: block;
-               background: White;
-               }
-               .menu ul ul{
-               display: none;
-               }
-               .menu a{
-               display: block;
-               padding: 15px 20px;
-               color: #000;
-               text-decoration: none;
-               }
-               .menu ul li{
-               display: block;
-               border-bottom: 5px solid rgba(0,0,0);
-               }
-               .menu ul li:hover ul{
-               display: none;
-               position: static;
-               }
-               .menu ul li ul{
-               background: #131313;
-               } 
-               }
-               @media (max-width:100px){
-               * {
-               margin: 0;
-               padding: 0;
-               box-sizing: border-box;
-               font-family: monospace;
-               }
-               body{
-               background-color: #000000;
-               }
-               header label{
-               display: block;
-               }
-               .menu{
-               position: absolute;
-              top: 289px;
-               left: 10px;
-               right: 10px;  
-               }
-               .menu ul{
-               display: block;
-               background: White;
-               }
-               .menu ul ul{
-               display: none;
-               }
-               .menu a{
-               display: block;
-               padding: 15px 20px;
-               color: #000;
-               text-decoration: none;
-               }
-               .menu ul li{
-               display: block;
-               border-bottom: 5px solid rgba(0,0,0);
-               }
-               .menu ul li:hover ul{
-               display: none;
-               position: static;
-               }
-               .menu ul li ul{
-               background: #131313;
-               } 
-               }
-               @media (max-width:50px){
-               * {
-               margin: 0;
-               padding: 0;
-               box-sizing: border-box;
-               font-family: monospace;
-               }
-               body{
-               background-color: #000000;
-               }
-               header label{
-               display: block;
-               }
-               .menu{
-               position: absolute;
-              top: 289px;
-               left: 10px;
-               right: 10px;  
-               }
-               .menu ul{
-               display: block;
-               background: White;
-               }
-               .menu ul ul{
-               display: none;
-               }
-               .menu a{
-               display: block;
-               padding: 15px 20px;
-               color: #000;
-               text-decoration: none;
-               }
-               .menu ul li{
-               display: block;
-               border-bottom: 5px solid rgba(0,0,0);
-               }
-               .menu ul li:hover ul{
-               display: none;
-               position: static;
-               }
-               .menu ul li ul{
-               background: #131313;
-               } 
-               }
-               @media (max-width:10px){
-               * {
-               margin: 0;
-               padding: 0;
-               box-sizing: border-box;
-               font-family: monospace;
-               }
-               body{
-               background-color: #000000;
-               }
-               header label{
-               display: block;
-               }
-               .menu{
-               position: absolute;
-              top: 289px;
-               left: 10px;
-               right: 10px;  
-               }
-               .menu ul{
-               display: block;
-               background: White;
-               }
-               .menu ul ul{
-               display: none;
-               }
-               .menu a{
-               display: block;
-               padding: 15px 20px;
-               color: #000;
-               text-decoration: none;
-               }
-               .menu ul li{
-               display: block;
-               border-bottom: 5px solid rgba(0,0,0);
-               }
-               .menu ul li:hover ul{
-               display: none;
-               position: static;
-               }
-               .menu ul li ul{
-               background: #131313;
-               } 
-               }
-            </style>
-            <script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
-            
-         </head>
-         <body>
-            <header>
-            <ul id="accordion" class="accordion">
-        <li>
-            <div class="link"><i class="fa fa-user"></i>Parte Principal<i class="fa fa-chevron-down"></i></div>
-            <ul class="submenu">
-                <li><a href="#">⚡ Como usar la App</a></li>
-                <li><a href="#">🎉 Tutoriales</a></li>
-                <li><a href="#">❓ F.A.Q</a></li>
-                <li><a href="#">🥇 V.I.P</a></li>
-            </ul>
-        </li>
+<html lang="es">
 
-        <li>
-            <div class="link"><i class="fa fa-info-circle"></i>Importante<i class="fa fa-chevron-down"></i></div>
-            <ul class="submenu">
-                <li><a href="#">🎇 Sobre Plaction</a></li>
-                <li><a href="#">📞 Formulario de Contacto</a></li>
-                <li><a href="#">🏆 Dmca</a></li>
-                <li><a href="#">🎨 P. Privacidad</a></li>
-                <li><a href="#">🎫 Descargo de Responsabilidad</a></li>
-            </ul>
-        </li>
-            
-        <li>
-            <div class="link"><i class="fa fa-cogs"></i>Ajustes de la App<i class="fa fa-chevron-down"></i></div>
-            <ul class="submenu">
-                <li><a href="#">🏠 Ir al inicio</a></li>
-                <li><a href="#">🌐 Pagina web</a></li>
-                <li><a href="#">💭 Chat Publico</a></li>
-                <li><a href="#">🎃 Actualización de Contenido</a></li>
-              	<li><a href="#">⏰ Usuarios</a></li>
-            </ul>
-        </li>
+<head>
+    <meta charset="UTF-8">
+    <title>Ajustes</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" rel="stylesheet">
+</head>
 
-        <li>
-            <div class="link"><i class="fa fa-star"></i>Apoyo de la App<i class="fa fa-chevron-down"></i></div>
-            <ul class="submenu">
-                <li><a href="#">⭐ Calificanos</a></li>
-                <li><a href="#">🌐 Comentario</a></li>
-                <li><a href="#">💬 Videos Tutoriales</a></li>
-                <li><a href="#">💡 Comparte</a></li>
-            </ul>
-        </li>
+<body ondragstart="return false" ondrop="return false" onselectstart="return false" oncontextmenu="return false">
+    <div id="my-stuff-cont"
+        style="background: -webkit-linear-gradient(-60deg, #2e5984 0%, #020202 50%, #2e5984 0%, #020202 0%, #020202 40%, #202020 100%);">
+        <div class="stuf-title">
+            <div id="s-t">
+                <div><img src="img/logo-ledesmita-tv.png"></div>
+                <div style="font-size:20px;">Ajustes</div>
+                <div><i class="material-icons"
+                        style="transform: rotate(90deg) translateX(2px); font-size:18px;">play_arrow</i></div>
+            </div><a style="color:#fff;"><i class="material-icons">settings</i></a>
+        </div>
+    </div>
+    <div class="settings">
+        <div id="s-l-p" style="padding: 13px 0px;">
+            <a href="https://play.google.com/store/apps/details?id=com.ledesmita.tv" target="_blank" style="color:#fff;"><i class="fab fa-support"> Buscar actualizaciones<strong
+                        style="color:red;"> NEW</strong> v1.7.5</i></a>
+        </div>
+        <div id="s-l-p" style="padding: 13px 0px;">
+            <a href="go:Reportar" style="color:#fff;"><i class="fab fa-support"> Soporte Técnico</i></a>
+        </div>
+        <div id="s-l-p" style="padding: 13px 0px;">
+            <a href="go:Disclaimer" style="color:#fff;"><i class="fab fa-support"> Descargo de Responsabilidad</i></a>
+        </div>
+        <div id="s-l-p" style="padding: 13px 0px;">
+            <a href="go:DMCA" style="color:#fff;"><i class="fab fa-support"> DMCA</i></a>
+        </div>
+        <div id="s-l-p" style="padding: 13px 0px;">
+            <a href="https://www.e-droid.net/privacy.php?ida=2574965&idl=es" style="color:#fff;"><i class="fab fa-support"> Política de Privacidad</i></a>
+        </div>
+        <div id="s-l-p" style="padding: 13px 0px;">
+            <a href="http://action_exit" style="color:#fff;"><i class="fab fa-support"> Cerrar Sesión</i></a>
+        </div>
+    </div><br><br><br>
+    <!-- settings -end-->
 
-        <li>
-            <div class="link"><i class="fa fa-plus-circle"></i>Sobre Vip & Cuenta<i class="fa fa-chevron-down"></i></div>
-            <ul class="submenu">
-                <li><a href="#">🎉 Compra tu Vip</a></li>
-                <li><a href="#">❔ Preguntas Frecuentes</a></li>
-                <li><a href="#">🎃 Crear Nueva Cuenta</a></li>
-                <li><a href="#">😯 Recuperar Cuenta</a></li>
-                <li><a href="#">🎡 Reportar Usuario </a></li>
-            </ul>
-        </li>
+    <style type="text/css">
+        * {
+            user-select: none;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            outline: none;
+            user-select: none;
+        }
 
-        <li>
-            <div class="link"><i class="fa fa-users"></i>Soporte<i class="fa fa-chevron-down"></i></div>
-            <ul class="submenu">
-                <li><a href="#">📞 Soporte 24/7</a></li>
-                <li><a href="#">🎥 Pedidos de Películas</a></li>
-                <li><a href="#">🎮 Reportes de Películas</a></li>
-            </ul>
-        </li>
+        :root {
+            --amazon-color: #000;
+            --background: #232F3E;
+        }
 
-        <li>
-            <div class="link"><i class="fa fa-university"></i>Extras<i class="fa fa-chevron-down"></i></div>
-            <ul class="submenu">
-                <li><a href="#">🥊 Foro</a></li>
-                <li><a href="#">🎥 Trailers</a></li>
-                <li><a href="#">👥 Nuestro Team</a></li>
-                <li><a href="#">🏆 Quiz</a></li>
-                <li><a href="#">💟 Stickers</a></li>
-            </ul>
-        </li>
+        body {
+            background-color: var(--amazon-color);
+        }
 
-        <li>
-            <div class="link"><i class="fa fa-gift"></i>Ajustes Vip Medio<i class="fa fa-chevron-down"></i></div>
-            <ul class="submenu">
-                <li><a href="#">🎈 Descargas sin Acortadores</a></li>
-                <li><a href="#">🎈 Contraseña de Acceso</a></li>
-                <li><a href="#">🎈 Películas sin Publicidad</a></li>
-                <li><a href="#">🎈 Reportes Vip Medio</a></li>
-                <li><a href="#">🎈 Pedidos Vip Medio</a></li>
-                <li><a href="#">🎈 Descargar Guia Vip Medio</a></li>
-                <li><a href="#">🎈 Películas 2020</a></li>
-                <li><a href="#">🎈 Películas 2021</a></li>
-                <li><a href="#">🎈 Películas 2022</a></li>
-                <li><a href="#">🎈 Boletin de subscripción</a></li>
-            </ul>
-        </li>
+        #header {
+            position: fixed;
+            width: 100%;
+            top: 0;
+        }
 
-            <style type="text/css">
-* {
-    margin: 0;
-    padding: 0;
-    -webkit-box-sizing: border-box;
-    -moz-box-sizing: border-box;
-    box-sizing: border-box
-}
+        /* my stuff*/
+        .stuf-title {
+            display: flex;
+            padding: 23px 8px;
+            color: #fff;
+            width: 100%;
+            justify-content: space-between;
+            align-items: center;
+        }
 
-.container {
-    margin-top: 150px
-}
+        #s-t {
+            display: flex;
+            width: 30%;
+            justify-content: space-between;
+            align-items: center;
+        }
 
-body {
-    background: #000;
-    font-family: 'Open Sans', Arial, Helvetica, Sans-serif, Verdana, Tahoma
-}
+        #s-t img {
+            height: 40px;
+            width: 40px;
+            border-radius: 50%;
+            margin-right: 10px;
+        }
 
-ul {
-    list-style-type: none
-}
+        .settings {
+            padding: 10px 12px;
+        }
 
-a {
-    color: #b63b4d;
-    text-decoration: none
-}
+        #s-l-p {
+            color: #ddd;
+            padding: 14px 0px;
+            line-height: 20px;
+            border-bottom: 0.5px solid #555;
+        }
 
-.accordion {
-    width: 100%;
-    max-width: 384px;
-    margin: 30px auto 20px;
-    background: #FFF;
-    -webkit-border-radius: 4px;
-    -moz-border-radius: 4px;
-    border-radius: 0px
-}
+        #s-l-p p {
+            font-size: 17px;
+            color: #eee;
+        }
 
-.accordion .link {
-    cursor: pointer;
-    display: block;
-    padding: 15px 15px 15px 42px;
-    color: black;
-    font-size: 14px;
-    font-weight: 700;
-    border-bottom: 1px solid #CCC;
-    position: relative;
-    -webkit-transition: all 0.4s ease;
-    -o-transition: all 0.4s ease;
-    transition: all 0.4s ease
-}
+        #s-l-p h6 {
+            font-weight: 2;
+            font-size: 14px;
+            letter-spacing: 0.5px;
+        }
 
-.accordion li:last-child .link {
-    border-bottom: 0
-}
+        /* settings */
+    </style>
 
-.accordion li i {
-    position: absolute;
-    top: 16px;
-    left: 12px;
-    font-size: 18px;
-    color: #595959;
-    -webkit-transition: all 0.4s ease;
-    -o-transition: all 0.4s ease;
-    transition: all 0.4s ease
-}
+</body>
 
-.accordion li i.fa-chevron-down {
-    right: 12px;
-    left: auto;
-    font-size: 16px
-}
-
-.accordion li.open .link {
-    color: black;
-}
-
-.accordion li.open i {
-    color: #595959;
-}
-
-.accordion li.open i.fa-chevron-down {
-    -webkit-transform: rotate(180deg);
-    -ms-transform: rotate(180deg);
-    -o-transform: rotate(180deg);
-    transform: rotate(180deg)
-}
-
-.submenu {
-    display: none;
-    background: black;
-    font-size: 14px
-}
-
-.submenu li {
-    border-bottom: 1px solid #4b4a5e;
-}
-
-.submenu a {
-    display: block;
-    text-decoration: none;
-    color: white;
-    padding: 12px;
-    padding-left: 42px;
-    -webkit-transition: all 0.25s ease;
-    -o-transition: all 0.25s ease;
-    transition: all 0.25s ease
-}
-
-.submenu a:hover {
-    background: #b63b4d;
-    color: #FFF
-}</style>
-
-
-
-<script type="text/javascript">
-$(function() {
-var Accordion = function(el, multiple) {
-this.el = el || {};
-this.multiple = multiple || false;
-
-var links = this.el.find('.link');
-
-links.on('click', {el: this.el, multiple: this.multiple}, this.dropdown)
-}
-
-Accordion.prototype.dropdown = function(e) {
-var $el = e.data.el;
-$this = $(this),
-$next = $this.next();
-
-$next.slideToggle();
-$this.parent().toggleClass('open');
-
-if (!e.data.multiple) {
-$el.find('.submenu').not($next).slideUp().parent().removeClass('open');
-};
-}
-
-var accordion = new Accordion($('#accordion'), false);
-});
-
-</script>
-
-
-<script type="text/javascript" src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"></script>
-
-<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css">
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+</html>
