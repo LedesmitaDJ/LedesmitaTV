@@ -1,9 +1,9 @@
 // Definir el objeto usuarios con pares válidos de nombre de usuario-contraseña
 var users = {
+    "admin": "admin",
+    "LedesmitaTV": "LedesmitaTV25",
     "admin1": "admin",
-    "LedesmitaTV": "LedesmitaTV2024",
-    "admin2": "admin",
-    "LedesmitaTVPremium": "LedesmitaTV2024"
+    "LedesmitaTVPremium": "LedesmitaTV2025"
 };
 
 function check(form) {
@@ -18,7 +18,7 @@ function check(form) {
             window.location = "go:Home";
         } else if (userid === "LedesmitaTV") {
             window.location = "go:Home";
-        } else if (userid === "admin2") {
+        } else if (userid === "admin") {
             window.location = "go:Home-Pro";
         } else if (userid === "LedesmitaTVPremium") {
             window.location = "go:Home-Pro";
