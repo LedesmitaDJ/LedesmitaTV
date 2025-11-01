@@ -14,11 +14,11 @@ function check(form) {
         alert("Inicio de sesión exitoso para " + userid);
 
         // Redirigir a la página adecuada después de iniciar sesión con éxito
-        if (userid === "admin1") {
+        if (userid === "admin") {
             window.location = "go:Home";
         } else if (userid === "LedesmitaTV") {
             window.location = "go:Home";
-        } else if (userid === "admin") {
+        } else if (userid === "admin1") {
             window.location = "go:Home-Pro";
         } else if (userid === "LedesmitaTVPremium") {
             window.location = "go:Home-Pro";
