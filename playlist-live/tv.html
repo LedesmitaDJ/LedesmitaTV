@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reproductor con Playlist</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f4f4f4;
+            text-align: center;
+        }
+        #player {
+            width: 100%;
+            max-width: 800px;
+            height: 450px;
+            margin: 0 auto 20px;
+            border: none;
+        }
+        #playlist {
+            display: flex;
+            flex-direction: column;
+            overflow-y: auto;
+            overflow-x: hidden;
+            gap: 10px;
+            padding: 10px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            max-width: 800px;
+            max-height: 400px; /* Altura máxima para permitir scroll vertical */
+            margin: 0 auto;
+        }
+        .playlist-item {
+            flex-shrink: 0;
+            width: 100%; /* Ocupa el ancho completo del contenedor */
+            text-align: center;
+            cursor: pointer;
+            border: 2px solid transparent;
+            border-radius: 5px;
+            padding: 5px;
+            transition: border-color 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 10px; /* Espacio entre imagen y texto */
+        }
+        .playlist-item.selected {
+            border-color: #007bff;
+            background-color: #e9ecef;
+        }
+        .playlist-item img {
+            width: 120px; /* Ancho fijo para la imagen */
+            height: 67px; /* Altura proporcional */
+            object-fit: cover;
+            border-radius: 3px;
+            flex-shrink: 0;
+        }
+        .playlist-item p {
+            margin: 0;
+            font-size: 14px;
+            font-weight: bold;
+            flex-grow: 1;
+            text-align: left;
+        }
+        /* Responsive design */
+        @media (max-width: 768px) {
+            #player {
+                height: 250px; /* Altura reducida en móviles */
+                max-width: 100%;
+            }
+            #playlist {
+                gap: 5px;
+                padding: 5px;
+                max-height: 300px; /* Altura reducida en móviles */
+            }
+            .playlist-item {
+                padding: 3px;
+            }
+            .playlist-item img {
+                width: 100px;
+                height: 56px;
+            }
+            .playlist-item p {
+                font-size: 12px;
+            }
+        }
+        @media (max-width: 480px) {
+            #player {
+                height: 200px;
+            }
+            #playlist {
+                max-height: 250px;
+            }
+            .playlist-item img {
+                width: 80px;
+                height: 45px;
+            }
+            .playlist-item p {
+                font-size: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1>Reproductor con Playlist</h1>
+    <p>Haz doble clic en un elemento de la playlist para editar su título, miniatura y URL.</p>
+    <iframe id="player" src="" allowfullscreen></iframe>
+    <div id="playlist"></div>
+
+    <script>
+        // Array de playlist: url (URL completa del embed), title, thumbnail
+        let playlist = [
+            {
+                url: "../live/ball-cam-2.html", // Ejemplo: Video de YouTube (Rick Roll)
+                title: "Rick Astley - Never Gonna Give You Up",
+                thumbnail: "https://img.youtube.com/vi/dQw4w9WgXcQ/0.jpg"
+            },
+            {
+                url: "https://player.twitch.tv/?channel=ninja&parent=localhost", // Ejemplo: Canal de Twitch (cambia "localhost" por tu dominio)
+                title: "Ninja Stream",
+                thumbnail: "https://static-cdn.jtvnw.net/previews-ttv/live_user_ninja-320x180.jpg"
+            },
+            {
+                url: "https://www.youtube.com/embed/9bZkp7q19f0?autoplay=1", // Otro video de YouTube
+                title: "PSY - GANGNAM STYLE",
+                thumbnail: "https://img.youtube.com/vi/9bZkp7q19f0/0.jpg"
+            },
+            {
+                url: "https://player.twitch.tv/?channel=pokimane&parent=localhost", // Otro canal de Twitch
+                title: "Pokimane Stream",
+                thumbnail: "https://static-cdn.jtvnw.net/previews-ttv/live_user_pokimane-320x180.jpg"
+            },
+            // Nuevos añadidos
+            {
+                url: "https://www.youtube.com/embed/kJQP7kiw5Fk?autoplay=1", // Despacito
+                title: "Luis Fonsi - Despacito ft. Daddy Yankee",
+                thumbnail: "https://img.youtube.com/vi/kJQP7kiw5Fk/0.jpg"
+            },
+            {
+                url: "https://player.twitch.tv/?channel=shroud&parent=localhost", // Shroud
+                title: "Shroud Stream",
+                thumbnail: "https://static-cdn.jtvnw.net/previews-ttv/live_user_shroud-320x180.jpg"
+            },
+            {
+                url: "https://www.youtube.com/embed/hQAHSlTtcmY?autoplay=1", // Tutorial de JavaScript
+                title: "JavaScript Tutorial for Beginners",
+                thumbnail: "https://img.youtube.com/vi/hQAHSlTtcmY/0.jpg"
+            },
+            {
+                url: "https://player.twitch.tv/?channel=xqcow&parent=localhost", // xQc
+                title: "xQc Stream",
+                thumbnail: "https://static-cdn.jtvnw.net/previews-ttv/live_user_xqcow-320x180.jpg"
+            },
+            {
+                url: "https://www.youtube.com/embed/JGwWNGJdvx8?autoplay=1", // Ed Sheeran - Shape of You
+                title: "Ed Sheeran - Shape of You",
+                thumbnail: "https://img.youtube.com/vi/JGwWNGJdvx8/0.jpg"
+            },
+            {
+                url: "https://player.twitch.tv/?channel=summit1g&parent=localhost", // Summit1g
+                title: "Summit1g Stream",
+                thumbnail: "https://static-cdn.jtvnw.net/previews-ttv/live_user_summit1g-320x180.jpg"
+            },
+            // Ejemplos de otras plataformas con URLs completas
+            {
+                url: "https://player.kick.com/trainwreckstv", // Canal de Kick
+                title: "Trainwreckstv Stream",
+                thumbnail: "https://static.kick.com/images/stream/trainwreckstv-320x180.jpg" // Nota: Kick no tiene thumbnails públicas fáciles; usa una genérica o ajusta
+            },
+            {
+                url: "https://player.vimeo.com/video/76979871", // Video de Vimeo
+                title: "The New Vimeo Player",
+                thumbnail: "https://vumbnail.com/76979871.jpg" // Usa un servicio de thumbnails o ajusta
+            },
+            {
+                url: "https://www.dailymotion.com/embed/video/x6tqh87", // Video de Dailymotion
+                title: "Dailymotion Video Example",
+                thumbnail: "https://www.dailymotion.com/thumbnail/video/x6tqh87" // Ajusta según sea necesario
+            }
+        ];
+
+        // Cargar playlist desde localStorage si existe
+        const savedPlaylist = localStorage.getItem('playlist');
+        if (savedPlaylist) {
+            playlist = JSON.parse(savedPlaylist);
+        }
+
+        const player = document.getElementById('player');
+        const playlistContainer = document.getElementById('playlist');
+        let currentIndex = 0;
+
+        // Función para cargar un video/transmisión
+        function loadVideo(index) {
+            const item = playlist[index];
+            player.src = item.url;
+            // Resaltar el seleccionado
+            document.querySelectorAll('.playlist-item').forEach((el, i) => {
+                el.classList.toggle('selected', i === index);
+            });
+            currentIndex = index;
+        }
+
+        // Función para editar un elemento (doble clic)
+        function editItem(index) {
+            const item = playlist[index];
+            const newUrl = prompt("Editar URL del embed:", item.url);
+            const newTitle = prompt("Editar título:", item.title);
+            const newThumbnail = prompt("Editar URL de miniatura:", item.thumbnail);
+            if (newUrl !== null && newTitle !== null && newThumbnail !== null) {
+                playlist[index].url = newUrl;
+                playlist[index].title = newTitle;
+                playlist[index].thumbnail = newThumbnail;
+                localStorage.setItem('playlist', JSON.stringify(playlist)); // Guardar cambios
+                renderPlaylist(); // Re-renderizar la playlist
+            }
+        }
+
+        // Función para renderizar la playlist
+        function renderPlaylist() {
+            playlistContainer.innerHTML = ''; // Limpiar
+            playlist.forEach((item, index) => {
+                const div = document.createElement('div');
+                div.className = 'playlist-item';
+                if (index === currentIndex) div.classList.add('selected');
+                div.innerHTML = `
+                    <img src="${item.thumbnail}" alt="${item.title}">
+                    <p>${item.title}</p>
+                `;
+                div.addEventListener('click', () => loadVideo(index));
+                div.addEventListener('dblclick', () => editItem(index)); // Doble clic para editar
+                playlistContainer.appendChild(div);
+            });
+        }
+
+        // Renderizar playlist inicial
+        renderPlaylist();
+
+        // Cargar el primer video por defecto
+        loadVideo(0);
+    </script>
+</body>
+</html>
