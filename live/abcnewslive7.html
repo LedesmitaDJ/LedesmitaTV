@@ -1,0 +1,68 @@
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <title>ABC News Live</title>
+  <script src="https://cdn.jsdelivr.net/npm/clappr@0.3.13/dist/clappr.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/clappr-level-selector-plugin@0.3.0/dist/level-selector.min.js"></script>
+
+</head>
+
+<body>
+
+
+  <div id="player" style="width: 100%; height: 100%;"></div>
+
+
+  <script>
+    // Función para inicializar cuando todo esté listo
+    function startPlayer() {
+      // Verificamos si las librerías cargaron
+      if (typeof Clappr === 'undefined') {
+        console.error("Clappr no cargó. Revisa tu conexión.");
+        return;
+      }
+
+      var player = new Clappr.Player({
+        source: "https://abcnews-livestreams.akamaized.net/out/v1/154d2c2958f641ebaff682b130320ea5/abcn-live-07-cmaf-manifest/abcn-live-07-index.m3u8",
+        parentId: "#player",
+
+        // --- TAMAÑO ---
+        width: '100%',
+        height: '100%',
+
+        // --- POSTER Y AUTOPLAY ---
+        poster: "https://keyframe-cdn.abcnews.com/streamprovider7.jpg",
+        autoPlay: true,
+        mute: true, // REGLA DE ORO: Si no hay mute, no hay autoplay.
+
+        // --- PLUGINS ---
+        // Usamos una validación para el plugin
+        plugins: (typeof LevelSelector !== 'undefined') ? [LevelSelector] : [],
+
+        levelSelectorConfig: {
+          title: 'Calidad',
+          labels: {
+            3: 'Alta (HD)',
+            2: 'Media',
+            1: 'Baja',
+          }
+        },
+
+        // --- CONFIGURACIÓN TÉCNICA ---
+        playback: {
+          playInline: true,
+          hlsjsConfig: {
+            // Esto evita errores de carga en algunos navegadores
+            enableWorker: false
+          }
+        }
+      });
+    }
+
+    // Ejecución segura
+    window.addEventListener('load', startPlayer);
+  </script>
+</body>
+
+</html>
