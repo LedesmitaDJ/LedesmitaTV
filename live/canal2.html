@@ -1,0 +1,39 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cali TV</title>
+
+    <!-- Video.js CSS -->
+    <link href="https://vjs.zencdn.net/8.0.4/video-js.css" rel="stylesheet" />
+
+    <!-- Optional: Video.js skin (optional) -->
+    <style>
+        .video-js {
+            width: 100%;
+            height: 100%; /* You can adjust this height */
+            padding: 0;
+            border: 0;
+        }
+    </style>
+</head>
+<body>
+
+    <video
+        id="my-video"
+        class="video-js vjs-default-skin"
+        controls
+        autoplay
+        poster="https://api.teveo.com.co/1.1/node/poster?x=AgBJAA5A"
+        preload="auto"
+        data-setup='{}'
+    >
+        <source src="https://edge.teveo.com.co/live/AeAAAgBJAA5AA1IAyADIUDAAAAGAAAAAAmgNfhomM_T-AAAA/playlist.m3u8" type="application/x-mpegURL">
+        Your browser does not support HTML5 video.
+    </video>
+
+    <!-- Video.js JavaScript -->
+    <script src="https://vjs.zencdn.net/8.0.4/video.min.js"></script>
+
+</body>
+</html>

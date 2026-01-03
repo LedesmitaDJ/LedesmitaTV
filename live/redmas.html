@@ -1,0 +1,39 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Red +</title>
+
+    <!-- Video.js CSS -->
+    <link href="https://vjs.zencdn.net/8.0.4/video-js.css" rel="stylesheet" />
+
+    <!-- Optional: Video.js skin (optional) -->
+    <style>
+        .video-js {
+            width: 100%;
+            height: 100%; /* You can adjust this height */
+            padding: 0;
+            border: 0;
+        }
+    </style>
+</head>
+<body>
+
+    <video
+        id="my-video"
+        class="video-js vjs-default-skin"
+        controls
+        autoplay
+        poster="https://directostv.teleame.com/wp-content/uploads/2018/02/Red-M%C3%A1s-TV-Colombia-en-vivo-Online.png"
+        preload="auto"
+        data-setup='{}'
+    >
+        <source src="https://inforedvos.lcdn.claro.net.co/Content/HLS_HLS_DIR/Live/channel(REDMASHDWEB)/master.m3u8" type="application/x-mpegURL">
+        Your browser does not support HTML5 video.
+    </video>
+
+    <!-- Video.js JavaScript -->
+    <script src="https://vjs.zencdn.net/8.0.4/video.min.js"></script>
+
+</body>
+</html>

@@ -3,12 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Reproductor con Playlist</title>
+    <title>TV en vivo</title>
     <style>
         body {
+            background-color: black;
+            background-image: url('../img/starfall-night-sky-mountains-aesthetic-gif-preview-desktop-wallpaper.gif'); /* Cambia 'ruta/a/tu/imagen.jpg' */
+            background-size: cover; /* Cubre todo el elemento sin deformar */
+            background-position: center; /* Centra la imagen */
+            background-repeat: no-repeat; /* Evita que la imagen se repita */
+            background-attachment: fixed; /* Fija la imagen al hacer scroll */
+            margin: 0; /* Elimina márgenes por defecto del body */
+            padding: 0; /* Elimina padding por defecto del body */
+            height: 100vh; /* Asegura que el body ocupe el 100% del viewport */
             font-family: Arial, sans-serif;
             margin: 0;
-            padding: 20px;
+            padding: 2px;
             background-color: #f4f4f4;
             text-align: center;
         }
@@ -25,7 +34,7 @@
             overflow-y: auto;
             overflow-x: hidden;
             gap: 10px;
-            padding: 10px;
+            padding: 1px;
             background-color: #fff;
             border-radius: 5px;
             box-shadow: 0 2px 5px rgba(0,0,0,0.1);
@@ -35,7 +44,7 @@
         }
         .playlist-item {
             flex-shrink: 0;
-            width: 100%; /* Ocupa el ancho completo del contenedor */
+            width: auto; /* Ocupa el ancho completo del contenedor */
             text-align: center;
             cursor: pointer;
             border: 2px solid transparent;
@@ -72,7 +81,7 @@
             }
             #playlist {
                 gap: 5px;
-                padding: 5px;
+                margin: 0 auto;
                 max-height: 300px; /* Altura reducida en móviles */
             }
             .playlist-item {
@@ -91,21 +100,21 @@
                 height: 200px;
             }
             #playlist {
-                max-height: 250px;
+                max-height: 350px;
             }
             .playlist-item img {
-                width: 80px;
-                height: 45px;
+                width: 95px;
+                height: 100%;
             }
             .playlist-item p {
-                font-size: 10px;
+                font-size: 15px;
             }
         }
     </style>
 </head>
 <body>
-    <h1>Reproductor con Playlist</h1>
-    <p>Haz doble clic en un elemento de la playlist para editar su título, miniatura y URL.</p>
+    <h1 hidden>TV en vivo</h1>
+    <p hidden>Haz doble clic en un elemento de la playlist para editar su título, miniatura y URL.</p>
     <iframe id="player" src="" allowfullscreen></iframe>
     <div id="playlist"></div>
 
@@ -113,71 +122,91 @@
         // Array de playlist: url (URL completa del embed), title, thumbnail
         let playlist = [
             {
-                url: "../live/ball-cam-2.html", // Ejemplo: Video de YouTube (Rick Roll)
-                title: "Rick Astley - Never Gonna Give You Up",
-                thumbnail: "https://img.youtube.com/vi/dQw4w9WgXcQ/0.jpg"
+                url: "https://mdstrm.com/live-stream/58d1921a72e2b22e2905e493?jsapi=true&autoplay=true", // Ejemplo: Video de YouTube (Rick Roll)
+                title: "Blu Radio TV",
+                thumbnail: "../img/Blu-Radio-TV-200x200.png"
             },
             {
-                url: "https://player.twitch.tv/?channel=ninja&parent=localhost", // Ejemplo: Canal de Twitch (cambia "localhost" por tu dominio)
-                title: "Ninja Stream",
-                thumbnail: "https://static-cdn.jtvnw.net/previews-ttv/live_user_ninja-320x180.jpg"
+                url: "../live/calitv.html", // Ejemplo: Canal de Twitch (cambia "localhost" por tu dominio)
+                title: "Cali TV",
+                thumbnail: "../img/Cali-TV-200x200.png"
             },
             {
-                url: "https://www.youtube.com/embed/9bZkp7q19f0?autoplay=1", // Otro video de YouTube
-                title: "PSY - GANGNAM STYLE",
-                thumbnail: "https://img.youtube.com/vi/9bZkp7q19f0/0.jpg"
+                url: "https://mdstrm.com/live-stream/5a5e1c2568b1910913db5fe2?jsapi=true&autoplay=true", // Otro video de YouTube
+                title: "Canal 1",
+                thumbnail: "../img/Canal-1-200x200.png"
             },
             {
-                url: "https://player.twitch.tv/?channel=pokimane&parent=localhost", // Otro canal de Twitch
-                title: "Pokimane Stream",
-                thumbnail: "https://static-cdn.jtvnw.net/previews-ttv/live_user_pokimane-320x180.jpg"
+                url: "../live/canal2.html", // Otro canal de Twitch
+                title: "Canal 2",
+                thumbnail: "../img/Canal-2-200x200.png"
             },
             // Nuevos añadidos
             {
-                url: "https://www.youtube.com/embed/kJQP7kiw5Fk?autoplay=1", // Despacito
-                title: "Luis Fonsi - Despacito ft. Daddy Yankee",
-                thumbnail: "https://img.youtube.com/vi/kJQP7kiw5Fk/0.jpg"
+                url: "https://media.rtvc.gov.co/kalturartvc/indexCI.html", // Despacito
+                title: "Canal Institucional",
+                thumbnail: "../img/Canal-Institucional-200x200.png"
             },
             {
-                url: "https://player.twitch.tv/?channel=shroud&parent=localhost", // Shroud
-                title: "Shroud Stream",
-                thumbnail: "https://static-cdn.jtvnw.net/previews-ttv/live_user_shroud-320x180.jpg"
+                url: "../live/caracol-tv.html", // Shroud
+                title: "Caracol TV",
+                thumbnail: "../img/Caracol-TV-200x200.png"
             },
             {
-                url: "https://www.youtube.com/embed/hQAHSlTtcmY?autoplay=1", // Tutorial de JavaScript
-                title: "JavaScript Tutorial for Beginners",
-                thumbnail: "https://img.youtube.com/vi/hQAHSlTtcmY/0.jpg"
+                url: "../live/caracolhd2.html", // Shroud
+                title: "Caracol HD2",
+                thumbnail: "../img/Caracol-HD2-200x200.png"
             },
             {
-                url: "https://player.twitch.tv/?channel=xqcow&parent=localhost", // xQc
-                title: "xQc Stream",
-                thumbnail: "https://static-cdn.jtvnw.net/previews-ttv/live_user_xqcow-320x180.jpg"
+                url: "https://www.youtube.com/embed/ZA6YS0CYoTA?autoplay=1", // Tutorial de JavaScript
+                title: "Noticias Caracol En Vivo",
+                thumbnail: "../img/Noticias-Caracol-En-Vivo-200x200.png"
             },
             {
-                url: "https://www.youtube.com/embed/JGwWNGJdvx8?autoplay=1", // Ed Sheeran - Shape of You
-                title: "Ed Sheeran - Shape of You",
-                thumbnail: "https://img.youtube.com/vi/JGwWNGJdvx8/0.jpg"
+                url: "https://www.youtube.com/embed/fqPcHhxXhog?autoplay=1", // xQc
+                title: "City TV",
+                thumbnail: "../img/CityTV-200x200.png"
             },
             {
-                url: "https://player.twitch.tv/?channel=summit1g&parent=localhost", // Summit1g
-                title: "Summit1g Stream",
-                thumbnail: "https://static-cdn.jtvnw.net/previews-ttv/live_user_summit1g-320x180.jpg"
+                url: "https://mdstrm.com/live-stream/58d191f07290fbb058025843?jsapi=true&autoplay=true", // Ed Sheeran - Shape of You
+                title: "La Kalle TV",
+                thumbnail: "../img/La-Kalle-TV-200x200.png"
+            },
+            {
+                url: "https://www.dailymotion.com/embed/video/x8q576z?autoplay=1", // Summit1g
+                title: "La Mega (RadioCam)",
+                thumbnail: "../img/La-Mega-200x200.png"
             },
             // Ejemplos de otras plataformas con URLs completas
             {
-                url: "https://player.kick.com/trainwreckstv", // Canal de Kick
-                title: "Trainwreckstv Stream",
-                thumbnail: "https://static.kick.com/images/stream/trainwreckstv-320x180.jpg" // Nota: Kick no tiene thumbnails públicas fáciles; usa una genérica o ajusta
+                url: "../live/rcnmas.html", // Canal de Kick
+                title: "RCN Más",
+                thumbnail: "../img/RCN-Mas-200x200.png" // Nota: Kick no tiene thumbnails públicas fáciles; usa una genérica o ajusta
             },
             {
-                url: "https://player.vimeo.com/video/76979871", // Video de Vimeo
-                title: "The New Vimeo Player",
-                thumbnail: "https://vumbnail.com/76979871.jpg" // Usa un servicio de thumbnails o ajusta
+                url: "../live/redmas.html", // Video de Vimeo
+                title: "Red+",
+                thumbnail: "../img/Red+-200x200.png" // Usa un servicio de thumbnails o ajusta
             },
             {
-                url: "https://www.dailymotion.com/embed/video/x6tqh87", // Video de Dailymotion
-                title: "Dailymotion Video Example",
-                thumbnail: "https://www.dailymotion.com/thumbnail/video/x6tqh87" // Ajusta según sea necesario
+                url: "https://media.rtvc.gov.co/kalturartvc/indexSC.html", // Video de Dailymotion
+                title: "Señal Colombia",
+                thumbnail: "../img/Senal-Colombia-200x200.png" // Ajusta según sea necesario
+            },
+            {
+                url: "https://players.cdn.enetres.net/live/6E5C615AA5FF4123ACAF0DAB57B7B8DC022", // Video de Dailymotion
+                title: "Telepacifico",
+                thumbnail: "../img/Telepacifico-200x200.png" // Ajusta según sea necesario
+            },
+            {
+                url: "https://players.cdn.enetres.net/live/6E5C615AA5FF4123ACAF0DAB57B7B8DC023", // Video de Dailymotion
+                title: "Origen Channel",
+                thumbnail: "../img/Origen-Channel-200x200.png" // Ajusta según sea necesario
+            },
+            {
+                url: "https://players.cdn.enetres.net/live/621B146D29C541AFB1507809F038F471021", // Video de Dailymotion
+                title: "UAO Play",
+                thumbnail: "../img/UAO-Play-200x200.png" // Ajusta según sea necesario
             }
         ];
 
