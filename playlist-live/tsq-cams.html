@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Times Square Cams</title>
+    <style>
+        body {
+            background-color: black;
+            background-image: url('../img/starfall-night-sky-mountains-aesthetic-gif-preview-desktop-wallpaper.gif'); /* Cambia 'ruta/a/tu/imagen.jpg' */
+            background-size: cover; /* Cubre todo el elemento sin deformar */
+            background-position: center; /* Centra la imagen */
+            background-repeat: no-repeat; /* Evita que la imagen se repita */
+            background-attachment: fixed; /* Fija la imagen al hacer scroll */
+            margin: 0; /* Elimina márgenes por defecto del body */
+            padding: 0; /* Elimina padding por defecto del body */
+            height: 100vh; /* Asegura que el body ocupe el 100% del viewport */
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 2px;
+            background-color: #f4f4f4;
+            text-align: center;
+        }
+        #player {
+            width: 100%;
+            max-width: 800px;
+            height: 450px;
+            margin: 0 auto 20px;
+            border: none;
+        }
+        #playlist {
+            display: flex;
+            flex-direction: column;
+            overflow-y: auto;
+            overflow-x: hidden;
+            gap: 10px;
+            padding: 1px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            max-width: 800px;
+            max-height: 400px; /* Altura máxima para permitir scroll vertical */
+            margin: 0 auto;
+        }
+        .playlist-item {
+            flex-shrink: 0;
+            width: auto; /* Ocupa el ancho completo del contenedor */
+            text-align: center;
+            cursor: pointer;
+            border: 2px solid transparent;
+            border-radius: 5px;
+            padding: 5px;
+            transition: border-color 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 10px; /* Espacio entre imagen y texto */
+        }
+        .playlist-item.selected {
+            border-color: #007bff;
+            background-color: #e9ecef;
+        }
+        .playlist-item img {
+            width: 120px; /* Ancho fijo para la imagen */
+            height: 67px; /* Altura proporcional */
+            object-fit: cover;
+            border-radius: 3px;
+            flex-shrink: 0;
+        }
+        .playlist-item p {
+            margin: 0;
+            font-size: 14px;
+            font-weight: bold;
+            flex-grow: 1;
+            text-align: left;
+        }
+        /* Responsive design */
+        @media (max-width: 768px) {
+            #player {
+                height: 250px; /* Altura reducida en móviles */
+                max-width: 100%;
+            }
+            #playlist {
+                gap: 5px;
+                margin: 0 auto;
+                max-height: 450px; /* Altura reducida en móviles */
+            }
+            .playlist-item {
+                padding: 3px;
+            }
+            .playlist-item img {
+                width: 100px;
+                height: 56px;
+            }
+            .playlist-item p {
+                font-size: 12px;
+            }
+        }
+        @media (max-width: 480px) {
+            #player {
+                height: 200px;
+            }
+            #playlist {
+                max-height: 450px;
+            }
+            .playlist-item img {
+                width: 95px;
+                height: 100%;
+            }
+            .playlist-item p {
+                font-size: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1 hidden>TV en vivo</h1>
+    <p hidden>Haz doble clic en un elemento de la playlist para editar su título, miniatura y URL.</p>
+    <iframe id="player" src="" allowfullscreen></iframe>
+    <div id="playlist"></div>
+
+    <script>
+        // Array de playlist: url (URL completa del embed), title, thumbnail
+        let playlist = [
+            {
+                url: "https://www.youtube.com/embed/rnXIjl_Rzy4?autoplay=1", // Ejemplo: Video de YouTube (Rick Roll)
+                title: "EarthCam: Times Square 4K",
+                thumbnail: "https://i.ytimg.com/vi/rnXIjl_Rzy4/maxresdefault.jpg"
+            },
+            {
+                url: "https://www.youtube.com/embed/4qyZLflp-sI?autoplay=1", // Ejemplo: Canal de Twitch (cambia "localhost" por tu dominio)
+                title: "1560 Broadway View Live",
+                thumbnail: "https://i.ytimg.com/vi/4qyZLflp-sI/maxresdefault.jpg"
+            },
+            {
+                url: "https://www.youtube.com/embed/nVsDt8AvfCU?autoplay=1", // Otro video de YouTube
+                title: "1540 Broadway View Live",
+                thumbnail: "https://i.ytimg.com/vi/nVsDt8AvfCU/maxresdefault.jpg"
+            },
+            {
+                url: "https://www.youtube.com/embed/VSSHILnbfyw?autoplay=1", // Otro canal de Twitch
+                title: "1515 Broadway View Live",
+                thumbnail: "https://i.ytimg.com/vi/VSSHILnbfyw/maxresdefault.jpg"
+            },
+            // Nuevos añadidos
+            {
+                url: "https://www.youtube.com/embed/a9J1OP_x5Rg?autoplay=1", // Despacito
+                title: "Express View Live",
+                thumbnail: "https://i.ytimg.com/vi/a9J1OP_x5Rg/maxresdefault.jpg"
+            },
+            {
+                url: "https://www.youtube.com/embed/iiBTWU2FyFo?autoplay=1", // Shroud
+                title: "Duffy Square 4K View Live",
+                thumbnail: "https://i.ytimg.com/vi/iiBTWU2FyFo/maxresdefault.jpg"
+            },
+            {
+                url: "../live/ball-cam-1.html", // Shroud
+                title: "Ball Cam 1",
+                thumbnail: "../img/ballcam1.jpg"
+            },
+            {
+                url: "../live/ball-cam-2.html", // Tutorial de JavaScript
+                title: "Ball Cam 2",
+                thumbnail: "../img/ballcam2.jpg"
+            }
+        ];
+
+        // Cargar playlist desde localStorage si existe
+        const savedPlaylist = localStorage.getItem('playlist');
+        if (savedPlaylist) {
+            playlist = JSON.parse(savedPlaylist);
+        }
+
+        const player = document.getElementById('player');
+        const playlistContainer = document.getElementById('playlist');
+        let currentIndex = 0;
+
+        // Función para cargar un video/transmisión
+        function loadVideo(index) {
+            const item = playlist[index];
+            player.src = item.url;
+            // Resaltar el seleccionado
+            document.querySelectorAll('.playlist-item').forEach((el, i) => {
+                el.classList.toggle('selected', i === index);
+            });
+            currentIndex = index;
+        }
+
+        // Función para editar un elemento (doble clic)
+        function editItem(index) {
+            const item = playlist[index];
+            const newUrl = prompt("Editar URL del embed:", item.url);
+            const newTitle = prompt("Editar título:", item.title);
+            const newThumbnail = prompt("Editar URL de miniatura:", item.thumbnail);
+            if (newUrl !== null && newTitle !== null && newThumbnail !== null) {
+                playlist[index].url = newUrl;
+                playlist[index].title = newTitle;
+                playlist[index].thumbnail = newThumbnail;
+                localStorage.setItem('playlist', JSON.stringify(playlist)); // Guardar cambios
+                renderPlaylist(); // Re-renderizar la playlist
+            }
+        }
+
+        // Función para renderizar la playlist
+        function renderPlaylist() {
+            playlistContainer.innerHTML = ''; // Limpiar
+            playlist.forEach((item, index) => {
+                const div = document.createElement('div');
+                div.className = 'playlist-item';
+                if (index === currentIndex) div.classList.add('selected');
+                div.innerHTML = `
+                    <img src="${item.thumbnail}" alt="${item.title}">
+                    <p>${item.title}</p>
+                `;
+                div.addEventListener('click', () => loadVideo(index));
+                div.addEventListener('dblclick', () => editItem(index)); // Doble clic para editar
+                playlistContainer.appendChild(div);
+            });
+        }
+
+        // Renderizar playlist inicial
+        renderPlaylist();
+
+        // Cargar el primer video por defecto
+        loadVideo(0);
+    </script>
+</body>
+</html>
