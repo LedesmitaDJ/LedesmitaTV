@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Eventos en vivo</title>
+    <title>Evento 1 - Mundial 2026</title>
+    <link rel="stylesheet" href="../css/countdown.css">
     <style>
         body {
             background-color: black;
@@ -18,14 +19,13 @@
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 2px;
-            background-color: #f4f4f4;
             text-align: center;
         }
         #player {
             width: 100%;
             max-width: 800px;
             height: 450px;
-            margin: 0 auto 20px;
+            margin: 0 auto;
             border: none;
         }
         #playlist {
@@ -113,8 +113,32 @@
     </style>
 </head>
 <body>
-    <h1 hidden>TV en vivo</h1>
-    <p hidden>Haz doble clic en un elemento de la playlist para editar su título, miniatura y URL.</p>
+    <h1 style="color: #fff;" hidden>Mundial 2026</h1>
+    <p style="color: #fff;" hidden>Haz doble clic en un elemento de la playlist para editar su título, miniatura y URL.</p>
+    <!-- Sección Countdown Evento -->
+        <center>
+            <div class="container-timer">
+                <a title="Countdown WC26">
+                    <img src="../img/Banner-WC26-1000x250.png" class="background-timer" alt="countdown" />
+                </a>
+                <video class="timer-video-wc26" autoplay loop muted>
+                    <source src="../vid/WC26 Logo 01.webm" type="video/webm">
+                    Tu navegador no soporta la reproducción de video.
+                </video>
+                <div id="timer1" class="timer1">
+                    <span id="days1">00</span>
+                    <span>:</span>
+                    <span id="hours1">00</span>
+                    <span>:</span>
+                    <span id="minutes1">00</span>
+                    <span>:</span>
+                    <span id="seconds1">00</span>
+                </div>
+                <a href="go:Evento6">
+                    <button id="liveButton1" class="timer-button1">En vivo</button>
+                </a>
+            </div>
+        </center>
     <iframe id="player" src="" allowfullscreen></iframe>
     <div id="playlist"></div>
 
@@ -122,71 +146,45 @@
         // Array de playlist: url (URL completa del embed), title, thumbnail
         let playlist = [
             {
-                url: "../ledesmitatv.html", // Ejemplo: Video de YouTube (Rick Roll)
-                title: "Ledesmita TV: Solo eventos",
-                thumbnail: "../img/LedesmitaTV-200x200.png"
+                url: "../live/caracol-tv.html", // Shroud
+                title: "Caracol TV",
+                thumbnail: "../img/Caracol-TV-200x200.png"
             },
             {
-                url: "../live/rtveplay1.html", // Ejemplo: Video de YouTube (Rick Roll)
-                title: "RTVE Play",
-                thumbnail: "../img/RTVE-Play-200x200.png"
+                url: "../live/caracolhd2.html", // Shroud
+                title: "Caracol HD2",
+                thumbnail: "../img/Caracol-HD2-200x200.png"
             },
             {
-                url: "../live/abcnewslive1.html", // Ejemplo: Canal de Twitch (cambia "localhost" por tu dominio)
-                title: "ABC News Live: Señal 1",
-                thumbnail: "../img/ABC-News-Live-200x200.png"
+                url: "https://streamtpcloud.com/global2.php?stream=winsports", // Video de Dailymotion
+                title: "Win Sports: Señal 1",
+                thumbnail: "../img/Win-Sports-200x200.png" // Ajusta según sea necesario
             },
             {
-                url: "../live/abcnewslive2.html", // Otro video de YouTube
-                title: "ABC News Live: Señal 2",
-                thumbnail: "../img/ABC-News-Live-200x200.png"
+                url: "https://la14hd.com/vivo/canales.php?stream=winsports", // Video de Dailymotion
+                title: "Win Sports: Señal 2",
+                thumbnail: "../img/Win-Sports-200x200.png" // Ajusta según sea necesario
             },
             {
-                url: "../live/abcnewslive3.html", // Otro canal de Twitch
-                title: "ABC News Live: Señal 3",
-                thumbnail: "../img/ABC-News-Live-200x200.png"
+                url: "https://streamtpcloud.com/global2.php?stream=winplus", // Video de Dailymotion
+                title: "Win Sports +: Señal 1",
+                thumbnail: "../img/Win-Sports+-200x200.png" // Ajusta según sea necesario
+            },
+            {
+                url: "https://streamtpcloud.com/global2.php?stream=winplus2", // Video de Dailymotion
+                title: "Win Sports +: Señal 2",
+                thumbnail: "../img/Win-Sports+-200x200.png" // Ajusta según sea necesario
             },
             // Nuevos añadidos
             {
-                url: "../live/abcnewslive4.html", // Despacito
-                title: "ABC News Live: Señal 4",
-                thumbnail: "../img/ABC-News-Live-200x200.png"
+                url: "https://streamtpcloud.com/global2.php?stream=dsports", // Despacito
+                title: "DSports",
+                thumbnail: "../img/DSports-200x200.png"
             },
             {
-                url: "../live/abcnewslive5.html", // Shroud
-                title: "ABC News Live: Señal 5",
-                thumbnail: "../img/ABC-News-Live-200x200.png"
-            },
-            {
-                url: "../live/abcnewslive6.html", // Shroud
-                title: "ABC News Live: Señal 6",
-                thumbnail: "../img/ABC-News-Live-200x200.png"
-            },
-            {
-                url: "../live/abcnewslive7.html", // Tutorial de JavaScript
-                title: "ABC News Live: Señal 7",
-                thumbnail: "../img/ABC-News-Live-200x200.png"
-            },
-            {
-                url: "../live/abcnewslive8.html", // xQc
-                title: "ABC News Live: Señal 8",
-                thumbnail: "../img/ABC-News-Live-200x200.png"
-            },
-            {
-                url: "../live/abcnewslive9.html", // Ed Sheeran - Shape of You
-                title: "ABC News Live: Señal 9",
-                thumbnail: "../img/ABC-News-Live-200x200.png"
-            },
-            {
-                url: "../live/abcnewslive10.html", // Summit1g
-                title: "ABC News Live: Señal 10",
-                thumbnail: "../img/ABC-News-Live-200x200.png"
-            },
-            // Ejemplos de otras plataformas con URLs completas
-            {
-                url: "../live/abcnewslive12.html", // Summit1g
-                title: "ABC News Live: Señal 12",
-                thumbnail: "../img/ABC-News-Live-200x200.png"
+                url: "https://la14hd.com/vivo/canales.php?stream=dsports2", // Shroud
+                title: "DSports 2",
+                thumbnail: "../img/DSports2-200x200.png"
             }
         ];
 
@@ -249,5 +247,6 @@
         // Cargar el primer video por defecto
         loadVideo(0);
     </script>
+    <script src="../js/countdown.js"></script>
 </body>
 </html>

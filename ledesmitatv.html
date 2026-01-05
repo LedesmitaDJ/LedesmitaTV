@@ -1,44 +1,68 @@
-<!DOCTYPE html>
 <html lang="es">
 
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ledesmita TV - Player</title>
+  <script src="https://cdn.jsdelivr.net/npm/clappr@0.3.13/dist/clappr.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/clappr-level-selector-plugin@0.3.0/dist/level-selector.min.js"></script>
 
-  <!-- Enlace al CSS de Video.js -->
-  <link href="https://vjs.zencdn.net/7.14.3/video-js.css" rel="stylesheet" />
-  <!-- Enlace al CSS opcional de Video.js para mejorar la apariencia -->
-
-  <!-- Enlace al CSS del selector de calidad -->
-  <link href="https://unpkg.com/videojs-hls-quality-selector/dist/css/videojs-hls-quality-selector.css"
-    rel="stylesheet" />
-
-  <title>Ledesmita TV - En Vivo</title>
 </head>
 
 <body>
 
-  <body>
-    <center>
-      <video id="my-video" class="video-js vjs-default-skin" controls preload="auto" style="display: block; position: relative; width: 100%; height: 100%;"
-        poster="logo2-ledesmita-tv.png" autoplay muted data-setup="{}">
-        <source src="https://video1.earthcam.com/myearthcam/e6656a23bac59cdc62aa2a0eba1a8b4a.flv/playlist.m3u8"
-          type="application/x-mpegURL">
-        Tu navegador no soporta la etiqueta de video.
-      </video>
-    </center>
 
-    <!-- Enlace al JavaScript de Video.js -->
-    <script src="https://vjs.zencdn.net/7.14.3/video.min.js"></script>
-    <!-- Enlace al plugin videojs-http-streaming -->
-    <script src="https://vjs.zencdn.net/7.14.3/videojs-http-streaming.min.js"></script>
-    <!-- Enlace al plugin de selección de calidad -->
-    <script src="https://unpkg.com/videojs-hls-quality-selector/dist/videojs-hls-quality-selector.min.js"></script>
-    <!-- Script adicional para habilitar la selección de calidad -->
-    <script>
-      var player = videojs('my-video');
-      player.hlsQualitySelector();
-    </script>
-  </body>
+  <div id="player" style="width: 100%; height: 100%;"></div>
+
+
+  <script>
+    // Función para inicializar cuando todo esté listo
+    function startPlayer() {
+      // Verificamos si las librerías cargaron
+      if (typeof Clappr === 'undefined') {
+        console.error("Clappr no cargó. Revisa tu conexión.");
+        return;
+      }
+
+      var player = new Clappr.Player({
+        source: "https://video1.earthcam.com/myearthcam/e6656a23bac59cdc62aa2a0eba1a8b4a.flv/playlist.m3u8",
+        parentId: "#player",
+
+        // --- TAMAÑO ---
+        width: '100%',
+        height: '100%',
+
+        // --- POSTER Y AUTOPLAY ---
+        poster: "img/Poster-Ledesmita-TV.png",
+        autoPlay: true,
+        mute: true, // REGLA DE ORO: Si no hay mute, no hay autoplay.
+
+        // --- PLUGINS ---
+        // Usamos una validación para el plugin
+        plugins: (typeof LevelSelector !== 'undefined') ? [LevelSelector] : [],
+
+        levelSelectorConfig: {
+          title: 'Calidad',
+          labels: {
+            3: 'Alta (HD)',
+            2: 'Media',
+            1: 'Baja',
+          }
+        },
+
+        // --- CONFIGURACIÓN TÉCNICA ---
+        playback: {
+          playInline: true,
+          hlsjsConfig: {
+            // Esto evita errores de carga en algunos navegadores
+            enableWorker: false
+          }
+        }
+      });
+    }
+
+    // Ejecución segura
+    window.addEventListener('load', startPlayer);
+  </script>
+</body>
 
 </html>
