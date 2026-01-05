@@ -49,7 +49,7 @@
     position: absolute;
     top: 50%;
     right: 50%;
-    transform: translate(-5%, -50%);
+    transform: translate(0%, -50%);
     color: white;
     padding: 10px;
     border-radius: 10px;
@@ -119,7 +119,7 @@
     top: 48%;
     left: 50%;
     transform: translate(100%, -50%);
-    width: 70px;
+    width: 20vw;
 }
 
 .container-timer button {
@@ -179,7 +179,7 @@
 
 #timer1 {
     font-family: 'WC26 Font', sans-serif;
-    font-size: 14px;
+    font-size: 5.5vw;
     font-weight: bold;
     color: #ffffff;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
