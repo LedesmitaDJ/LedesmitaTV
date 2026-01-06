@@ -1,5 +1,5 @@
 // Función para manejar cada contador de manera independiente
-function startCountdown(targetDate, timerId, daysId, hoursId, minutesId, secondsId, buttonId) {
+function startCountdown(targetDate, timerId, daysId, hoursId, minutesId, secondsId) {
     const countdownDate = new Date(targetDate).getTime();
 
     const countdownFunction = setInterval(function() {
