@@ -21,13 +21,6 @@ function startCountdown(targetDate, timerId, daysId, hoursId, minutesId, seconds
         document.getElementById(hoursId).innerHTML = hours.toString().padStart(2, '0');
         document.getElementById(minutesId).innerHTML = minutes.toString().padStart(2, '0');
         document.getElementById(secondsId).innerHTML = seconds.toString().padStart(2, '0');
-
-        // Si llegó a cero, detenemos el intervalo y ejecutamos las acciones finales
-        if (distance <= 0) {
-            clearInterval(countdownFunction);
-            document.getElementById(timerId).style.display = "block";
-            document.getElementById(buttonId).style.display = "none";
-        }
     }, 1000);
 }
 
