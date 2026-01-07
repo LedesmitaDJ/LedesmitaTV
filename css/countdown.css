@@ -137,7 +137,7 @@
     position: absolute;
     top: 50%;
     right: 50%;
-    transform: translate(-50%, -50%);
+    transform: translate(-25%, -50%);
     font-family: 'WC26 Font', sans-serif;
     font-weight: bold;
     color: #ffffff;
@@ -149,7 +149,7 @@
     position: absolute;
     top: 50%;
     right: 50%;
-    transform: translate(200%, -50%);
+    transform: translate(140%, -50%);
     font-family: 'Eliminatorias2026 Font', sans-serif;
     font-weight: bold;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
