@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YouTube Music 24/7</title>
+    <link rel="stylesheet" href="../css/countdown.css">
+    <style>
+        body {
+            background-color: black;
+            background-image: url('../img/starfall-night-sky-mountains-aesthetic-gif-preview-desktop-wallpaper.gif');
+            /* Cambia 'ruta/a/tu/imagen.jpg' */
+            background-size: cover;
+            /* Cubre todo el elemento sin deformar */
+            background-position: center;
+            /* Centra la imagen */
+            background-repeat: no-repeat;
+            /* Evita que la imagen se repita */
+            background-attachment: fixed;
+            /* Fija la imagen al hacer scroll */
+            margin: 0;
+            /* Elimina márgenes por defecto del body */
+            padding: 0;
+            /* Elimina padding por defecto del body */
+            height: 100vh;
+            /* Asegura que el body ocupe el 100% del viewport */
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 2px;
+            text-align: center;
+        }
+
+        #player {
+            width: 100%;
+            max-width: 800px;
+            height: 450px;
+            margin: 0 auto;
+            border: none;
+        }
+
+        #playlist {
+            display: flex;
+            flex-direction: column;
+            overflow-y: auto;
+            overflow-x: hidden;
+            gap: 10px;
+            padding: 1px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            max-width: 800px;
+            max-height: 400px;
+            /* Altura máxima para permitir scroll vertical */
+            margin: 0 auto;
+        }
+
+        .playlist-item {
+            flex-shrink: 0;
+            width: auto;
+            /* Ocupa el ancho completo del contenedor */
+            text-align: center;
+            cursor: pointer;
+            border: 2px solid transparent;
+            border-radius: 5px;
+            padding: 5px;
+            transition: border-color 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            /* Espacio entre imagen y texto */
+        }
+
+        .playlist-item.selected {
+            border-color: #007bff;
+            background-color: #e9ecef;
+        }
+
+        .playlist-item img {
+            width: 120px;
+            /* Ancho fijo para la imagen */
+            height: 67px;
+            /* Altura proporcional */
+            object-fit: cover;
+            border-radius: 3px;
+            flex-shrink: 0;
+        }
+
+        .playlist-item p {
+            margin: 0;
+            font-size: 14px;
+            font-weight: bold;
+            flex-grow: 1;
+            text-align: left;
+        }
+
+        .live-button {
+            display: inline-block;
+            align-items: center;
+            padding: 5px 10px;
+            border-radius: 5px;
+            background-color: #ff3737;
+            /* Color rojo para dar énfasis a "En vivo" */
+            color: #ffffff;
+            font-weight: bold;
+        }
+
+        .live-icon {
+            display: inline-block;
+            width: 15px;
+            height: 15px;
+            border-radius: 50%;
+            background-color: #ffffff;
+            margin-right: 5px;
+            animation: pulse 1.25s infinite;
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+                opacity: 1;
+            }
+
+            50% {
+                transform: scale(1.3);
+                opacity: 0.7;
+            }
+
+            100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        .live-text {
+            font-size: 6vw;
+        }
+
+        /* Responsive design */
+        @media (max-width: 768px) {
+            #player {
+                height: 250px;
+                /* Altura reducida en móviles */
+                max-width: 100%;
+            }
+
+            #playlist {
+                gap: 5px;
+                margin: 0 auto;
+                max-height: 450px;
+                /* Altura reducida en móviles */
+            }
+
+            .playlist-item {
+                padding: 3px;
+            }
+
+            .playlist-item img {
+                width: 100px;
+                height: 56px;
+            }
+
+            .playlist-item p {
+                font-size: 12px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            #player {
+                height: 200px;
+            }
+
+            #playlist {
+                max-height: 450px;
+            }
+
+            .playlist-item img {
+                width: 95px;
+                height: 100%;
+            }
+
+            .playlist-item p {
+                font-size: 15px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <h1 style="color: #fff;" hidden>Mundial 2026</h1>
+    <p style="color: #fff;" hidden>Haz doble clic en un elemento de la playlist para editar su título, miniatura y URL.
+    </p>
+    <!-- Sección Countdown Evento -->
+    <center hidden>
+        <div class="container-timer">
+            <a title="Countdown WC26">
+                <img src="../img/Colombia-Francia-1000x250.png" class="background-timer" alt="countdown" />
+            </a>
+            <video class="timer-video-wc26" autoplay loop muted hidden>
+                <source src="../vid/WC26 Logo 01.webm" type="video/webm">
+                Tu navegador no soporta la reproducción de video.
+            </video>
+            <div id="timer3" class="timer3" hidden>
+                <span id="days3">00</span>
+                <span>:</span>
+                <span id="hours3">00</span>
+                <span>:</span>
+                <span id="minutes3">00</span>
+                <span>:</span>
+                <span id="seconds3">00</span>
+            </div>
+            <span>
+                <div id="liveButton3" class="timer-button3 live-button" hidden>
+                    <span class="live-icon"></span>
+                    <span class="live-text">En vivo</span>
+                </div>
+            </span>
+
+        </div>
+    </center>
+    <iframe id="player" src="" allowfullscreen></iframe>
+    <div id="playlist"></div>
+
+    <script>
+        // Array de playlist: url (URL completa del embed), title, thumbnail
+        let playlist = [
+            {
+                url: "https://www.youtube.com/embed/325m8PqVH74?autoplay=1", // Tutorial de JavaScript
+                title: "Tomorrowland - One World Radio",
+                thumbnail: "https://i.ytimg.com/vi/325m8PqVH74/maxresdefault.jpg"
+            },
+            {
+                url: "https://www.youtube.com/embed/DQHSj6cphm0?autoplay=1", // Tutorial de JavaScript
+                title: "Tomorrowland - One World Radio - Daybreak Sessions Channel",
+                thumbnail: "https://i.ytimg.com/vi/DQHSj6cphm0/maxresdefault.jpg"
+            },
+            {
+                url: "https://www.youtube.com/embed/36YnV9STBqc?autoplay=1", // Tutorial de JavaScript
+                title: "The Good Life Radio • 24/7 Live Radio | Best Relax House, Chillout, Study, Running, Gym, Happy Music",
+                thumbnail: "https://i.ytimg.com/vi/36YnV9STBqc/maxresdefault.jpg"
+            },
+            {
+                url: "https://www.youtube.com/embed/Dx5qFachd3A?autoplay=1", // Tutorial de JavaScript
+                title: "Relaxing Jazz Piano Radio - Slow Jazz Music - 24/7 Live Stream - Music For Work & Study",
+                thumbnail: "https://i.ytimg.com/vi/Dx5qFachd3A/maxresdefault.jpg"
+            },
+            {
+                url: "https://www.youtube.com/embed/5W3niGQWM10?autoplay=1", // Tutorial de JavaScript
+                title: "Winter Chillout 2026 ❄️ 24/7 Live Stream ⛄ Best Chill House Winter Music by We Are Diamond",
+                thumbnail: "https://i.ytimg.com/vi/5W3niGQWM10/maxresdefault.jpg"
+            },
+            {
+                url: "https://www.youtube.com/embed/IkmLXvBfVv0?autoplay=1", // Tutorial de JavaScript
+                title: "Deep House Radio • 24/7 Live Radio | Relaxing, Chill Deep House, Summer Mix 2025, Gym, Workout Music",
+                thumbnail: "https://i.ytimg.com/vi/IkmLXvBfVv0/maxresdefault.jpg"
+            },
+            {
+                url: "https://www.youtube.com/embed/NJyCwdWT80c?autoplay=1", // Tutorial de JavaScript
+                title: "Chill House 2025 • ChillYourMind Radio 24/7 Live Chill Music | Summer Vibes - Deep House & Tropical",
+                thumbnail: "https://i.ytimg.com/vi/NJyCwdWT80c/maxresdefault.jpg"
+            },
+            {
+                url: "https://www.youtube.com/embed/WsDyRAPFBC8?autoplay=1", // Tutorial de JavaScript
+                title: "Deep & Melodic House 24/7: Relaxing Music • Chill Study Music",
+                thumbnail: "https://i.ytimg.com/vi/WsDyRAPFBC8/maxresdefault.jpg"
+            },
+            {
+                url: "https://www.youtube.com/embed/27bsX5a9qO4?autoplay=1", // Tutorial de JavaScript
+                title: "Spanish Chill Mood 🎧 - LIVE 24/7",
+                thumbnail: "https://i.ytimg.com/vi/27bsX5a9qO4/maxresdefault.jpg"
+            },
+            {
+                url: "https://www.youtube.com/embed/sgEJ4sOwboM?autoplay=1", // Tutorial de JavaScript
+                title: "Chillout 2026 24/7 Live Radio • Summer Tropical House & Deep House Chill Music Mix by We Are Diamond",
+                thumbnail: "https://i.ytimg.com/vi/sgEJ4sOwboM/maxresdefault.jpg"
+            },
+            {
+                url: "https://www.youtube.com/embed/b-bK2Vn3D38?autoplay=1", // Tutorial de JavaScript
+                title: "Best Radio 1 POP Hits [ 24/7 Live ] Best of POP 2025 Songs | 2025 Pop Playlist | Hits Music",
+                thumbnail: "https://i.ytimg.com/vi/b-bK2Vn3D38/maxresdefault.jpg"
+            },
+            {
+                url: "https://www.youtube.com/embed/xf9Ejt4OmWQ?autoplay=1", // Tutorial de JavaScript
+                title: "Spinnin’ Records | 24/7 Live Radio | Best Dance Music",
+                thumbnail: "https://i.ytimg.com/vi/xf9Ejt4OmWQ/maxresdefault.jpg"
+            }
+        ];
+
+        // Cargar playlist desde localStorage si existe
+        const savedPlaylist = localStorage.getItem('playlist');
+        if (savedPlaylist) {
+            playlist = JSON.parse(savedPlaylist);
+        }
+
+        const player = document.getElementById('player');
+        const playlistContainer = document.getElementById('playlist');
+        let currentIndex = 0;
+
+        // Función para cargar un video/transmisión
+        function loadVideo(index) {
+            const item = playlist[index];
+            player.src = item.url;
+            // Resaltar el seleccionado
+            document.querySelectorAll('.playlist-item').forEach((el, i) => {
+                el.classList.toggle('selected', i === index);
+            });
+            currentIndex = index;
+        }
+
+        // Función para editar un elemento (doble clic)
+        function editItem(index) {
+            const item = playlist[index];
+            const newUrl = prompt("Editar URL del embed:", item.url);
+            const newTitle = prompt("Editar título:", item.title);
+            const newThumbnail = prompt("Editar URL de miniatura:", item.thumbnail);
+            if (newUrl !== null && newTitle !== null && newThumbnail !== null) {
+                playlist[index].url = newUrl;
+                playlist[index].title = newTitle;
+                playlist[index].thumbnail = newThumbnail;
+                localStorage.setItem('playlist', JSON.stringify(playlist)); // Guardar cambios
+                renderPlaylist(); // Re-renderizar la playlist
+            }
+        }
+
+        // Función para renderizar la playlist
+        function renderPlaylist() {
+            playlistContainer.innerHTML = ''; // Limpiar
+            playlist.forEach((item, index) => {
+                const div = document.createElement('div');
+                div.className = 'playlist-item';
+                if (index === currentIndex) div.classList.add('selected');
+                div.innerHTML = `
+                    <img src="${item.thumbnail}" alt="${item.title}">
+                    <p>${item.title}</p>
+                `;
+                div.addEventListener('click', () => loadVideo(index));
+                div.addEventListener('dblclick', () => editItem(index)); // Doble clic para editar
+                playlistContainer.appendChild(div);
+            });
+        }
+
+        // Renderizar playlist inicial
+        renderPlaylist();
+
+        // Cargar el primer video por defecto
+        loadVideo(0);
+    </script>
+    <script src="../js/countdown.js"></script>
+</body>
+
+</html>
