@@ -206,6 +206,11 @@
       transition: border 0.2s;
     }
 
+    .program.live {
+      padding-left: 65px;
+      /* espacio SOLO cuando hay EN VIVO */
+    }
+
     .program:hover {
       border: 1px solid var(--accent-color);
     }
@@ -303,6 +308,38 @@
       font-size: 0.95rem;
       color: #e2e8f0;
     }
+
+    .live-badge {
+      position: absolute;
+      top: 6px;
+      left: 6px;
+      background: red;
+      color: white;
+      font-size: 10px;
+      font-weight: bold;
+      padding: 2px 6px;
+      border-radius: 4px;
+      z-index: 10;
+      pointer-events: none;
+      animation: livePulse 1.4s infinite;
+    }
+
+    @keyframes livePulse {
+      0% {
+        transform: scale(1);
+        box-shadow: 0 0 0 0 rgba(255, 0, 0, 0.7);
+      }
+
+      70% {
+        transform: scale(1.08);
+        box-shadow: 0 0 0 6px rgba(255, 0, 0, 0);
+      }
+
+      100% {
+        transform: scale(1);
+        box-shadow: 0 0 0 0 rgba(255, 0, 0, 0);
+      }
+    }
   </style>
 </head>
 
@@ -339,11 +376,27 @@
         <p id="m-time"></p>
         <span class="modal-label">Descripción</span>
         <p id="m-desc"></p>
+        <a id="liveBtn" href="#" target="_blank" style="
+     display:none;
+     margin-top:14px;
+     background:#38bdf8;
+     color:#020617;
+     text-align:center;
+     padding:10px;
+     border-radius:6px;
+     font-weight:bold;
+     text-decoration:none;
+   ">
+          ▶ VER EN VIVO
+        </a>
       </div>
     </div>
   </div>
 
   <script>
+
+    let currentModalProgram = null;
+
     const channelsData = {
       "Ledesmita TV": "img/LedesmitaTV-200x200.png",
       "Caracol TV": "img/Caracol-TV-200x200.png",
@@ -358,12 +411,22 @@
     // Programas con imágenes y descripciones
     const programs = [
       {
+        channel: "Ledesmita TV",
+        start: "2026-01-11 17:00",
+        end: "2026-01-11 23:00",
+        title: "Ledesmita TV (Prueba)",
+        desc: "Señal de Prueba de Ledesmita TV.",
+        img: "https://images.unsplash.com/photo-1641135698530-8d919344c0e5?w=500",
+        liveUrl: "go:LTV"
+      },
+      {
         channel: "Win Sports+",
         start: "2026-01-31 17:00",
         end: "2026-01-31 19:00",
         title: "Inter de Miami Vs. Atlético Nacional (Amistoso)",
         desc: "Gira de pretemporada internacional del Inter Miami y preparación de Atlético Nacional para la Liga BetPlay y la Copa Sudamericana.",
-        img: "https://images.unsplash.com/photo-1574629810360-7efbbe195018?w=500"
+        img: "https://images.unsplash.com/photo-1574629810360-7efbbe195018?w=500",
+        liveUrl: "https://tusitio.com/en-vivo"
       },
       {
         channel: "Caracol TV",
@@ -371,7 +434,8 @@
         end: "2026-03-29 16:00",
         title: "Colombia Vs. Francia (Amistoso Internacional)",
         desc: "¡Duelo de potencias! 🇨🇴 vs 🇫🇷 Colombia enfrenta a Francia este 29 de marzo en el último gran reto de la fecha FIFA. Un partido con sabor a cuartos de final de un Mundial que nadie se quiere perder.",
-        img: "https://images.unsplash.com/photo-1434648957308-5e6a859697e8?w=500"
+        img: "https://images.unsplash.com/photo-1434648957308-5e6a859697e8?w=500",
+        liveUrl: "https://tusitio.com/en-vivo"
       },
       {
         channel: "Caracol HD2",
@@ -379,7 +443,8 @@
         end: "2026-03-29 16:00",
         title: "Colombia Vs. Francia (Amistoso Internacional)",
         desc: "¡Duelo de potencias! 🇨🇴 vs 🇫🇷 Colombia enfrenta a Francia este 29 de marzo en el último gran reto de la fecha FIFA. Un partido con sabor a cuartos de final de un Mundial que nadie se quiere perder.",
-        img: "https://images.unsplash.com/photo-1522778119026-d647f0596c20?w=500"
+        img: "https://images.unsplash.com/photo-1522778119026-d647f0596c20?w=500",
+        liveUrl: "https://tusitio.com/en-vivo"
       }
     ];
 
@@ -401,7 +466,9 @@
 
     const today = nowCO().toISOString().slice(0, 10);
     const validPrograms = programs.filter(p => p.start.slice(0, 10) >= today);
-    const days = [today, ...new Set(validPrograms.map(p => p.start.slice(0, 10)))];
+
+    // Un solo Set para evitar duplicados (incluido HOY)
+    const days = [...new Set([today, ...validPrograms.map(p => p.start.slice(0, 10))])];
 
     // Generar botones de días
     const daysContainer = document.getElementById("days");
@@ -447,16 +514,24 @@
         row.className = "row";
 
         dayPrograms.filter(p => p.channel === chName).forEach(p => {
-          const s = parseDT(p.start), e = parseDT(p.end);
+          const s = parseDT(p.start);
+          const e = parseDT(p.end);
           const left = (s.getHours() * 60 + s.getMinutes()) * pxPerMinute();
           const width = ((e - s) / 60000) * pxPerMinute();
 
           const pDiv = document.createElement("div");
           pDiv.className = "program";
+          pDiv.dataset.start = s.getTime();
+          pDiv.dataset.end = e.getTime();
+          pDiv.dataset.live = "0";
           pDiv.style.left = left + "px";
           pDiv.style.width = width + "px";
           pDiv.textContent = p.title;
           pDiv.onclick = () => openModal(p);
+
+          // 🔴 INDICADOR EN VIVO
+
+
           row.appendChild(pDiv);
         });
         rowsDiv.appendChild(row);
@@ -469,6 +544,7 @@
     }
 
     function openModal(p) {
+      currentModalProgram = p;
       document.getElementById('m-title').textContent = p.title;
       document.getElementById('m-channel').textContent = p.channel;
       document.getElementById('m-desc').textContent = p.desc || "Información del evento disponible en vivo.";
@@ -479,16 +555,34 @@
       const fecha = p.start.split(' ')[0];
       document.getElementById('m-time').textContent = `${fecha} | ${s} - ${e}`;
 
+      const btn = document.getElementById("liveBtn");
+      btn.style.display = "none";
+
+      if (p.liveUrl && selectedDay === today) {
+        const now = nowCO();
+        const s = parseDT(p.start);
+        const e = parseDT(p.end);
+
+        if (now >= s && now <= e) {
+          btn.href = p.liveUrl;
+          btn.style.display = "block";
+        }
+      }
+
       document.getElementById('modalOverlay').style.display = 'flex';
     }
 
     function closeModal() {
+      currentModalProgram = null;
+      document.getElementById("liveBtn").style.display = "none";
       document.getElementById('modalOverlay').style.display = 'none';
     }
 
     function update(forceCenter = false) {
       const now = nowCO();
       clock.textContent = now.toTimeString().substring(0, 8) + " (GMT-5)";
+
+
 
       if (selectedDay !== today) {
         nowLine.style.display = "none";
@@ -511,7 +605,93 @@
         grid.scrollLeft = posX - grid.clientWidth / 2;
         autoCentered = true;
       }
+      updateLiveBadges();
+
     }
+    function updateLiveBadges() {
+      if (selectedDay !== today) return;
+
+      const now = nowCO().getTime();
+
+      document.querySelectorAll(".program").forEach(p => {
+        const start = Number(p.dataset.start);
+        const end = Number(p.dataset.end);
+        const wasLive = p.dataset.live === "1";
+        const isLive = now >= start && now <= end;
+
+        // 🔴 ENTRA EN VIVO
+        if (isLive && !wasLive) {
+          p.dataset.live = "1";
+          p.classList.add("live");
+
+          const badge = document.createElement("div");
+          badge.className = "live-badge";
+          badge.textContent = "EN VIVO";
+          p.appendChild(badge);
+
+          // 🔔 EVENTO LIVE START
+          p.dispatchEvent(new CustomEvent("liveStart", {
+            bubbles: true,
+            detail: {
+              title: p.textContent.trim(),
+              start,
+              end,
+              element: p
+            }
+          }));
+        }
+
+        // ⚫ SALE DE EN VIVO
+        if (!isLive && wasLive) {
+          p.dataset.live = "0";
+          p.classList.remove("live");
+
+          const badge = p.querySelector(".live-badge");
+          if (badge) badge.remove();
+
+          // 🔕 EVENTO LIVE END
+          p.dispatchEvent(new CustomEvent("liveEnd", {
+            bubbles: true,
+            detail: {
+              title: p.textContent.trim(),
+              start,
+              end,
+              element: p
+            }
+          }));
+        }
+      });
+    }
+
+    document.addEventListener("liveStart", e => {
+      console.log("🔴 EN VIVO:", e.detail.title);
+    });
+
+    document.addEventListener("liveEnd", e => {
+      console.log("⚫ FINALIZÓ:", e.detail.title);
+    })
+
+    document.addEventListener("liveStart", e => {
+      if (!currentModalProgram) return;
+
+      const btn = document.getElementById("liveBtn");
+      const modalStart = parseDT(currentModalProgram.start).getTime();
+
+      if (currentModalProgram.liveUrl && e.detail.start === modalStart) {
+        btn.href = currentModalProgram.liveUrl;
+        btn.style.display = "block";
+      }
+    });
+
+    document.addEventListener("liveEnd", e => {
+      if (!currentModalProgram) return;
+
+      const modalStart = parseDT(currentModalProgram.start).getTime();
+      if (e.detail.start === modalStart) {
+        document.getElementById("liveBtn").style.display = "none";
+      }
+    });
+
 
     grid.addEventListener("wheel", e => {
       e.preventDefault();
