@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+  <title>EPG Eventos</title>
+
+  <style>
+    :root {
+      --channel-width: 200px;
+      --px-per-minute: 4;
+      --row-height: 56px;
+      --logo-size: 40px;
+      --accent-color: #38bdf8;
+      --bg-dark: #020617;
+      --bg-card: #1e293b;
+    }
+
+    /* TABLET Y MOBILE */
+    @media(max-width:1024px) {
+      :root {
+        --px-per-minute: 3;
+        --channel-width: 160px;
+        --row-height: 52px;
+        --logo-size: 34px;
+      }
+    }
+
+    @media(max-width:768px) {
+      :root {
+        --px-per-minute: 2.5;
+        --channel-width: 130px;
+        --row-height: 48px;
+        --logo-size: 28px;
+      }
+
+      header {
+        flex-direction: column;
+        gap: 6px;
+        text-align: center;
+      }
+
+      .day-btn {
+        font-size: 12px;
+        padding: 6px 10px;
+      }
+
+      .program {
+        font-size: 11px;
+      }
+    }
+
+    * {
+      box-sizing: border-box;
+      font-family: Segoe UI, Arial, sans-serif;
+    }
+
+    body {
+      margin: 0;
+      background: #0b1220;
+      color: #fff;
+      overflow: hidden;
+    }
+
+    header {
+      background: var(--bg-dark);
+      padding: 10px 16px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 2px solid #1e293b;
+    }
+
+    #clock {
+      color: var(--accent-color);
+      font-weight: bold;
+      font-size: 14px;
+    }
+
+    .days {
+      display: flex;
+      gap: 8px;
+      padding: 8px 12px;
+      background: var(--bg-dark);
+      border-bottom: 1px solid #1e293b;
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
+
+    .days::-webkit-scrollbar {
+      display: none;
+    }
+
+    .day-btn {
+      padding: 6px 12px;
+      background: #1e293b;
+      border: none;
+      color: white;
+      border-radius: 4px;
+      cursor: pointer;
+      white-space: nowrap;
+    }
+
+    .day-btn.active {
+      background: var(--accent-color);
+      color: #020617;
+      font-weight: bold;
+    }
+
+    main {
+      height: calc(100vh - 110px);
+      overflow: hidden;
+    }
+
+    .epg {
+      display: flex;
+      height: 100%;
+    }
+
+    .channels {
+      width: var(--channel-width);
+      background: var(--bg-dark);
+      position: sticky;
+      left: 0;
+      z-index: 50;
+      flex-shrink: 0;
+      border-right: 1px solid #1e293b;
+    }
+
+    .channel-spacer {
+      height: var(--row-height);
+      border-bottom: 1px solid #1e293b;
+    }
+
+    .channel {
+      height: var(--row-height);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px;
+      border-bottom: 1px solid #1e293b;
+      background: var(--bg-dark);
+    }
+
+    .channel img {
+      width: var(--logo-size);
+      height: var(--logo-size);
+      object-fit: contain;
+    }
+
+    .channel span {
+      font-weight: bold;
+      font-size: 13px;
+      line-height: 1.1;
+    }
+
+    .grid {
+      position: relative;
+      flex: 1;
+      overflow: auto;
+      background: var(--bg-dark);
+      -webkit-overflow-scrolling: touch;
+    }
+
+    .hours {
+      position: sticky;
+      top: 0;
+      display: flex;
+      z-index: 40;
+      background: var(--bg-dark);
+    }
+
+    .hour {
+      height: var(--row-height);
+      min-width: calc(60px * var(--px-per-minute));
+      border-right: 1px solid #1e293b;
+      padding-top: 14px;
+      text-align: center;
+      font-size: 13px;
+    }
+
+    .rows {
+      position: relative;
+    }
+
+    .row {
+      position: relative;
+      height: var(--row-height);
+      border-bottom: 1px solid #1e293b;
+    }
+
+    .program {
+      position: absolute;
+      top: 6px;
+      bottom: 6px;
+      background: var(--bg-card);
+      border-radius: 4px;
+      padding: 6px;
+      font-size: 12px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      cursor: pointer;
+      border: 1px solid transparent;
+      transition: border 0.2s;
+    }
+
+    .program:hover {
+      border: 1px solid var(--accent-color);
+    }
+
+    .now-line {
+      position: absolute;
+      top: var(--row-height);
+      bottom: 0;
+      width: 2px;
+      background: red;
+      z-index: 45;
+      pointer-events: none;
+    }
+
+    .now-message {
+      position: absolute;
+      top: calc(var(--row-height) + 8px);
+      padding: 6px 10px;
+      background: var(--bg-dark);
+      border: 1px solid red;
+      border-radius: 4px;
+      font-size: 13px;
+      font-weight: bold;
+      z-index: 46;
+      display: none;
+      transform: translateX(8px);
+    }
+
+    /* --- ESTILOS DEL MODAL --- */
+    .modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.85);
+      display: none;
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+      backdrop-filter: blur(4px);
+    }
+
+    .modal-content {
+      background: #111827;
+      width: 90%;
+      max-width: 480px;
+      border-radius: 12px;
+      border: 1px solid #334155;
+      position: relative;
+      overflow: hidden;
+    }
+
+    #m-img {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+      background: #1e293b;
+    }
+
+    .modal-info {
+      padding: 20px;
+    }
+
+    .modal-title {
+      color: var(--accent-color);
+      font-size: 1.3rem;
+      margin: 0 0 10px 0;
+    }
+
+    .btn-close {
+      background: rgba(0, 0, 0, 0.6);
+      border: none;
+      color: white;
+      font-size: 24px;
+      cursor: pointer;
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      border-radius: 50%;
+      width: 35px;
+      height: 35px;
+    }
+
+    .modal-label {
+      color: #64748b;
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      display: block;
+      margin-top: 10px;
+    }
+
+    .modal-body p {
+      margin: 4px 0;
+      font-size: 0.95rem;
+      color: #e2e8f0;
+    }
+  </style>
+</head>
+
+<body>
+
+  <header>
+    <h3>📺 Guía de Eventos</h3>
+    <span id="clock"></span>
+  </header>
+
+  <div class="days" id="days"></div>
+
+  <main>
+    <div class="epg">
+      <div class="channels" id="channels"></div>
+      <div class="grid" id="grid">
+        <div class="now-line" id="nowLine"></div>
+        <div class="now-message" id="nowMsg">📭 No hay programación disponible para este día</div>
+        <div class="hours" id="hours"></div>
+        <div class="rows" id="rows"></div>
+      </div>
+    </div>
+  </main>
+
+  <div class="modal-overlay" id="modalOverlay" onclick="closeModal()">
+    <div class="modal-content" onclick="event.stopPropagation()">
+      <img id="m-img" src="" alt="Banner">
+      <button class="btn-close" onclick="closeModal()">&times;</button>
+      <div class="modal-info">
+        <h2 class="modal-title" id="m-title"></h2>
+        <span class="modal-label">Canal</span>
+        <p id="m-channel" style="font-weight: bold;"></p>
+        <span class="modal-label">Fecha y Hora</span>
+        <p id="m-time"></p>
+        <span class="modal-label">Descripción</span>
+        <p id="m-desc"></p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const channelsData = {
+      "Ledesmita TV": "../img/LedesmitaTV-200x200.png",
+      "Caracol TV": "../img/Caracol-TV-200x200.png",
+      "Caracol HD2": "../img/Caracol-HD2-200x200.png",
+      "Win Sports": "../img/Win-Sports-200x200.png",
+      "Win Sports+": "../img/Win-Sports+-200x200.png",
+      "DSports": "../img/DSports-200x200.png",
+      "DSports 2": "../img/DSports2-200x200.png",
+      "DSports+": "../img/DSports+-200x200.png",
+    };
+
+    // Programas con imágenes y descripciones
+    const programs = [
+      {
+        channel: "Win Sports+",
+        start: "2026-01-31 17:00",
+        end: "2026-01-31 19:00",
+        title: "Inter de Miami Vs. Atlético Nacional (Amistoso)",
+        desc: "Gira de pretemporada internacional del Inter Miami y preparación de Atlético Nacional para la Liga BetPlay y la Copa Sudamericana.",
+        img: "https://images.unsplash.com/photo-1574629810360-7efbbe195018?w=500"
+      },
+      {
+        channel: "Caracol TV",
+        start: "2026-03-29 14:00",
+        end: "2026-03-29 16:00",
+        title: "Colombia Vs. Francia (Amistoso Internacional)",
+        desc: "¡Duelo de potencias! 🇨🇴 vs 🇫🇷 Colombia enfrenta a Francia este 29 de marzo en el último gran reto de la fecha FIFA. Un partido con sabor a cuartos de final de un Mundial que nadie se quiere perder.",
+        img: "https://images.unsplash.com/photo-1434648957308-5e6a859697e8?w=500"
+      },
+      {
+        channel: "Caracol HD2",
+        start: "2026-03-29 14:00",
+        end: "2026-03-29 16:00",
+        title: "Colombia Vs. Francia (Amistoso Internacional)",
+        desc: "¡Duelo de potencias! 🇨🇴 vs 🇫🇷 Colombia enfrenta a Francia este 29 de marzo en el último gran reto de la fecha FIFA. Un partido con sabor a cuartos de final de un Mundial que nadie se quiere perder.",
+        img: "https://images.unsplash.com/photo-1522778119026-d647f0596c20?w=500"
+      }
+    ];
+
+    const TIMEZONE = "America/Bogota";
+    let selectedDay;
+    let autoCentered = false;
+
+    const nowLine = document.getElementById("nowLine");
+    const nowMsg = document.getElementById("nowMsg");
+    const grid = document.getElementById("grid");
+    const clock = document.getElementById("clock");
+    const channelsDiv = document.getElementById("channels");
+    const hoursDiv = document.getElementById("hours");
+    const rowsDiv = document.getElementById("rows");
+
+    function pxPerMinute() { return parseFloat(getComputedStyle(document.documentElement).getPropertyValue("--px-per-minute")); }
+    function nowCO() { return new Date(new Date().toLocaleString("en-US", { timeZone: TIMEZONE })); }
+    function parseDT(s) { return new Date(s.replace(" ", "T") + ":00"); }
+
+    const today = nowCO().toISOString().slice(0, 10);
+    const validPrograms = programs.filter(p => p.start.slice(0, 10) >= today);
+    const days = [today, ...new Set(validPrograms.map(p => p.start.slice(0, 10)))];
+
+    // Generar botones de días
+    const daysContainer = document.getElementById("days");
+    days.sort().forEach((d, i) => {
+      const b = document.createElement("button");
+      b.className = "day-btn" + (i === 0 ? " active" : "");
+      b.textContent = d === today ? "HOY" : d;
+      b.onclick = () => {
+        document.querySelectorAll(".day-btn").forEach(x => x.classList.remove("active"));
+        b.classList.add("active");
+        selectedDay = d;
+        autoCentered = false;
+        renderEPG();
+        update(true);
+      };
+      daysContainer.appendChild(b);
+    });
+    selectedDay = today;
+
+    function renderEPG() {
+      // Limpiar contenedores
+      channelsDiv.innerHTML = '<div class="channel-spacer"></div>';
+      hoursDiv.innerHTML = '';
+      rowsDiv.innerHTML = '';
+
+      // 1. Filtrar programas del día seleccionado
+      const dayPrograms = validPrograms.filter(p => p.start.startsWith(selectedDay));
+
+      // 2. Obtener solo los canales que tienen programas hoy
+      const activeChannelNames = [...new Set(dayPrograms.map(p => p.channel))];
+
+      // 3. Renderizar canales activos y sus filas
+      activeChannelNames.forEach(chName => {
+        // Renderizar logo a la izquierda
+        channelsDiv.innerHTML += `
+      <div class="channel">
+        <img src="${channelsData[chName] || 'https://via.placeholder.com/40'}">
+        <span>${chName}</span>
+      </div>`;
+
+        // Renderizar fila en el grid
+        const row = document.createElement("div");
+        row.className = "row";
+
+        dayPrograms.filter(p => p.channel === chName).forEach(p => {
+          const s = parseDT(p.start), e = parseDT(p.end);
+          const left = (s.getHours() * 60 + s.getMinutes()) * pxPerMinute();
+          const width = ((e - s) / 60000) * pxPerMinute();
+
+          const pDiv = document.createElement("div");
+          pDiv.className = "program";
+          pDiv.style.left = left + "px";
+          pDiv.style.width = width + "px";
+          pDiv.textContent = p.title;
+          pDiv.onclick = () => openModal(p);
+          row.appendChild(pDiv);
+        });
+        rowsDiv.appendChild(row);
+      });
+
+      // Renderizar horas
+      for (let h = 0; h < 24; h++) {
+        hoursDiv.innerHTML += `<div class="hour">${String(h).padStart(2, "0")}:00</div>`;
+      }
+    }
+
+    function openModal(p) {
+      document.getElementById('m-title').textContent = p.title;
+      document.getElementById('m-channel').textContent = p.channel;
+      document.getElementById('m-desc').textContent = p.desc || "Información del evento disponible en vivo.";
+      document.getElementById('m-img').src = p.img || "https://via.placeholder.com/500x200?text=TV+Show";
+
+      const s = p.start.split(' ')[1];
+      const e = p.end.split(' ')[1];
+      const fecha = p.start.split(' ')[0];
+      document.getElementById('m-time').textContent = `${fecha} | ${s} - ${e}`;
+
+      document.getElementById('modalOverlay').style.display = 'flex';
+    }
+
+    function closeModal() {
+      document.getElementById('modalOverlay').style.display = 'none';
+    }
+
+    function update(forceCenter = false) {
+      const now = nowCO();
+      clock.textContent = now.toTimeString().substring(0, 8) + " (GMT-5)";
+
+      if (selectedDay !== today) {
+        nowLine.style.display = "none";
+        nowMsg.style.display = "none";
+        return;
+      }
+
+      const minutes = now.getHours() * 60 + now.getMinutes();
+      const posX = minutes * pxPerMinute();
+
+      nowLine.style.display = "block";
+      nowLine.style.left = posX + "px";
+
+      // Mantiene el mensaje si no hay programas para HOY
+      const programsToday = validPrograms.some(p => p.start.startsWith(today));
+      nowMsg.style.display = programsToday ? "none" : "block";
+      nowMsg.style.left = posX + "px";
+
+      if (!autoCentered && forceCenter) {
+        grid.scrollLeft = posX - grid.clientWidth / 2;
+        autoCentered = true;
+      }
+    }
+
+    grid.addEventListener("wheel", e => {
+      e.preventDefault();
+      grid.scrollLeft += e.deltaY;
+    }, { passive: false });
+
+    renderEPG();
+    update(true);
+    setInterval(update, 1000);
+  </script>
+
+</body>
+
+</html>
