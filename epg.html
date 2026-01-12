@@ -412,8 +412,8 @@
     const programs = [
       {
         channel: "Ledesmita TV",
-        start: "2026-01-11 17:00",
-        end: "2026-01-11 23:00",
+        start: "2026-01-12 01:00",
+        end: "2026-01-12 23:00",
         title: "Ledesmita TV (Prueba)",
         desc: "Señal de Prueba de Ledesmita TV.",
         img: "https://images.unsplash.com/photo-1641135698530-8d919344c0e5?w=500",
@@ -480,9 +480,24 @@
 
     function pxPerMinute() { return parseFloat(getComputedStyle(document.documentElement).getPropertyValue("--px-per-minute")); }
     function nowCO() { return new Date(new Date().toLocaleString("en-US", { timeZone: TIMEZONE })); }
-    function parseDT(s) { return new Date(s.replace(" ", "T") + ":00"); }
+    function parseDT(s) {
+      const [date, time] = s.split(" ");
+      const [y, m, d] = date.split("-").map(Number);
+      const [hh, mm] = time.split(":").map(Number);
+      return new Date(y, m - 1, d, hh, mm, 0);
+    }
 
-    const today = nowCO().toISOString().slice(0, 10);
+
+    function todayCO() {
+      const now = nowCO();
+      const y = now.getFullYear();
+      const m = String(now.getMonth() + 1).padStart(2, "0");
+      const d = String(now.getDate()).padStart(2, "0");
+      return `${y}-${m}-${d}`;
+    }
+
+    const today = todayCO();
+
     const validPrograms = programs.filter(p => p.start.slice(0, 10) >= today);
 
     // Un solo Set para evitar duplicados (incluido HOY)
