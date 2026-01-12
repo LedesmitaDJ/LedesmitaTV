@@ -496,7 +496,57 @@
       return `${y}-${m}-${d}`;
     }
 
-    const today = todayCO();
+    let today = todayCO();
+
+    function checkDayChange() {
+      const newToday = todayCO();
+
+      if (newToday !== today) {
+        today = newToday;
+
+        // Buscar botón del nuevo día
+        const buttons = document.querySelectorAll(".day-btn");
+        let found = false;
+
+        buttons.forEach(btn => {
+          btn.classList.remove("active");
+
+          if (
+            btn.textContent === "HOY" ||
+            btn.textContent === newToday
+          ) {
+            btn.classList.add("active");
+            selectedDay = newToday;
+            found = true;
+          }
+        });
+
+        // Si el día no existía en los botones, lo agregamos
+        if (!found) {
+          const b = document.createElement("button");
+          b.className = "day-btn active";
+          b.textContent = "HOY";
+          b.onclick = () => {
+            document.querySelectorAll(".day-btn").forEach(x => x.classList.remove("active"));
+            b.classList.add("active");
+            selectedDay = today;
+            autoCentered = false;
+            renderEPG();
+            update(true);
+          };
+
+          document.getElementById("days").prepend(b);
+          selectedDay = today;
+        }
+
+        autoCentered = false;
+        renderEPG();
+        update(true);
+
+        console.log("📅 Cambio automático de día:", today);
+      }
+    }
+
 
     const validPrograms = programs.filter(p => p.start.slice(0, 10) >= today);
 
@@ -733,7 +783,11 @@
 
     renderEPG();
     update(true);
-    setInterval(update, 1000);
+    setInterval(() => {
+      checkDayChange(); // 🔄 detecta las 00:00
+      update();
+    }, 1000);
+
   </script>
 
 </body>
