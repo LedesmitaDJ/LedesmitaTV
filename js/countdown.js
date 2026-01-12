@@ -37,4 +37,4 @@ function startCountdown(targetDate, timerId, daysId, hoursId, minutesId, seconds
 startCountdown("Jun 11, 2026 15:00:00", "timer1", "days1", "hours1", "minutes1", "seconds1", "liveButton1");
 startCountdown("Jan 31, 2026 17:00:00", "timer2", "days2", "hours2", "minutes2", "seconds2", "liveButton2");
 startCountdown("Mar. 29, 2026 14:00:00", "timer3", "days3", "hours3", "minutes3", "seconds3", "liveButton3");
-startCountdown("Oct 2, 2024 10:42:59", "timer4", "days4", "hours4", "minutes4", "seconds4", "liveButton4");
+startCountdown("Mar. 26, 2026 18:30:00", "timer4", "days4", "hours4", "minutes4", "seconds4", "liveButton4");
