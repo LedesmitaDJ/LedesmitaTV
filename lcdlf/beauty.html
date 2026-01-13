@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>La Casa De Los Famosos - Colombia</title>
+
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      height: 100%;
+      background: black;
+    }
+    video {
+      width: 100%;
+      height: 100%;
+      background: black;
+    }
+  </style>
+
+  <!-- SHAKA PLAYER -->
+  <script src="https://cdn.jsdelivr.net/npm/shaka-player@4.7.11/dist/shaka-player.compiled.js"></script>
+</head>
+
+<body>
+
+  <video id="video"
+         poster="../img/beauty.jpg"
+         autoplay
+         muted
+         controls
+         playsinline>
+  </video>
+
+  <script>
+    async function initPlayer() {
+      const video = document.getElementById('video');
+      const player = new shaka.Player(video);
+
+      shaka.polyfill.installAll();
+
+      if (!shaka.Player.isBrowserSupported()) {
+        console.error('Navegador no soportado');
+        return;
+      }
+
+      try {
+        await player.load(
+          "https://362a33c2a385d7d1e52d89d101e79577bbd89733.cdn.broadpeak.io/out/v1/7f3f3a5db4ee4ec79e749b6c1d4ee514/index.mpd"
+        );
+        console.log('Stream cargado correctamente');
+      } catch (e) {
+        console.error('Error cargando el stream', e);
+      }
+    }
+
+    document.addEventListener('DOMContentLoaded', initPlayer);
+  </script>
+
+</body>
+</html>
