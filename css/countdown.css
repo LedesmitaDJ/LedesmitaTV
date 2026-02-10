@@ -105,6 +105,36 @@
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
 }
 
+.timer6 {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-90%, -50%);
+    color: white;
+    padding: 10px;
+    border-radius: 10px;
+    font-family: 'NYE Font', sans-serif;
+    font-size: 14px;
+    font-weight: bold;
+    color: #ffffff;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.timer7 {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    padding: 10px;
+    border-radius: 10px;
+    font-family: 'NYE Font', sans-serif;
+    font-size: 14px;
+    font-weight: bold;
+    color: #ffffff;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
 .timer-video {
     position: absolute;
     top: 48%;
@@ -120,6 +150,15 @@
     left: 50%;
     transform: translate(100%, -50%);
     width: 20vw;
+}
+
+.timer-video-nye {
+    position: absolute;
+    top: 48%;
+    right: 50%;
+    transform: translate(175%, -50%);
+    width: 24%;
+    height: auto;
 }
 
 .container-timer button {
@@ -177,6 +216,28 @@
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
 }
 
+.timer-button6 {
+    display: none;
+    position: absolute;
+    top: 50%;
+    right: 50%;
+    transform: translate(-40%, -50%);
+    font-family: 'NYE Font', sans-serif;
+    font-weight: bold;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.timer-button7 {
+    display: none;
+    position: absolute;
+    top: 50%;
+    right: 50%;
+    transform: translate(50%, -50%);
+    font-family: 'NYE Font', sans-serif;
+    font-weight: bold;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
 #timer1 {
     font-family: 'WC26 Font', sans-serif;
     font-size: 5.5vw;
@@ -202,6 +263,22 @@
 }
 
 #timer4 {
+    font-family: 'NYE Font', sans-serif;
+    font-size: 6vw;
+    font-weight: bold;
+    color: #ffffff;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+#timer6 {
+    font-family: 'NYE Font', sans-serif;
+    font-size: 6vw;
+    font-weight: bold;
+    color: #ffffff;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+#timer7 {
     font-family: 'NYE Font', sans-serif;
     font-size: 6vw;
     font-weight: bold;
