@@ -34,6 +34,13 @@
     font-style: normal;
 }
 
+@font-face {
+    font-family: 'Velada6 Font';
+    src: url('../font/Cinzel-Black.otf') format('opentype');
+    font-weight: normal;
+    font-style: normal;
+}
+
 .container-timer {
     position: relative;
     display: inline-block;
@@ -64,11 +71,11 @@
     position: absolute;
     top: 50%;
     left: 50%;
-    transform: translate(5%, -50%);
+    transform: translate(0%, -50%);
     color: white;
     padding: 10px;
     border-radius: 10px;
-    font-family: 'Eliminatorias2026 Font', sans-serif;
+    font-family: 'Velada6 Font', sans-serif;
     font-size: 18px;
     font-weight: bold;
     color: #ffffff;
@@ -188,8 +195,8 @@
     position: absolute;
     top: 50%;
     right: 50%;
-    transform: translate(140%, -50%);
-    font-family: 'Eliminatorias2026 Font', sans-serif;
+    transform: translate(120%, -50%);
+    font-family: 'Velada6 Font', sans-serif;
     font-weight: bold;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
 }
@@ -247,7 +254,7 @@
 }
 
 #timer2 {
-    font-family: 'Eliminatorias2026 Font', sans-serif;
+    font-family: 'Velada6 Font', sans-serif;
     font-size: 5.5vw;
     font-weight: bold;
     color: #ffffff;
