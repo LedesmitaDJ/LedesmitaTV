@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Monitor de Eventos</title>
+
+<style>
+
+@font-face {
+    font-family: 'LedesmitaTV Font';
+    src: url('../font/Audiowide-Regular.ttf') format('truetype');
+}
+
+body{
+font-family:Arial;
+-background:#0b0f17;
+color:white;
+margin:0;
+}
+
+header{
+font-family: 'LedesmitaTV Font', sans-serif;
+font-weight: 500;
+background:#0d47a1;
+padding:15px;
+font-size:22px;
+text-align:center;
+}
+
+table{
+width:100%;
+border-collapse:collapse;
+}
+
+thead, tbody tr{
+display:table;
+width:100%;
+table-layout:fixed;
+}
+
+tbody{
+display:block;
+max-height:320px;
+overflow-y:auto;
+scroll-behavior:smooth;
+}
+
+thead{
+background:#111;
+position:sticky;
+top:0;
+z-index:5;
+}
+
+#events{
+display:block;
+max-height:400px;   /* altura del área visible */
+overflow-y:hidden;
+scroll-behavior:smooth;
+}
+
+#events tr{
+display:table;
+width:100%;
+table-layout:fixed;
+}
+
+th,td{
+padding:10px;
+border-bottom:1px solid #333;
+text-align:left;
+}
+
+th{
+background:#111;
+}
+
+th:nth-child(1),
+td:nth-child(1){
+width:90px;
+}
+
+th:nth-child(2),
+td:nth-child(2){
+width:30px;
+text-align:center;
+}
+
+th:nth-child(3),
+td:nth-child(3){
+width:30px;
+text-align:center;
+}
+
+th:nth-child(4),
+td:nth-child(4){
+width:40%;
+}
+
+th:nth-child(5),
+td:nth-child(5){
+width:18%;
+}
+
+th:nth-child(6),
+td:nth-child(6){
+width:30%;
+}
+
+th:nth-child(7),
+td:nth-child(7){
+width:10%;
+}
+
+/* contenedor */
+
+.channels{
+display:flex;
+align-items:center;
+flex-wrap:wrap;
+gap:6px;
+}
+
+.channelItem{
+display:flex;
+align-items:center;
+gap:6px;
+font-weight:bold;
+}
+
+.logo{
+width:20px;
+height:100%;
+display: inline-block;
+}
+
+.separator{
+color:#888;
+margin:0 4px;
+font-weight:bold;
+}
+
+/* colores */
+
+.caracol{color:#ADD8E6;}
+.rcn{color:#bfff00;}
+.espn{color:#DA020E;}
+.dsports{color:#008000;}
+
+.youtube{color:#ff0000;}
+.facebook{color:#1877f2;}
+.twitch{color:#9146FF;}
+.web{color:#ffffff;}
+.disney+{color:#ffffff;}
+.ditu{color:#800080;}
+
+.disponible{color:red;}
+
+.liveText{
+color:red;
+font-weight:bold;
+}
+
+.upcoming{
+color:#ffaa00;
+}
+
+/* animación live */
+
+.liveIndicator{
+display:inline-block;
+width:10px;
+height:10px;
+background:red;
+border-radius:50%;
+margin-left:2px;
+animation:pulse 1s infinite;
+}
+
+@keyframes pulse{
+0%{transform:scale(0.8);opacity:0.7;}
+50%{transform:scale(1.4);opacity:1;}
+100%{transform:scale(0.8);opacity:0.7;}
+}
+
+</style>
+</head>
+
+<body>
+
+    <img src="img/logo2-ledesmita-tv.png" style="display: block; margin: auto;" width="360" height="100%">
+
+<header>
+Monitor de Eventos (GMT/UTC-5)
+</header>
+
+<table>
+
+<thead>
+<tr>
+<th>Fecha</th>
+<th>Inicio</th>
+<th>Fin</th>
+<th>Evento</th>
+<th>Canal de TV</th>
+<th>Streaming</th>
+<th>Estado</th>
+</tr>
+</thead>
+
+<tbody id="events"></tbody>
+
+</table>
+<br>
+<p style="display: block; margin: auto; text-align: center; font-size: large; font-weight: 900;"><strong>* Los eventos estan programados para verse en la app de Ledesmita TV. La hora de Inicio y Fin son aproximados.</strong></p>
+
+<script>
+
+const events=[
+
+{
+date:"2026-03-26",
+start:"17:30",
+end:"19:30",
+title:"Colombia Vs. Croacia (Amistoso Internacional)",
+channels:["Caracol TV","Caracol HD2","RCN TV"],
+streams:["Ditu App","Canal RCN App","Gol Caracol YouTube","Deportes RCN YouTube"]
+},
+
+{
+date:"2026-03-26",
+start:"17:00",
+end:"19:30",
+title:"Bolivia Vs. Surinam (Repechaje Mundial 2026)",
+channels:["DSports +"],
+streams:["No Disponible"]
+},
+
+{
+date:"2026-03-27",
+start:"13:00",
+end:"15:30",
+title:"Finalissima: Argentina Vs. España",
+channels:["ESPN"],
+streams:["Ledesmita TV App","Disney+"]
+},
+
+{
+date:"2026-03-29",
+start:"14:00",
+end:"16:00",
+title:"Colombia Vs. Francia (Amistoso Internacional)",
+channels:["Caracol TV","Caracol HD2","RCN TV"],
+streams:["Ditu App","Canal RCN App","Gol Caracol YouTube","Deportes RCN YouTube"]
+},
+
+{
+date:"2026-06-07",
+start:"14:00",
+end:"16:00",
+title:"Jordania Vs. Colombia (Amistoso Internacional)",
+channels:["Caracol TV","Caracol HD2","RCN TV"],
+streams:["Ditu App","Canal RCN App","Gol Caracol YouTube","Deportes RCN YouTube"]
+},
+
+{
+date:"2026-06-11",
+start:"14:00",
+end:"16:00",
+title:"México Vs. Sudáfrica (Partido Inaugural Mundial 2026)",
+channels:["Caracol TV","Caracol HD2","RCN TV","DSports"],
+streams:["Ditu App","Canal RCN App"]
+},
+
+{
+date:"2026-07-25",
+start:"13:00",
+end:"18:00",
+title:"La Velada del Año 6",
+channels:["No Disponible"],
+streams:["Ibai Twitch","IbaiLlanos YouTube"]
+},
+
+{
+date:"2026-12-31",
+start:"16:00",
+end:"12:00",
+title:"Times Square NYE 2027",
+channels:["No Disponible"],
+streams:["Ledesmita TV App","TimesSquareNYC YouTube","Ledesmita TV YouTube"]
+},
+
+];
+
+/* logos broadcast */
+
+const channelLogos={
+"No Disponible":"https://tausornamentos.com/wp-content/uploads/2021/06/Advertencia.gif",
+"Caracol TV":"https://upload.wikimedia.org/wikipedia/commons/2/29/Caracol_Televisi%C3%B3n_logo_2023.png",
+"Caracol HD2":"https://upload.wikimedia.org/wikipedia/commons/8/88/CaracolHD2-2023.png",
+"RCN TV":"https://vectorseek.com/wp-content/uploads/2023/10/RCN-Digital-Logo-Vector.svg--300x172.png",
+"ESPN":"https://upload.wikimedia.org/wikipedia/commons/thumb/2/2f/ESPN_wordmark.svg/3840px-ESPN_wordmark.svg.png",
+"DSports":"https://upload.wikimedia.org/wikipedia/commons/5/5a/DSports.png",
+"DSports +":"https://upload.wikimedia.org/wikipedia/commons/5/5a/DSports.png",
+};
+
+/* logos streaming */
+
+const streamLogos={
+"No Disponible":"https://tausornamentos.com/wp-content/uploads/2021/06/Advertencia.gif",
+"Ledesmita TV App":"img/logo-ledesmitatv.png",
+"Ditu App":"https://ditutv.lat/wp-content/uploads/2025/01/Logo-ID-Ditu.png",
+"Canal RCN App":"https://vectorseek.com/wp-content/uploads/2023/10/RCN-Digital-Logo-Vector.svg--300x172.png",
+"Disney+":"https://upload.wikimedia.org/wikipedia/commons/thumb/7/77/Disney_Plus_logo.svg/3840px-Disney_Plus_logo.svg.png",
+"Ledesmita TV YouTube":"img/logo-ledesmitatv.png",
+"Gol Caracol YouTube":"https://upload.wikimedia.org/wikipedia/commons/thumb/8/86/Gol_Caracol.svg/3840px-Gol_Caracol.svg.png",
+"Deportes RCN YouTube":"https://upload.wikimedia.org/wikipedia/commons/3/3a/DeportesRCN2023.png",
+"IbaiLlanos YouTube":"https://yt3.googleusercontent.com/alZ--DxDJfYQLF9UZ7s8q2tytDyFniBoj0-8bH27Ew5QTX5o3ultBNmfJmFqc05V2Wax-nkFKX8",
+"TimesSquareNYC YouTube":"https://yt3.googleusercontent.com/uYgtJ_tDF0sJR5sSL3atavvr9xrA_VNpHCre06Meb7N1CXBBJeLAw_8TJIryEG8Rz-TXY0EJ",
+"EarthCam YouTube":"https://procore-marketplace.s3.us-west-2.amazonaws.com/production/uploads/logo/file/9dad1a37-95ec-4f84-a8ea-a836da85a25a.png",
+"Ibai Twitch":"https://yt3.googleusercontent.com/alZ--DxDJfYQLF9UZ7s8q2tytDyFniBoj0-8bH27Ew5QTX5o3ultBNmfJmFqc05V2Wax-nkFKX8",
+"balldropshere.com Web":"https://cdn.prod.website-files.com/66edd21fea5118a4c64a2230/67290f3303521fc61cebd958_TSQ-NYE-favi.png",
+"timessquareball.net Web":"https://cdn.prod.website-files.com/66edd21fea5118a4c64a2230/67290f3303521fc61cebd958_TSQ-NYE-favi.png",
+"earthcam.com/newyears Web":"https://procore-marketplace.s3.us-west-2.amazonaws.com/production/uploads/logo/file/9dad1a37-95ec-4f84-a8ea-a836da85a25a.png",
+};
+
+function buildList(items,logos){
+
+let html='<div class="channels">';
+
+items.forEach((item,index)=>{
+
+html+=`
+
+<div class="channelItem ${item.toLowerCase()}">
+<img class="logo" src="${logos[item]}" onerror="this.src='https://upload.wikimedia.org/wikipedia/commons/1/14/No_Image_Available.jpg'">
+${item}
+</div>
+
+`;
+
+if(index < items.length-1){
+html+='<span class="separator">|</span>';
+}
+
+});
+
+html+='</div>';
+
+return html;
+
+}
+
+function updateEvents(){
+
+const now=new Date();
+const table=document.getElementById("events");
+
+let visibleEvents=[];
+
+events.forEach(e=>{
+
+const start=new Date(e.date+"T"+e.start+":00");
+const end=new Date(e.date+"T"+e.end+":00");
+
+let status="";
+
+if(now<start){
+status="UPCOMING";
+}
+else if(now>=start && now<=end){
+status="LIVE";
+}
+else{
+return;
+}
+
+visibleEvents.push({...e,startDate:start,status});
+
+});
+
+visibleEvents.sort((a,b)=>{
+
+if(a.status==="LIVE" && b.status!=="LIVE") return -1;
+if(a.status!=="LIVE" && b.status==="LIVE") return 1;
+
+return a.startDate-b.startDate;
+
+});
+
+table.innerHTML="";
+
+visibleEvents.forEach(e=>{
+
+let statusHTML="";
+
+if(e.status==="LIVE"){
+statusHTML=`<span class="liveIndicator"></span>&nbsp;&nbsp;<span class="liveText">En vivo</span>`;
+}else{
+statusHTML=`<span class="upcoming">Próximamente</span>`;
+}
+
+let row=document.createElement("tr");
+
+row.innerHTML=`
+
+<td>${e.date}</td>
+<td>${e.start}</td>
+<td>${e.end}</td>
+<td>${e.title}</td>
+<td>${buildList(e.channels,channelLogos)}</td>
+<td>${buildList(e.streams,streamLogos)}</td>
+<td>${statusHTML}</td>
+
+`;
+
+table.appendChild(row);
+
+});
+
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+
+updateEvents(); // primera ejecución
+
+setInterval(function(){
+
+location.reload();
+
+},60000);
+
+});
+
+function startAutoScroll(){
+
+const tbody = document.getElementById("events");
+
+let scrollSpeed = 1;     // velocidad
+let scrollDelay = 40;    // suavidad
+
+let scrollInterval = setInterval(()=>{
+
+if(tbody.scrollHeight <= tbody.clientHeight){
+return; // no hay scroll
+}
+
+if(tbody.scrollTop + tbody.clientHeight >= tbody.scrollHeight){
+
+clearInterval(scrollInterval); // detener al llegar al final
+return;
+
+}
+
+tbody.scrollTop += scrollSpeed;
+
+},scrollDelay);
+
+}
+
+/* iniciar 10 segundos después */
+
+window.addEventListener("load",()=>{
+
+setTimeout(startAutoScroll,10000);
+
+});
+
+</script>
+
+</body>
+</html>
