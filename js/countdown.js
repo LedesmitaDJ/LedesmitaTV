@@ -39,5 +39,6 @@ startCountdown("Jul 25, 2026 13:00:00", "timer2", "days2", "hours2", "minutes2",
 startCountdown("Mar. 29, 2026 14:00:00", "timer3", "days3", "hours3", "minutes3", "seconds3", "liveButton3");
 startCountdown("Mar. 26, 2026 18:30:00", "timer4", "days4", "hours4", "minutes4", "seconds4", "liveButton4");
 startCountdown("Mar. 26, 2026 17:00:00", "timer5", "days5", "hours5", "minutes5", "seconds5", "liveButton5");
-startCountdown("Dec 31, 2026 16:00:00", "timer6", "days6", "hours6", "minutes6", "seconds6", "liveButton6");
-startCountdown("Jan 01, 2027 00:00:00", "timer7", "days7", "hours7", "minutes7", "seconds7", "liveButton7");
+startCountdown("Jun 07, 2026 14:00:00", "timer6", "days6", "hours6", "minutes6", "seconds6", "liveButton6");
+startCountdown("Dec 31, 2026 16:00:00", "timer7", "days7", "hours7", "minutes7", "seconds7", "liveButton7");
+startCountdown("Jan 01, 2027 00:00:00", "timerNYE", "daysNYE", "hoursNYE", "minutesNYE", "secondsNYE", "liveButtonNYE");

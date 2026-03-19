@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Evento 7 - Times Square NYE</title>
+    <title>Evento 6 - Amistoso</title>
     <link rel="stylesheet" href="../css/countdown.css">
     <style>
         body {
@@ -105,17 +105,6 @@
             font-weight: bold;
         }
 
-        .live-button2 {
-            display: inline-block;
-            align-items: center;
-            padding: 5px 10px;
-            border-radius: 5px;
-            background-color: rgba(212, 175, 55, 0.25);
-            /* Color rojo para dar énfasis a "En vivo" */
-            color: #ffffff;
-            font-weight: bold;
-        }
-
         .live-icon {
             display: inline-block;
             width: 15px;
@@ -145,10 +134,6 @@
 
         .live-text {
             font-size: 6vw;
-        }
-
-        .live-text2 {
-            font-size: 5vw;
         }
 
         /* Responsive design */
@@ -208,24 +193,24 @@
     <!-- Sección Countdown Evento -->
     <center>
         <div class="container-timer">
-            <a title="Countdown 3">
-                    <img src="../img/Banner-Times-Square-NYE-1000x250.png" class="background-timer" alt="countdown" />
-                </a>
-                <video class="timer-video-nye" autoplay loop muted>
-                    <source src="../vid/tsq27.webm" type="video/webm">
-                    Tu navegador no soporta la reproducción de video.
-                </video>
-            <div id="timer7" class="timer7">
-                <span id="days7">00</span>
+            <a title="Countdown WC26">
+                <img src="../img/Jordania-Colombia-1000x250.png" class="background-timer" alt="countdown" />
+            </a>
+            <video class="timer-video-wc26" autoplay loop muted hidden>
+                <source src="../vid/WC26 Logo 01.webm" type="video/webm">
+                Tu navegador no soporta la reproducción de video.
+            </video>
+            <div id="timer6" class="timer6">
+                <span id="days6">00</span>
                 <span>:</span>
-                <span id="hours7">00</span>
+                <span id="hours6">00</span>
                 <span>:</span>
-                <span id="minutes7">00</span>
+                <span id="minutes6">00</span>
                 <span>:</span>
-                <span id="seconds7">00</span>
+                <span id="seconds6">00</span>
             </div>
             <span>
-                <div id="liveButton7" class="timer-button7 live-button">
+                <div id="liveButton6" class="timer-button6 live-button">
                     <span class="live-icon"></span>
                     <span class="live-text">En vivo</span>
                 </div>
@@ -234,61 +219,20 @@
         </div>
     </center>
     <iframe id="player" src="" allowfullscreen></iframe>
-    <!-- Sección Countdown Evento -->
-    <center>
-        <div class="container-timer">
-            <a title="Countdown 3">
-                    <img src="../img/Banner-Times-Square-NYE-1000x250.png" class="background-timer" alt="countdown" />
-                </a>
-                
-            <div id="timerNYE" class="timerNYE">
-                Cuenta regresiva
-                <br>
-                <span id="daysNYE">00</span>
-                <span>:</span>
-                <span id="hoursNYE">00</span>
-                <span>:</span>
-                <span id="minutesNYE">00</span>
-                <span>:</span>
-                <span id="secondsNYE">00</span>
-            </div>
-            <span>
-                <div id="liveButtonNYE" class="timer-buttonNYE live-button2">
-                    <span class="live-text2">🎉🎆✨🥂🍾  2️⃣0️⃣2️⃣7️⃣</span>
-                </div>
-            </span>
-
-        </div>
-    </center>
     <div id="playlist"></div>
 
     <script>
         // Array de playlist: url (URL completa del embed), title, thumbnail
         let playlist = [
             {
-                url: "https://www.youtube.com/embed/yZYqzv72xHc?autoplay=1", // Shroud
-                title: "Times Square NYE 2027 - Live",
-                thumbnail: "https://i.ytimg.com/vi/yZYqzv72xHc/maxresdefault.jpg"
+                url: "../live/caracol-tv.html", // Shroud
+                title: "Caracol TV",
+                thumbnail: "../img/Caracol-TV-200x200.png"
             },
             {
-                url: "https://www.youtube.com/embed/TuSuW83w6e4?autoplay=1", // Shroud
-                title: "NYE 2027 Live From Times Square",
-                thumbnail: "../img/webcastnye.jpg"
-            },
-            {
-                url: "https://www.youtube.com/embed/TuSuW83w6e4?autoplay=1", // Video de Dailymotion
-                title: "NYE 2027 Live From Times Square (ASL)",
-                thumbnail: "../img/webcastnyeasl.jpg" // Ajusta según sea necesario
-            },
-            {
-                url: "https://www.youtube.com/embed/liNIoxYcwlY?autoplay=1", // Video de Dailymotion
-                title: "Live Multi-View",
-                thumbnail: "https://i.ytimg.com/vi/liNIoxYcwlY/maxresdefault.jpg" // Ajusta según sea necesario
-            },
-            {
-                url: "../live/webcast-nye.html", // Video de Dailymotion
-                title: "NYE Webcast",
-                thumbnail: "https://img.gruporeforma.com/ImagenesIpad/7/98/6097854.jpg" // Ajusta según sea necesario
+                url: "../live/caracolhd2.html", // Shroud
+                title: "Caracol HD2",
+                thumbnail: "../img/Caracol-HD2-200x200.png"
             },
         ];
 
