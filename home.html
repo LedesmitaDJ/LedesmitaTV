@@ -389,8 +389,7 @@
         <h3 class="section-title"><i class="ri-tv-2-line"></i> Canales de TV y Eventos</h3>
 
         <div class="channels-grid">
-            <div class="channel-card active"
-                onclick="changeChannel('go:LTV', 'Señal Principal', 'Solo eventos (No 24/7)', this)">
+            <div class="channel-card active" data-app-url="go:LTV">
                 <div class="icon-box icon-blue">
                     <i class="ri-broadcast-line"></i>
                 </div>
@@ -400,8 +399,7 @@
                 </div>
             </div>
 
-            <div class="channel-card"
-                onclick="changeChannel('go:event', 'Eventos', 'Eventos en vivo', this)">
+            <div class="channel-card" data-app-url="go:event">
                 <div class="icon-box icon-green">
                     <i class="ri-calendar-event-fill"></i>
                 </div>
@@ -411,8 +409,7 @@
                 </div>
             </div>
 
-            <div class="channel-card"
-                onclick="changeChannel('go:TV', 'TV en vivo', 'Canales de TV en vivo', this)">
+            <div class="channel-card" data-app-url="go:TV">
                 <div class="icon-box icon-purple">
                     <i class="ri-tv-line"></i>
                 </div>
@@ -422,10 +419,7 @@
                 </div>
             </div>
 
-            
-
-            <div class="channel-card"
-                onclick="changeChannel('go:24-7', 'Noticias 24/7', 'Cobertura informativa nacional', this)">
+            <div class="channel-card" data-app-url="go:24-7">
                 <div class="icon-box icon-orange">
                     <i class="ri-live-fill"></i>
                 </div>
@@ -457,38 +451,26 @@
                 });
         }
 
-        function changeChannel(streamUrl, title, subtitle, element) {
-            document.getElementById('playing-title').innerText = title;
-            document.getElementById('playing-subtitle').innerText = subtitle;
-            var indicator = document.getElementById('live-indicator');
+        // Nueva función encargada de ejecutar los enlaces de la app directamente al pulsar sobre las tarjetas
+        function openAppChannel(url) {
+            window.location.href = url;
+        }
 
-            indicator.innerText = "VERIFICANDO...";
-            indicator.className = "badge badge-offline";
+        // Asignación limpia de eventos de clic a cada channel-card para lanzar los deep links go:
+        document.querySelectorAll('.channel-card').forEach(function(card) {
+            card.addEventListener('click', function() {
+                var appUrl = this.getAttribute('data-app-url');
+                
+                document.querySelectorAll('.channel-card').forEach(function(c) {
+                    c.classList.remove('active');
+                });
+                this.classList.add('active');
 
-            checkStreamStatus(streamUrl, function (isOnline) {
-                if (isOnline) {
-                    indicator.innerText = "● EN VIVO";
-                    indicator.className = "badge badge-live";
-                } else {
-                    indicator.innerText = "● OFFLINE";
-                    indicator.className = "badge badge-offline";
+                if (appUrl) {
+                    openAppChannel(appUrl);
                 }
             });
-
-            player.src({
-                src: streamUrl,
-                type: 'application/x-mpegURL'
-            });
-            player.play().catch(function (error) {
-                console.log("Transmisión inactiva o error al reproducir.");
-            });
-
-            var cards = document.getElementsByClassName('channel-card');
-            for (var i = 0; i < cards.length; i++) {
-                cards[i].classList.remove('active');
-            }
-            element.classList.add('active');
-        }
+        });
 
         var slideIndex = 0;
         var slidesContainer = document.getElementById('carouselSlides');
