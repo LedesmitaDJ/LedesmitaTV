@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Ledesmita TV - Home</title>
+
+    <link href="https://vjs.zencdn.net/8.3.0/video-js.css" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Audiowide&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --bg-color: #0d1117;
+            --card-bg: #161b22;
+            --card-border: #30363d;
+            --accent-color: #00f2fe;
+            --accent-gradient: linear-gradient(135deg, #00f2fe 0%, #4facfe 100%);
+            --live-color: #00ff66;
+            --offline-color: #8b949e;
+            --text-main: #f0f6fc;
+            --text-muted: #8b949e;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            padding: 0;
+            margin: 0;
+            padding-bottom: 25px;
+        }
+
+        /* Modificado para cobertura total, fija y responsiva */
+        #video {
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: 100vw;
+            height: 100vh;
+            object-fit: cover;
+            z-index: -10;
+            visibility: visible;
+        }
+
+        /* Header de la App - Adaptado para flotar sobre el fondo */
+        .app-header {
+            position: relative;
+            z-index: 10;
+            background: linear-gradient(180deg, rgba(13, 17, 23, 0.7) 0%, rgba(13, 17, 23, 0.3) 100%);
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
+            padding: 20px 15px 5px 15px;
+            text-align: center;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .app-header h1 {
+            font-family: "Audiowide", sans-serif;
+            font-style: normal;
+            font-size: 1.6rem;
+            font-weight: 600;
+            background: var(--accent-gradient);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: -0.5px;
+        }
+
+        .app-header img {
+            width: 85px;
+        }
+
+        /* Contenedor principal adaptado para flotar sobre el video */
+        .main-container {
+            position: relative;
+            z-index: 10;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 15px;
+        }
+
+        /* Contenedor del Reproductor */
+        .player-wrapper {
+            position: relative;
+            width: 100%;
+            padding-top: 56.25%;
+            background-color: #000;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7);
+            border: 1px solid var(--card-border);
+            margin-bottom: 5px;
+        }
+
+        .player-wrapper .video-js {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100% !important;
+            height: 100% !important;
+        }
+
+        /* Metadata del Canal Actual con ligera opacidad para diseño pro */
+        .stream-meta {
+            background: rgba(22, 27, 34, 0.85);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid var(--card-border);
+            border-radius: 14px;
+            padding: 15px;
+            margin-bottom: 18px;
+        }
+
+        .stream-meta h2 {
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 2px;
+            color: var(--text-main);
+        }
+
+        .stream-meta .stream-subtitle {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        .meta-badges {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            padding: 5px 10px;
+            border-radius: 6px;
+            text-transform: uppercase;
+        }
+
+        .badge-live {
+            background-color: #ff0055;
+            color: white;
+            animation: pulse 2s infinite;
+        }
+
+        .badge-offline {
+            background-color: rgba(255, 255, 255, 0.1);
+            color: var(--text-muted);
+        }
+
+        @keyframes pulse {
+            0% {
+                opacity: 0.8;
+            }
+
+            50% {
+                opacity: 1;
+            }
+
+            100% {
+                opacity: 0.8;
+            }
+        }
+
+        /* Carrusel de Imágenes Automático con Enlaces */
+        .carousel-container {
+            position: relative;
+            width: 100%;
+            border-radius: 10px;
+            overflow: hidden;
+            margin-bottom: 25px;
+            border: 1px solid var(--card-border);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .carousel-slides {
+            display: flex;
+            width: 100%;
+            height: 74px;
+            transition: transform 0.5s ease-in-out;
+        }
+
+        .slide {
+            min-width: 100%;
+            height: 100%;
+            position: relative;
+        }
+
+        .slide a {
+            display: block;
+            width: 100%;
+            height: 100%;
+        }
+
+        .slide img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .carousel-dots {
+            position: absolute;
+            bottom: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 6px;
+            z-index: 10;
+        }
+
+        .dot {
+            width: 8px;
+            height: 8px;
+            background-color: rgba(255, 255, 255, 0.4);
+            border-radius: 50%;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+
+        .dot.active {
+            background-color: var(--accent-color);
+            transform: scale(1.2);
+        }
+
+        /* Sección de Canales y Grilla con efecto frosted glass */
+        .section-title {
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--text-main);
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        .channels-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+            margin-bottom: 10px;
+        }
+
+        .channel-card {
+            background: rgba(22, 27, 34, 0.85);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid var(--card-border);
+            border-radius: 12px;
+            padding: 14px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            cursor: pointer;
+            transition: all 0.2s ease-in-out;
+        }
+
+        .channel-card:active {
+            transform: scale(0.97);
+        }
+
+        .channel-card.active {
+            border-color: var(--accent-color);
+            background: linear-gradient(180deg, rgba(22, 27, 34, 0.9) 100%, rgba(0, 242, 254, 0.1) 100%);
+            box-shadow: 0 0 15px rgba(0, 242, 254, 0.2);
+        }
+
+        .icon-box {
+            width: 36px;
+            height: 36px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            font-weight: normal;
+        }
+
+        .icon-blue {
+            background: rgba(0, 242, 254, 0.15);
+            color: #00f2fe;
+        }
+
+        .icon-green {
+            background: rgba(57, 211, 83, 0.15);
+            color: #39d353;
+        }
+
+        .icon-purple {
+            background: rgba(188, 114, 253, 0.15);
+            color: #bc72fd;
+        }
+
+        .icon-orange {
+            background: rgba(255, 165, 0, 0.15);
+            color: #ffa500;
+        }
+
+        .card-info h3 {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--text-main);
+            margin-bottom: 2px;
+        }
+
+        .card-info p {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+    </style>
+</head>
+
+<body>
+
+    <video id="video" autoplay loop muted playsinline>
+        <source src="vid/WC26Fondo.mp4" type="video/mp4">
+    </video>
+
+    <header class="app-header">
+        <img src="img/logo-ledesmitatv.png" alt="Logo">
+        <h1>Ledesmita TV</h1>
+        <a title="YouTube" href="https://www.youtube.com/@LedesmitaTV"><img style="width: 10%;" src="img/Youtube-icono.png" alt="YouTube" /></a>
+        <a title="TikTok" href="https://www.tiktok.com/@ledesmita.tv"><img style="width: 10%;" src="img/tiktok-icono.png" alt="TikTok" /></a>
+        <a title="Compartir" href="http://action_share"><img style="width: 10%;" src="img/compartir-icono.png" alt="TikTok" /></a>
+    </header>
+
+    <div class="main-container">
+
+        <div class="player-wrapper">
+            <video id="main-player" class="video-js vjs-default-skin vjs-big-play-centered" controls preload="auto"
+                width="640" height="360">
+                <source src="https://live20.bozztv.com/akamaissh101/ssh101/ledesmitatv/playlist.m3u8"
+                    type="application/x-mpegURL">
+                Tu dispositivo no soporta este formato de video.
+            </video>
+        </div>
+
+        <div class="stream-meta">
+            <h2 id="playing-title">Señal Principal</h2>
+            <span id="playing-subtitle" class="stream-subtitle">Solo eventos (No 24/7)</span>
+            <div class="meta-badges">
+                <span id="live-indicator" class="badge badge-offline">VERIFICANDO SEÑAL...</span>
+            </div>
+        </div>
+
+        <div class="carousel-container">
+            <div class="carousel-slides" id="carouselSlides">
+                <div class="slide">
+                    <a href="http://action_share" target="_blank">
+                        <img src="img/Banner-AD-Home09.png" alt="Banner 1">
+                    </a>
+                </div>
+                <div class="slide">
+                    <a href="go:buzon" target="_blank">
+                        <img src="img/Banner-AD-Home28.png" alt="Banner 2">
+                    </a>
+                </div>
+                <div class="slide">
+                    <a href="go:LTV" target="_blank">
+                        <img src="img/Banner-AD-Home10.png" alt="Banner 3">
+                    </a>
+                </div>
+            </div>
+            <div class="carousel-dots" id="carouselDots">
+                <span class="dot active" onclick="currentSlide(0)"></span>
+                <span class="dot" onclick="currentSlide(1)"></span>
+                <span class="dot" onclick="currentSlide(2)"></span>
+            </div>
+        </div>
+
+        <h3 class="section-title"><i class="ri-tv-2-line"></i> Canales de TV y Eventos</h3>
+
+        <div class="channels-grid">
+            <div class="channel-card active"
+                onclick="changeChannel('go:LTV', 'Señal Principal', 'Solo eventos (No 24/7)', this)">
+                <div class="icon-box icon-blue">
+                    <i class="ri-broadcast-line"></i>
+                </div>
+                <div class="card-info">
+                    <h3>Señal Principal</h3>
+                    <p>Solo eventos (No 24/7)</p>
+                </div>
+            </div>
+
+            <div class="channel-card"
+                onclick="changeChannel('go:event', 'Eventos', 'Eventos en vivo', this)">
+                <div class="icon-box icon-green">
+                    <i class="ri-calendar-event-fill"></i>
+                </div>
+                <div class="card-info">
+                    <h3>Eventos</h3>
+                    <p>Eventos en vivo</p>
+                </div>
+            </div>
+
+            <div class="channel-card"
+                onclick="changeChannel('go:TV', 'TV en vivo', 'Canales de TV en vivo', this)">
+                <div class="icon-box icon-purple">
+                    <i class="ri-tv-line"></i>
+                </div>
+                <div class="card-info">
+                    <h3>TV en vivo</h3>
+                    <p>Canales de TV en vivo</p>
+                </div>
+            </div>
+
+            
+
+            <div class="channel-card"
+                onclick="changeChannel('go:24-7', 'Noticias 24/7', 'Cobertura informativa nacional', this)">
+                <div class="icon-box icon-orange">
+                    <i class="ri-live-fill"></i>
+                </div>
+                <div class="card-info">
+                    <h3>Streams 24/7</h3>
+                    <p>Transmisiones en vivo</p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script src="https://vjs.zencdn.net/8.3.0/video.js"></script>
+    <script>
+        var player = videojs('main-player');
+        var defaultUrl = "https://live20.bozztv.com/akamaissh101/ssh101/ledesmitatv/playlist.m3u8";
+
+        function checkStreamStatus(url, callback) {
+            fetch(url, { method: 'HEAD', mode: 'cors' })
+                .then(function (response) {
+                    if (response.ok) {
+                        callback(true);
+                    } else {
+                        callback(false);
+                    }
+                })
+                .catch(function () {
+                    callback(false);
+                });
+        }
+
+        function changeChannel(streamUrl, title, subtitle, element) {
+            document.getElementById('playing-title').innerText = title;
+            document.getElementById('playing-subtitle').innerText = subtitle;
+            var indicator = document.getElementById('live-indicator');
+
+            indicator.innerText = "VERIFICANDO...";
+            indicator.className = "badge badge-offline";
+
+            checkStreamStatus(streamUrl, function (isOnline) {
+                if (isOnline) {
+                    indicator.innerText = "● EN VIVO";
+                    indicator.className = "badge badge-live";
+                } else {
+                    indicator.innerText = "● OFFLINE";
+                    indicator.className = "badge badge-offline";
+                }
+            });
+
+            player.src({
+                src: streamUrl,
+                type: 'application/x-mpegURL'
+            });
+            player.play().catch(function (error) {
+                console.log("Transmisión inactiva o error al reproducir.");
+            });
+
+            var cards = document.getElementsByClassName('channel-card');
+            for (var i = 0; i < cards.length; i++) {
+                cards[i].classList.remove('active');
+            }
+            element.classList.add('active');
+        }
+
+        var slideIndex = 0;
+        var slidesContainer = document.getElementById('carouselSlides');
+        var dots = document.getElementsByClassName('dot');
+        var totalSlides = dots.length;
+        var timer;
+
+        function showSlides() {
+            slideIndex++;
+            if (slideIndex >= totalSlides) {
+                slideIndex = 0;
+            }
+            updateSliderPosition();
+            timer = setTimeout(showSlides, 3000);
+        }
+
+        function currentSlide(index) {
+            clearTimeout(timer);
+            slideIndex = index;
+            updateSliderPosition();
+            timer = setTimeout(showSlides, 3000);
+        }
+
+        function updateSliderPosition() {
+            slidesContainer.style.transform = 'translateX(' + (-slideIndex * 100) + '%)';
+            for (var i = 0; i < dots.length; i++) {
+                dots[i].classList.remove('active');
+            }
+            dots[slideIndex].classList.add('active');
+        }
+
+        window.onload = function () {
+            showSlides();
+
+            checkStreamStatus(defaultUrl, function (isOnline) {
+                var indicator = document.getElementById('live-indicator');
+                if (isOnline) {
+                    indicator.innerText = "● EN VIVO";
+                    indicator.className = "badge badge-live";
+                } else {
+                    indicator.innerText = "● OFFLINE";
+                    indicator.className = "badge badge-offline";
+                }
+            });
+        };
+    </script>
+</body>
+
+</html>
