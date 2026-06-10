@@ -11,13 +11,28 @@
     <link href="https://fonts.googleapis.com/css2?family=Audiowide&display=swap" rel="stylesheet">
 
     <style>
+        @font-face {
+            font-family: 'WC26';
+            /* Nombre con el que la llamarás después */
+            src: url('font/FWC2026-CondensedBlack.ttf') format('truetype');
+            font-weight: normal;
+            font-style: normal;
+        }
+        @font-face {
+            font-family: 'WC26-light';
+            /* Nombre con el que la llamarás después */
+            src: url('font/FWC2026-CondensedLight.ttf') format('truetype');
+            font-weight: normal;
+            font-style: normal;
+        }
+
         :root {
             --bg-color: #0d1117;
-            --card-bg: #161b22;
+            --card-bg: rgba(22, 27, 34, 0.85);
             --card-border: #30363d;
             --accent-color: #00f2fe;
             --accent-gradient: linear-gradient(135deg, #00f2fe 0%, #4facfe 100%);
-            --live-color: #00ff66;
+            --live-color: #ff0055;
             --offline-color: #8b949e;
             --text-main: #f0f6fc;
             --text-muted: #8b949e;
@@ -34,39 +49,49 @@
         body {
             background-color: var(--bg-color);
             color: var(--text-main);
-            padding: 0;
-            margin: 0;
-            padding-bottom: 25px;
+            padding-bottom: 30px;
         }
 
-        /* Modificado para cobertura total, fija y responsiva */
+        /* Video de fondo fijo y responsivo */
         #video {
             position: fixed;
             left: 0;
             top: 0;
-            width: 100vw;
-            height: 100vh;
+            width: 100%;
+            height: 100%;
             object-fit: cover;
             z-index: -10;
             visibility: visible;
         }
 
-        /* Header de la App - Adaptado para flotar sobre el fondo */
+        /* Header de la App adaptable */
         .app-header {
             position: relative;
             z-index: 10;
-            background: linear-gradient(180deg, rgba(13, 17, 23, 0.7) 0%, rgba(13, 17, 23, 0.3) 100%);
-            backdrop-filter: blur(5px);
-            -webkit-backdrop-filter: blur(5px);
-            padding: 20px 15px 5px 15px;
-            text-align: center;
+            background: linear-gradient(180deg, rgba(13, 17, 23, 0.85) 0%, rgba(13, 17, 23, 0.4) 100%);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            padding: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
             border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .header-brand {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .app-header img.logo {
+            width: 50px;
+            height: auto;
         }
 
         .app-header h1 {
             font-family: "Audiowide", sans-serif;
-            font-style: normal;
-            font-size: 1.6rem;
+            font-size: 1.4rem;
             font-weight: 600;
             background: var(--accent-gradient);
             -webkit-background-clip: text;
@@ -75,15 +100,33 @@
             letter-spacing: -0.5px;
         }
 
-        .app-header img {
-            width: 85px;
+        .header-actions {
+            display: flex;
+            gap: 12px;
+            align-items: center;
         }
 
-        /* Contenedor principal adaptado para flotar sobre el video */
+        .header-actions a {
+            display: flex;
+            align-items: center;
+            transition: transform 0.2s;
+        }
+
+        .header-actions a:active {
+            transform: scale(0.85);
+        }
+
+        .header-actions img {
+            width: 28px;
+            height: 28px;
+            object-fit: contain;
+        }
+
+        /* Contenedor principal adaptable */
         .main-container {
             position: relative;
             z-index: 10;
-            max-width: 600px;
+            max-width: 650px;
             margin: 0 auto;
             padding: 15px;
         }
@@ -109,19 +152,19 @@
             height: 100% !important;
         }
 
-        /* Metadata del Canal Actual con ligera opacidad para diseño pro */
+        /* Metadata del Canal */
         .stream-meta {
-            background: rgba(22, 27, 34, 0.85);
+            background: var(--card-bg);
             backdrop-filter: blur(10px);
             -webkit-backdrop-filter: blur(10px);
             border: 1px solid var(--card-border);
             border-radius: 14px;
             padding: 15px;
-            margin-bottom: 18px;
+            margin-bottom: 5px;
         }
 
         .stream-meta h2 {
-            font-size: 1.2rem;
+            font-size: 1.15rem;
             font-weight: 700;
             margin-bottom: 2px;
             color: var(--text-main);
@@ -152,7 +195,7 @@
         }
 
         .badge-live {
-            background-color: #ff0055;
+            background-color: var(--live-color);
             color: white;
             animation: pulse 2s infinite;
         }
@@ -176,13 +219,130 @@
             }
         }
 
-        /* Carrusel de Imágenes Automático con Enlaces */
+        /* ESTILOS: FICHA TÉCNICA DEL EVENTO DEL DÍA */
+        .specs-section {
+            background: var(--card-bg);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid var(--card-border);
+            border-radius: 14px;
+            padding: 15px;
+            margin-bottom: 15px;
+        }
+
+        .specs-title {
+            font-size: 0.95rem;
+            font-weight: 700;
+            color: var(--text-main);
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            padding-bottom: 8px;
+        }
+
+        .specs-title i {
+            color: var(--accent-color);
+            font-size: 1.1rem;
+        }
+
+        .specs-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .specs-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.85rem;
+        }
+
+        .specs-label {
+            color: var(--text-muted);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .specs-value {
+            color: var(--text-main);
+            font-weight: 600;
+            text-align: right;
+        }
+
+        /* CUENTA REGRESIVA PREMIUM */
+        .countdown-section {
+            background: linear-gradient(135deg, rgba(22, 27, 34, 0.9) 0%, rgba(10, 15, 20, 0.85) 100%);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(0, 242, 254, 0.2);
+            border-radius: 14px;
+            padding: 15px;
+            margin-bottom: 15px;
+            text-align: center;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+            display: none;
+            /* Inicia oculto, JS decide si se muestra */
+        }
+
+        .countdown-title {
+            font-size: 0.85rem;
+            text-transform: unset;
+            letter-spacing: 1.5px;
+            color: var(--accent-color);
+            font-weight: 700;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+        }
+
+        .countdown-grid {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+        }
+
+        .countdown-box {
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            padding: 8px;
+            min-width: 65px;
+            flex: 1;
+            max-width: 80px;
+        }
+
+        .countdown-number {
+            font-family: 'WC26', sans-serif;
+            font-size: 1.3rem;
+            color: var(--text-main);
+            display: block;
+            line-height: 1.2;
+        }
+
+        .countdown-label {
+            font-family: 'WC26-light', sans-serif;
+            font-size: 0.65rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-top: 2px;
+            display: block;
+        }
+
+        /* Carrusel Automático Responsivo */
         .carousel-container {
             position: relative;
             width: 100%;
-            border-radius: 10px;
+            border-radius: 12px;
             overflow: hidden;
-            margin-bottom: 25px;
+            margin-bottom: 20px;
             border: 1px solid var(--card-border);
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
         }
@@ -190,32 +350,26 @@
         .carousel-slides {
             display: flex;
             width: 100%;
-            height: 74px;
+            height: 80px;
             transition: transform 0.5s ease-in-out;
         }
 
         .slide {
             min-width: 100%;
             height: 100%;
-            position: relative;
         }
 
-        .slide a {
-            display: block;
-            width: 100%;
-            height: 100%;
-        }
-
+        .slide a,
         .slide img {
+            display: block;
             width: 100%;
             height: 100%;
             object-fit: cover;
-            display: block;
         }
 
         .carousel-dots {
             position: absolute;
-            bottom: 10px;
+            bottom: 8px;
             left: 50%;
             transform: translateX(-50%);
             display: flex;
@@ -224,71 +378,70 @@
         }
 
         .dot {
-            width: 8px;
-            height: 8px;
+            width: 7px;
+            height: 7px;
             background-color: rgba(255, 255, 255, 0.4);
             border-radius: 50%;
             cursor: pointer;
-            transition: background-color 0.3s, transform 0.3s;
+            transition: all 0.3s;
         }
 
         .dot.active {
             background-color: var(--accent-color);
             transform: scale(1.2);
+            width: 15px;
+            border-radius: 4px;
         }
 
-        /* Sección de Canales y Grilla con efecto frosted glass */
+        /* Grilla de Canales */
         .section-title {
             font-size: 1rem;
             font-weight: 700;
             color: var(--text-main);
-            margin-bottom: 15px;
+            margin-bottom: 12px;
             display: flex;
             align-items: center;
             gap: 8px;
-            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
         }
 
         .channels-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
             gap: 12px;
-            margin-bottom: 10px;
         }
 
         .channel-card {
-            background: rgba(22, 27, 34, 0.85);
+            background: var(--card-bg);
             backdrop-filter: blur(10px);
             -webkit-backdrop-filter: blur(10px);
             border: 1px solid var(--card-border);
             border-radius: 12px;
-            padding: 14px;
+            padding: 12px;
             display: flex;
             flex-direction: column;
-            gap: 8px;
+            gap: 6px;
             cursor: pointer;
             transition: all 0.2s ease-in-out;
         }
 
         .channel-card:active {
-            transform: scale(0.97);
+            transform: scale(0.96);
         }
 
         .channel-card.active {
             border-color: var(--accent-color);
-            background: linear-gradient(180deg, rgba(22, 27, 34, 0.9) 100%, rgba(0, 242, 254, 0.1) 100%);
-            box-shadow: 0 0 15px rgba(0, 242, 254, 0.2);
+            background: linear-gradient(180deg, rgba(22, 27, 34, 0.95) 0%, rgba(0, 242, 254, 0.05) 100%);
+            box-shadow: 0 0 15px rgba(0, 242, 254, 0.15);
         }
 
         .icon-box {
-            width: 36px;
-            height: 36px;
+            width: 34px;
+            height: 34px;
             border-radius: 8px;
-            display: flex;
+            display: inline-flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.2rem;
-            font-weight: normal;
+            font-size: 1.1rem;
         }
 
         .icon-blue {
@@ -312,10 +465,9 @@
         }
 
         .card-info h3 {
-            font-size: 0.9rem;
+            font-size: 0.88rem;
             font-weight: 600;
             color: var(--text-main);
-            margin-bottom: 2px;
         }
 
         .card-info p {
@@ -324,6 +476,49 @@
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
+        }
+
+        /* MEDIA QUERIES PARA ADAPTACIÓN GLOBAL EN DISPOSITIVOS */
+        @media (max-width: 480px) {
+            .app-header h1 {
+                font-size: 1.25rem;
+            }
+
+            .header-actions img {
+                width: 24px;
+                height: 24px;
+            }
+
+            .countdown-grid {
+                gap: 8px;
+            }
+
+            .countdown-box {
+                min-width: 55px;
+                padding: 6px;
+            }
+
+            .countdown-number {
+                font-size: 1.1rem;
+            }
+
+            .carousel-slides {
+                height: 68px;
+            }
+        }
+
+        @media (min-width: 768px) {
+            .app-header {
+                padding: 15px 40px;
+            }
+
+            .main-container {
+                padding: 25px 0;
+            }
+
+            .carousel-slides {
+                height: 100px;
+            }
         }
     </style>
 </head>
@@ -335,14 +530,46 @@
     </video>
 
     <header class="app-header">
-        <img src="img/logo-ledesmitatv.png" alt="Logo">
-        <h1>Ledesmita TV</h1>
-        <a title="YouTube" href="https://www.youtube.com/@LedesmitaTV"><img style="width: 10%;" src="img/Youtube-icono.png" alt="YouTube" /></a>
-        <a title="TikTok" href="https://www.tiktok.com/@ledesmita.tv"><img style="width: 10%;" src="img/tiktok-icono.png" alt="TikTok" /></a>
-        <a title="Compartir" href="http://action_share"><img style="width: 10%;" src="img/compartir-icono.png" alt="TikTok" /></a>
+        <div class="header-brand">
+            <img class="logo" src="img/logo-ledesmitatv.png" alt="Logo">
+            <h1>Ledesmita TV</h1>
+        </div>
+        <div class="header-actions">
+            <a title="Buscador" href="http://action_search"><img src="img/buscador-icono-oscuro.png"
+                    alt="Buscador" /></a>
+            <a title="YouTube" href="https://www.youtube.com/@LedesmitaTV"><img src="img/Youtube-icono.png"
+                    alt="YouTube" /></a>
+            <a title="TikTok" href="https://www.tiktok.com/@ledesmita.tv"><img src="img/tiktok-icono.png"
+                    alt="TikTok" /></a>
+            <a title="Compartir" href="http://action_share"><img src="img/compartir-icono.png" alt="Compartir" /></a>
+        </div>
     </header>
 
     <div class="main-container">
+
+        <div class="countdown-section" id="countdownContainer">
+            <div class="countdown-title">
+                <i class="ri-time-line"></i> Próximo Evento: Ceremonia Inaugural + México Vs. Sudáfrica
+            </div>
+            <div class="countdown-grid">
+                <div class="countdown-box">
+                    <span class="countdown-number" id="days">00</span>
+                    <span class="countdown-label">Días</span>
+                </div>
+                <div class="countdown-box">
+                    <span class="countdown-number" id="hours">00</span>
+                    <span class="countdown-label">Horas</span>
+                </div>
+                <div class="countdown-box">
+                    <span class="countdown-number" id="minutes">00</span>
+                    <span class="countdown-label">Min</span>
+                </div>
+                <div class="countdown-box">
+                    <span class="countdown-number" id="seconds">00</span>
+                    <span class="countdown-label">Seg</span>
+                </div>
+            </div>
+        </div>
 
         <div class="player-wrapper">
             <video id="main-player" class="video-js vjs-default-skin vjs-big-play-centered" controls preload="auto"
@@ -359,6 +586,38 @@
             <div class="meta-badges">
                 <span id="live-indicator" class="badge badge-offline">VERIFICANDO SEÑAL...</span>
             </div>
+        </div>
+
+        <div class="specs-section">
+            <div class="specs-title">
+                <i class="ri-file-list-3-line"></i> Ficha Técnica del Evento
+            </div>
+            <ul class="specs-list">
+                <li class="specs-item">
+                    <span class="specs-label"><i class="ri-play-circle-line"></i> Transmisión:</span>
+                    <span class="specs-value" id="spec-event" style="color: #39d353;">Copa Mundial FIFA 2026</span>
+                </li>
+                <li class="specs-item">
+                    <span class="specs-label"><i class="ri-calendar-line"></i> Fecha de Evento:</span>
+                    <span class="specs-value" id="spec-date">11 de Junio, 2026</span>
+                </li>
+                <li class="specs-item">
+                    <span class="specs-label"><i class="ri-time-fill"></i> Programación:</span>
+                    <span class="specs-value" id="spec-time-range">12:00 M - 04:00 PM</span>
+                </li>
+                <li class="specs-item">
+                    <span class="specs-label"><i class="ri-pulse-line"></i> Estado del Evento:</span>
+                    <span class="specs-value" id="spec-status" style="font-weight: 700;">Próximamente</span>
+                </li>
+                <li class="specs-item">
+                    <span class="specs-label"><i class="ri-settings-4-line"></i> Calidad Máxima:</span>
+                    <span class="specs-value">720p HD</span>
+                </li>
+                <li class="specs-item">
+                    <span class="specs-label"><i class="ri-speed-up-line"></i> Tasa de Refresco:</span>
+                    <span class="specs-value">24 fps</span>
+                </li>
+            </ul>
         </div>
 
         <div class="carousel-container">
@@ -451,27 +710,22 @@
                 });
         }
 
-        // Nueva función encargada de ejecutar los enlaces de la app directamente al pulsar sobre las tarjetas
         function openAppChannel(url) {
             window.location.href = url;
         }
 
-        // Asignación limpia de eventos de clic a cada channel-card para lanzar los deep links go:
-        document.querySelectorAll('.channel-card').forEach(function(card) {
-            card.addEventListener('click', function() {
+        document.querySelectorAll('.channel-card').forEach(function (card) {
+            card.addEventListener('click', function () {
                 var appUrl = this.getAttribute('data-app-url');
-                
-                document.querySelectorAll('.channel-card').forEach(function(c) {
+                document.querySelectorAll('.channel-card').forEach(function (c) {
                     c.classList.remove('active');
                 });
                 this.classList.add('active');
-
-                if (appUrl) {
-                    openAppChannel(appUrl);
-                }
+                if (appUrl) { openAppChannel(appUrl); }
             });
         });
 
+        // Lógica del Carrusel Automático
         var slideIndex = 0;
         var slidesContainer = document.getElementById('carouselSlides');
         var dots = document.getElementsByClassName('dot');
@@ -480,9 +734,7 @@
 
         function showSlides() {
             slideIndex++;
-            if (slideIndex >= totalSlides) {
-                slideIndex = 0;
-            }
+            if (slideIndex >= totalSlides) { slideIndex = 0; }
             updateSliderPosition();
             timer = setTimeout(showSlides, 3000);
         }
@@ -496,14 +748,64 @@
 
         function updateSliderPosition() {
             slidesContainer.style.transform = 'translateX(' + (-slideIndex * 100) + '%)';
-            for (var i = 0; i < dots.length; i++) {
-                dots[i].classList.remove('active');
-            }
+            for (var i = 0; i < dots.length; i++) { dots[i].classList.remove('active'); }
             dots[slideIndex].classList.add('active');
+        }
+
+        // CONFIGURACIÓN DE FECHAS (Meses 1 al 12)
+        var configInicio = { anio: 2026, mes: 6, dia: 11, hora: 12, min: 0, seg: 0 };
+        var configFin = { anio: 2026, mes: 6, dia: 11, hora: 16, min: 0, seg: 0 };
+
+        var fechaInicio = new Date(configInicio.anio, configInicio.mes - 1, configInicio.dia, configInicio.hora, configInicio.min, configInicio.seg).getTime();
+        var fechaFin = new Date(configFin.anio, configFin.mes - 1, configFin.dia, configFin.hora, configFin.min, configFin.seg).getTime();
+
+        function iniciarCuentaRegresiva() {
+            var x = setInterval(function () {
+                var ahora = new Date().getTime();
+                var distanciaInicio = fechaInicio - ahora;
+                var elEstado = document.getElementById("spec-status");
+                var elContadorBox = document.getElementById("countdownContainer");
+
+                // NUEVA ESTRUCTURA DE CONTROL TEMPORAL LINEAL EXACTA
+                if (ahora < fechaInicio) {
+                    // 1. ESTADO: PRÓXIMAMENTE (Antes de la hora de inicio)
+                    elEstado.innerText = "Próximamente";
+                    elEstado.style.color = "#ffa500";
+                    elContadorBox.style.display = "block"; // Se muestra el contador
+                }
+                else if (ahora >= fechaFin) {
+                    // 2. ESTADO: TERMINADO (Si ya superó la hora exacta de fin)
+                    clearInterval(x); // Apagamos el bucle permanentemente
+                    elEstado.innerText = "Terminado";
+                    elEstado.style.color = "#8b949e";
+                    elContadorBox.style.display = "none"; // Se mantiene oculto
+                    return; // Forzamos salida para que no ejecute código matemático posterior
+                }
+                else {
+                    // 3. ESTADO: EN VIVO (Si está entre la hora de inicio y de fin)
+                    elEstado.innerText = "● En Vivo";
+                    elEstado.style.color = "#ff0055";
+                    elContadorBox.style.display = "none"; // Se oculta automáticamente en directo
+                }
+
+                // Cálculo matemático de los dígitos (Sólo procesará si está en "Próximamente")
+                if (distanciaInicio > 0) {
+                    var vDias = Math.floor(distanciaInicio / (1000 * 60 * 60 * 24));
+                    var vHoras = Math.floor((distanciaInicio % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                    var vMinutos = Math.floor((distanciaInicio % (1000 * 60 * 60)) / (1000 * 60));
+                    var vSegundos = Math.floor((distanciaInicio % (1000 * 60)) / 1000);
+
+                    document.getElementById("days").innerText = vDias < 10 ? "0" + vDias : vDias;
+                    document.getElementById("hours").innerText = vHoras < 10 ? "0" + vHoras : vHoras;
+                    document.getElementById("minutes").innerText = vMinutos < 10 ? "0" + vMinutos : vMinutos;
+                    document.getElementById("seconds").innerText = vSegundos < 10 ? "0" + vSegundos : vSegundos;
+                }
+            }, 1000);
         }
 
         window.onload = function () {
             showSlides();
+            iniciarCuentaRegresiva();
 
             checkStreamStatus(defaultUrl, function (isOnline) {
                 var indicator = document.getElementById('live-indicator');
