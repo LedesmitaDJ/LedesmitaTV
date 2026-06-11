@@ -549,7 +549,7 @@
 
         <div class="countdown-section" id="countdownContainer">
             <div class="countdown-title">
-                <i class="ri-time-line"></i> Próximo Evento: Ceremonia Inaugural + México Vs. Sudáfrica
+                <i class="ri-time-line"></i> Próximo Evento: Uzbekistán Vs. Colombia
             </div>
             <div class="countdown-grid">
                 <div class="countdown-box">
@@ -588,9 +588,9 @@
             </div>
         </div>
 
-        <div class="specs-section">
+        <div class="specs-section" id="specsSection">
             <div class="specs-title">
-                <i class="ri-file-list-3-line"></i> Ficha Técnica del Evento
+                <i class="ri-file-list-3-line"></i> Ficha Técnica de la Transmisión
             </div>
             <ul class="specs-list">
                 <li class="specs-item">
@@ -599,11 +599,11 @@
                 </li>
                 <li class="specs-item">
                     <span class="specs-label"><i class="ri-calendar-line"></i> Fecha de Evento:</span>
-                    <span class="specs-value" id="spec-date">11 de Junio, 2026</span>
+                    <span class="specs-value" id="spec-date">17 de Junio, 2026</span>
                 </li>
                 <li class="specs-item">
                     <span class="specs-label"><i class="ri-time-fill"></i> Programación:</span>
-                    <span class="specs-value" id="spec-time-range">12:00 M - 04:00 PM</span>
+                    <span class="specs-value" id="spec-time-range">9:00 PM - 11:00 PM</span>
                 </li>
                 <li class="specs-item">
                     <span class="specs-label"><i class="ri-pulse-line"></i> Estado del Evento:</span>
@@ -753,11 +753,15 @@
         }
 
         // CONFIGURACIÓN DE FECHAS (Meses 1 al 12)
-        var configInicio = { anio: 2026, mes: 6, dia: 11, hora: 12, min: 0, seg: 0 };
-        var configFin = { anio: 2026, mes: 6, dia: 11, hora: 16, min: 0, seg: 0 };
+        var configInicio = { anio: 2026, mes: 6, dia: 17, hora: 21, min: 0, seg: 0 };
+        var configFin = { anio: 2026, mes: 6, dia: 17, hora: 23, min: 0, seg: 0 };
 
         var fechaInicio = new Date(configInicio.anio, configInicio.mes - 1, configInicio.dia, configInicio.hora, configInicio.min, configInicio.seg).getTime();
         var fechaFin = new Date(configFin.anio, configFin.mes - 1, configFin.dia, configFin.hora, configFin.min, configFin.seg).getTime();
+
+        // Minutos extra que la ficha técnica se queda visible después de terminar (30 o 15 minutos)
+        var minutosTolerancia = 15; 
+        var tiempoOcultarFicha = fechaFin + (minutosTolerancia * 60 * 1000);
 
         function iniciarCuentaRegresiva() {
             var x = setInterval(function () {
@@ -765,6 +769,7 @@
                 var distanciaInicio = fechaInicio - ahora;
                 var elEstado = document.getElementById("spec-status");
                 var elContadorBox = document.getElementById("countdownContainer");
+                var laFichaTecnica = document.getElementById("specsSection");
 
                 // NUEVA ESTRUCTURA DE CONTROL TEMPORAL LINEAL EXACTA
                 if (ahora < fechaInicio) {
@@ -772,20 +777,27 @@
                     elEstado.innerText = "Próximamente";
                     elEstado.style.color = "#ffa500";
                     elContadorBox.style.display = "block"; // Se muestra el contador
+                    laFichaTecnica.style.display = "block"; // Asegura que la ficha se vea
                 }
                 else if (ahora >= fechaFin) {
                     // 2. ESTADO: TERMINADO (Si ya superó la hora exacta de fin)
-                    clearInterval(x); // Apagamos el bucle permanentemente
                     elEstado.innerText = "Terminado";
                     elEstado.style.color = "#8b949e";
                     elContadorBox.style.display = "none"; // Se mantiene oculto
-                    return; // Forzamos salida para que no ejecute código matemático posterior
+                    
+                    // Condición para ocultar la ficha técnica tras el tiempo estipulado
+                    if (ahora >= tiempoOcultarFicha) {
+                        laFichaTecnica.style.display = "none";
+                        clearInterval(x); // Apagamos el bucle permanentemente solo cuando se cumpla todo el tiempo
+                        return; // Forzamos salida
+                    }
                 }
                 else {
                     // 3. ESTADO: EN VIVO (Si está entre la hora de inicio y de fin)
                     elEstado.innerText = "● En Vivo";
                     elEstado.style.color = "#ff0055";
                     elContadorBox.style.display = "none"; // Se oculta automáticamente en directo
+                    laFichaTecnica.style.display = "block"; // Se mantiene visible en vivo
                 }
 
                 // Cálculo matemático de los dígitos (Sólo procesará si está en "Próximamente")
