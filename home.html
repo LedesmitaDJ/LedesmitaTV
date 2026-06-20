@@ -870,7 +870,7 @@
         /* Imágenes dentro del modal */
         .modal-imagen {
             width: 100%;
-            height: auto;
+            height: 180px;
             border-radius: 8px;
             margin-bottom: 15px;
             display: block;
@@ -993,7 +993,7 @@
     <!-- ==========================================================================
        ESTRUCTURA DEL MODAL INTERACTIVO MODULAR (POP-UP)
        ========================================================================== -->
-    <div id="popup_informativo_dinamico" class="modal-overlay" style="display: none;">
+    <div id="popup_informativo_dinamico" class="modal-overlay" style="display: flex;">
         <div class="modal-ventana">
 
             <!-- Botón de cierre superior derecho obligatorio -->
@@ -1002,31 +1002,31 @@
             <div class="modal-cuerpo">
                 <!-- IMAGEN OPCIONAL: Puedes borrar la etiqueta completa si no necesitas imagen -->
                 <img class="modal-imagen"
-                    src="https://images.unsplash.com/photo-1542751371-adc38448a05e?q=80&w=500&auto=format&fit=crop"
+                    src="https://images.unsplash.com/photo-1552664730-d307ca884978?q=80&w=500&auto=format&fit=crop"
                     alt="Banner Modal">
 
                 <!-- TEXTOS MODULARES Y ADAPTABLES -->
-                <h2 class="modal-titulo">¡Gran Evento En Vivo!</h2>
-                <h3 class="modal-subtitulo">Torneo de Comunidad Ledesmita TV</h3>
+                <h2 class="modal-titulo">¡Tu opinión manda! 🚀</h2>
+                <h3 class="modal-subtitulo">Ayúdanos a mejorar la App</h3>
                 <p class="modal-parrafo">
-                    Atención a toda la comunidad de usuarios. Estamos a pocos minutos de iniciar la transmisión en
-                    directo con transmisiones optimizadas y salas privadas. Presiona el botón de abajo para unirte de
-                    inmediato.
+                    Queremos saber qué es lo que más te gusta y qué herramientas deseas que añadamos para que esta
+                    aplicación sea completamente tu favorita. La encuesta es 100% anónima y solo te tomará unos minutos.
+                    ¡Crecemos contigo!
                 </p>
 
                 <!-- ZONA DE BOTONES DINÁMICOS (Pon los que necesites, quita los que no) -->
                 <div class="modal-zona-botones">
 
                     <!-- Botón de acción 1 (Ejemplo: Abrir link) -->
-                    <button class="modal-btn-accion btn-primario" data-action-url="https://kick.com"
+                    <button class="modal-btn-accion btn-primario" data-action-url="https://forms.gle/hKd4gBivipAQcGvA6"
                         onclick="ejecutarAccionModal(this)">
-                        Ver Transmisión en Kick
+                        📋 Responder Encuesta Rápida
                     </button>
 
                     <!-- Botón de acción 2 (Ejemplo: Abrir chat de WhatsApp) -->
-                    <button class="modal-btn-accion btn-alerta" data-action-url="https://wa.me/tu-numero"
-                        onclick="ejecutarAccionModal(this)">
-                        Unirse al Grupo de WhatsApp
+                    <button class="modal-btn-accion btn-secundario"
+                        onclick="cerrarModalEmergente()">
+                        ❌ Quizás más tarde
                     </button>
 
                 </div>
@@ -1217,88 +1217,89 @@
         </div>
 
         <!-- SECCIÓN DE CONTENIDO EXCLUSIVO VIP -->
-         <div style="display: none;">
-        <h3 class="section-title section-divider vip-title"><i class="ri-vip-crown-fill"></i> Zona VIP (En desarrollo)
-        </h3>
+        <div style="display: none;">
+            <h3 class="section-title section-divider vip-title"><i class="ri-vip-crown-fill"></i> Zona VIP (En
+                desarrollo)
+            </h3>
 
-        <div class="channels-grid">
-            <div class="channel-card" data-app-url="https://wa.me/tu_numero" data-id="Codigos"
-                data-requires-code="false">
-                <div class="icon-box icon-gold">
-                    <i class="ri-key-2-fill"></i>
+            <div class="channels-grid">
+                <div class="channel-card" data-app-url="https://wa.me/tu_numero" data-id="Codigos"
+                    data-requires-code="false">
+                    <div class="icon-box icon-gold">
+                        <i class="ri-key-2-fill"></i>
+                    </div>
+                    <div class="card-info">
+                        <h3>Codigos VIP</h3>
+                        <p>Adquiere tus accesos aquí</p>
+                    </div>
                 </div>
-                <div class="card-info">
-                    <h3>Codigos VIP</h3>
-                    <p>Adquiere tus accesos aquí</p>
+
+                <!-- CANAL PREMIUM 1 -->
+                <div class="channel-card" data-app-url="go:no-vip-1" data-id="Eventos_VIP" data-requires-code="true"
+                    data-code="eventosvip26">
+                    <div class="membership-badge"><i class="ri-vip-crown-fill"></i> VIP</div>
+                    <div class="icon-box icon-gold">
+                        <i class="ri-star-fill"></i>
+                    </div>
+                    <div class="card-info">
+                        <h3>Eventos VIP</h3>
+                        <p>Acceso Exclusivo VIP</p>
+                    </div>
+                </div>
+
+                <!-- CANAL PREMIUM 2 -->
+                <div class="channel-card" data-app-url="go:no-vip-2" data-id="TV_VIP" data-requires-code="true"
+                    data-code="tvvip26">
+                    <div class="membership-badge"><i class="ri-vip-crown-fill"></i> VIP</div>
+                    <div class="icon-box icon-gold">
+                        <i class="ri-tv-line"></i>
+                    </div>
+                    <div class="card-info">
+                        <h3>TV VIP</h3>
+                        <p>Acceso Exclusivo VIP</p>
+                    </div>
                 </div>
             </div>
-
-            <!-- CANAL PREMIUM 1 -->
-            <div class="channel-card" data-app-url="go:no-vip-1" data-id="Eventos_VIP" data-requires-code="true"
-                data-code="eventosvip26">
-                <div class="membership-badge"><i class="ri-vip-crown-fill"></i> VIP</div>
-                <div class="icon-box icon-gold">
-                    <i class="ri-star-fill"></i>
-                </div>
-                <div class="card-info">
-                    <h3>Eventos VIP</h3>
-                    <p>Acceso Exclusivo VIP</p>
-                </div>
-            </div>
-
-            <!-- CANAL PREMIUM 2 -->
-            <div class="channel-card" data-app-url="go:no-vip-2" data-id="TV_VIP" data-requires-code="true"
-                data-code="tvvip26">
-                <div class="membership-badge"><i class="ri-vip-crown-fill"></i> VIP</div>
-                <div class="icon-box icon-gold">
-                    <i class="ri-tv-line"></i>
-                </div>
-                <div class="card-info">
-                    <h3>TV VIP</h3>
-                    <p>Acceso Exclusivo VIP</p>
-                </div>
-            </div>
-        </div>
         </div>
 
         <!-- =================================================== -->
         <!-- SECCIÓN 1: ESPACIOS PATROCINADOS / INTERCAMBIOS   -->
         <!-- =================================================== -->
-         <div style="display: none;">
-        <h3 class="section-title" style="color: #bc72fd;">
-            <i class="ri-advertisement-line"></i> Espacios Patrocinados (En desarrollo)
-        </h3>
-        <!-- Subtítulo de la sección -->
-        <span class="section-subtitle">Contenido recomendado por nuestros aliados y patrocinadores</span>
+        <div style="display: none;">
+            <h3 class="section-title" style="color: #bc72fd;">
+                <i class="ri-advertisement-line"></i> Espacios Patrocinados (En desarrollo)
+            </h3>
+            <!-- Subtítulo de la sección -->
+            <span class="section-subtitle">Contenido recomendado por nuestros aliados y patrocinadores</span>
 
-        <div class="channels-grid">
+            <div class="channels-grid">
 
-            <!-- Tarjeta Patrocinada 1 -->
-            <div class="channel-card" data-app-url="https://kick.com/canal-patrocinado" data-id="patrocinio_ch1"
-                data-requires-code="false">
-                <div class="icon-box icon-purple">
-                    <i class="ri-advertisement-fill"></i>
+                <!-- Tarjeta Patrocinada 1 -->
+                <div class="channel-card" data-app-url="https://kick.com/canal-patrocinado" data-id="patrocinio_ch1"
+                    data-requires-code="false">
+                    <div class="icon-box icon-purple">
+                        <i class="ri-advertisement-fill"></i>
+                    </div>
+                    <div class="card-info">
+                        <h3>Espacios Disponibles</h3>
+                        <p>Para tu marca en este espacio</p>
+                    </div>
                 </div>
-                <div class="card-info">
-                    <h3>Espacios Disponibles</h3>
-                    <p>Para tu marca en este espacio</p>
+
+                <!-- Tarjeta Patrocinada 2 -->
+                <div class="channel-card" data-app-url="https://wa.me/tu_numero" data-id="tu_publicidad_aqui"
+                    data-requires-code="false">
+                    <div class="ad-badge"><i class="ri-advertisement-line"></i> Patrocinado</div>
+                    <div class="icon-box icon-blue">
+                        <i class="ri-add-box-line"></i>
+                    </div>
+                    <div class="card-info">
+                        <h3>¡Anúnciate Aquí!</h3>
+                        <p>Tu marca en este espacio</p>
+                    </div>
                 </div>
+
             </div>
-
-            <!-- Tarjeta Patrocinada 2 -->
-            <div class="channel-card" data-app-url="https://wa.me/tu_numero" data-id="tu_publicidad_aqui"
-                data-requires-code="false">
-                <div class="ad-badge"><i class="ri-advertisement-line"></i> Patrocinado</div>
-                <div class="icon-box icon-blue">
-                    <i class="ri-add-box-line"></i>
-                </div>
-                <div class="card-info">
-                    <h3>¡Anúnciate Aquí!</h3>
-                    <p>Tu marca en este espacio</p>
-                </div>
-            </div>
-
-        </div>
         </div>
 
 
