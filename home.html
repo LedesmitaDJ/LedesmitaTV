@@ -944,6 +944,49 @@
             color: white;
         }
 
+        .contador-vivo-container {
+            display: inline-flex;
+            align-items: center;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            font-size: 12px;
+        }
+
+        .numero-espectadores {
+            color: #ffffff;
+            font-weight: 600;
+        }
+
+        .punto-rojo-pulso {
+            width: 7px;
+            height: 7px;
+            background-color: #ff3b30;
+            border-radius: 50%;
+            margin-right: 6px;
+            box-shadow: 0 0 0 0 rgba(255, 59, 48, 0.7);
+            animation: pulso_activos 1.5s infinite;
+        }
+
+        @keyframes pulso_activos {
+            0% {
+                transform: scale(0.95);
+                box-shadow: 0 0 0 0 rgba(255, 59, 48, 0.7);
+            }
+
+            70% {
+                transform: scale(1);
+                box-shadow: 0 0 0 5px rgba(255, 59, 48, 0);
+            }
+
+            100% {
+                transform: scale(0.95);
+                box-shadow: 0 0 0 0 rgba(255, 59, 48, 0);
+            }
+        }
+
         @media (max-width: 480px) {
             .app-header h1 {
                 font-size: 1rem;
@@ -993,7 +1036,7 @@
     <!-- ==========================================================================
        ESTRUCTURA DEL MODAL INTERACTIVO MODULAR (POP-UP)
        ========================================================================== -->
-    <div id="popup_informativo_dinamico" class="modal-overlay" style="display: flex;">
+    <div id="popup_informativo_dinamico" class="modal-overlay" style="display: none;">
         <div class="modal-ventana">
 
             <!-- Botón de cierre superior derecho obligatorio -->
@@ -1024,8 +1067,7 @@
                     </button>
 
                     <!-- Botón de acción 2 (Ejemplo: Abrir chat de WhatsApp) -->
-                    <button class="modal-btn-accion btn-secundario"
-                        onclick="cerrarModalEmergente()">
+                    <button class="modal-btn-accion btn-secundario" onclick="cerrarModalEmergente()">
                         ❌ Quizás más tarde
                     </button>
 
@@ -1047,7 +1089,7 @@
         <div class="header-actions">
             <a title="Buscador" href="http://action_search"><img src="img/buscador-icono-oscuro.png"
                     alt="Buscador" /></a>
-            
+
             <a title="TikTok" href="https://www.tiktok.com/@ledesmita.tv"><img src="img/tiktok-icono.png"
                     alt="TikTok" /></a>
             <a title="Compartir" href="http://action_share"><img src="img/compartir-icono.png" alt="Compartir" /></a>
@@ -1106,8 +1148,13 @@
         <div class="stream-meta">
             <h2 id="playing-title">Señal Principal</h2>
             <span id="playing-subtitle" class="stream-subtitle">Solo eventos (No 24/7)</span>
+            
             <div class="meta-badges">
                 <span id="live-indicator" class="badge badge-offline">VERIFICANDO SEÑAL...</span>
+            </div>
+            <div class="contador-vivo-container">
+                <span class="punto-rojo-pulso"></span>
+                <span id="usuarios_activos" class="numero-espectadores">Conectando...</span>
             </div>
         </div>
 
@@ -1366,6 +1413,60 @@
     </div>
 
     <script src="https://vjs.zencdn.net/8.3.0/video.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
+
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
+
+    <script>
+        // Tus credenciales reales obtenidas de Firebase Console
+        const firebaseConfig = {
+            apiKey: "AIzaSyCLvm5K1NA_Py5cVIeX5bcuvxc7zgbwYq0",
+            authDomain: "ledesmita-tv.firebaseapp.com",
+            databaseURL: "https://ledesmita-tv-default-rtdb.firebaseio.com",
+            projectId: "ledesmita-tv",
+            storageBucket: "ledesmita-tv.firebasestorage.app",
+            messagingSenderId: "15472268710",
+            appId: "1:15472268710:web:a09ee6f84aa38c4e54eb67"
+        };
+
+        // Inicialización del sistema en segundo plano
+        if (!firebase.apps.length) {
+            firebase.initializeApp(firebaseConfig);
+        }
+        const database = firebase.database();
+
+        const referenciaContador = database.ref("usuarios_activos");
+        const elementoContador = document.getElementById('usuarios_activos');
+
+        // Escuchar el contador en vivo en tu base de datos de Google
+        referenciaContador.on('value', (snapshot) => {
+            const cantidad = snapshot.val() || 0;
+            // Evitamos marcar 0 si tú estás navegando dentro de la app
+            const activosReales = cantidad <= 0 ? 1 : cantidad;
+            elementoContador.innerText = `${activosReales} Espectadores`;
+        });
+
+        // Lógica inteligente de ingreso y desconexión automática (onDisconnect)
+        const conexionRef = database.ref(".info/connected");
+        conexionRef.on("value", (snapshot) => {
+            if (snapshot.val() === true) {
+                // Se genera un registro temporal para este dispositivo
+                const miSesionRef = database.ref("sesiones").push();
+
+                // Si el usuario cierra el Home, se elimina su nodo automáticamente de Firebase
+                miSesionRef.onDisconnect().remove();
+                miSesionRef.set(true);
+
+                // Monitorear nodos totales para actualizar la métrica global
+                database.ref("sesiones").on("value", (sesionesSnapshot) => {
+                    const totalSesiones = sesionesSnapshot.numChildren();
+                    referenciaContador.set(totalSesiones);
+                });
+            }
+        });
+    </script>
     <!-- ==========================================================================
        LÓGICA JAVASCRIPT DEL BANNER Y DEL MODAL DINÁMICO
        ========================================================================== -->
@@ -1423,7 +1524,7 @@
     </script>
     <script>
         var player = videojs('main-player');
-        var defaultUrl = "https://live20.bozztv.com/akamaissh101/ssh101/ledesmitatv/playlist.m3u8";
+        var defaultUrl = "https://live-hz-12.livepush.io/live/emvyCGnhxN_4XKR3/playlist.m3u8";
 
         // Almacena qué sección solicitó la validación
         var currentPendingElementId = null;
@@ -1637,7 +1738,7 @@
                         indicator.innerText = "● EN VIVO";
                         indicator.className = "badge badge-live";
                     } else {
-                        indicator.innerText = "● OFFLINE";
+                        indicator.innerText = "● SIN SEÑAL";
                         indicator.className = "badge badge-offline";
                     }
                 }
