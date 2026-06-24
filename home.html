@@ -1114,7 +1114,7 @@
 
         <div class="countdown-section" id="countdownContainer">
             <div class="countdown-title">
-                <i class="ri-time-line"></i> Próximo Evento: Colombia Vs. RD Congo
+                <i class="ri-time-line"></i> Próximo Evento: Colombia Vs Portugal
             </div>
             <div class="countdown-grid">
                 <div class="countdown-box">
@@ -1148,7 +1148,7 @@
         <div class="stream-meta">
             <h2 id="playing-title">Señal Principal</h2>
             <span id="playing-subtitle" class="stream-subtitle">Solo eventos (No 24/7)</span>
-            
+
             <div class="meta-badges">
                 <span id="live-indicator" class="badge badge-offline">VERIFICANDO SEÑAL...</span>
             </div>
@@ -1169,11 +1169,11 @@
                 </li>
                 <li class="specs-item">
                     <span class="specs-label"><i class="ri-calendar-line"></i> Fecha de Evento:</span>
-                    <span class="specs-value" id="spec-date">23 de Junio, 2026</span>
+                    <span class="specs-value" id="spec-date">27 de Junio, 2026</span>
                 </li>
                 <li class="specs-item">
                     <span class="specs-label"><i class="ri-time-fill"></i> Programación:</span>
-                    <span class="specs-value" id="spec-time-range">9:00 PM - 11:00 PM</span>
+                    <span class="specs-value" id="spec-time-range">6:30 PM - 8:30 PM</span>
                 </li>
                 <li class="specs-item">
                     <span class="specs-label"><i class="ri-pulse-line"></i> Estado del Evento:</span>
@@ -1420,7 +1420,7 @@
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
 
     <script>
-        // Tus credenciales reales obtenidas de Firebase Console
+        // Tus credenciales reales de Firebase
         const firebaseConfig = {
             apiKey: "AIzaSyCLvm5K1NA_Py5cVIeX5bcuvxc7zgbwYq0",
             authDomain: "ledesmita-tv.firebaseapp.com",
@@ -1431,7 +1431,7 @@
             appId: "1:15472268710:web:a09ee6f84aa38c4e54eb67"
         };
 
-        // Inicialización del sistema en segundo plano
+        // Inicialización
         if (!firebase.apps.length) {
             firebase.initializeApp(firebaseConfig);
         }
@@ -1440,7 +1440,7 @@
         const referenciaContador = database.ref("usuarios_activos");
         const elementoContador = document.getElementById('usuarios_activos');
 
-        // Escuchar el contador en vivo en tu base de datos de Google
+        // 1. ESCUCHAR EN TIEMPO REAL (Solo lectura para mostrar en pantalla)
         referenciaContador.on('value', (snapshot) => {
             const cantidad = snapshot.val() || 0;
             // Evitamos marcar 0 si tú estás navegando dentro de la app
@@ -1448,21 +1448,29 @@
             elementoContador.innerText = `${activosReales} Espectadores`;
         });
 
-        // Lógica inteligente de ingreso y desconexión automática (onDisconnect)
+        // 2. LÓGICA DE PRESENCIA INDIVIDUAL (Suma y resta usando transacciones seguras)
         const conexionRef = database.ref(".info/connected");
+
+        // Creamos una referencia única para la sesión de ESTA pestaña
+        const miSesionRef = database.ref("sesiones").push();
+
         conexionRef.on("value", (snapshot) => {
             if (snapshot.val() === true) {
-                // Se genera un registro temporal para este dispositivo
-                const miSesionRef = database.ref("sesiones").push();
 
-                // Si el usuario cierra el Home, se elimina su nodo automáticamente de Firebase
+                // Cuando el usuario se desconecte o cierre la pestaña:
+                // Primero: Borra su sesión individual
                 miSesionRef.onDisconnect().remove();
-                miSesionRef.set(true);
+                // Segundo: Resta 1 del contador global de forma segura
+                referenciaContador.onDisconnect().transaction((currentCount) => {
+                    return (currentCount || 0) - 1;
+                });
 
-                // Monitorear nodos totales para actualizar la métrica global
-                database.ref("sesiones").on("value", (sesionesSnapshot) => {
-                    const totalSesiones = sesionesSnapshot.numChildren();
-                    referenciaContador.set(totalSesiones);
+                // Cuando el usuario se conecta con éxito:
+                miSesionRef.set(true).then(() => {
+                    // Suma 1 al contador global usando una transacción (evita colisiones)
+                    referenciaContador.transaction((currentCount) => {
+                        return (currentCount || 0) + 1;
+                    });
                 });
             }
         });
@@ -1687,8 +1695,8 @@
         }
 
         // Cuenta Regresiva
-        var configInicio = { anio: 2026, mes: 6, dia: 23, hora: 21, min: 0, seg: 0 };
-        var configFin = { anio: 2026, mes: 6, dia: 23, hora: 23, min: 0, seg: 0 };
+        var configInicio = { anio: 2026, mes: 6, dia: 27, hora: 18, min: 30, seg: 0 };
+        var configFin = { anio: 2026, mes: 6, dia: 27, hora: 20, min: 30, seg: 0 };
 
         var fechaInicio = new Date(configInicio.anio, configInicio.mes - 1, configInicio.dia, configInicio.hora, configInicio.min, configInicio.seg).getTime();
         var fechaFin = new Date(configFin.anio, configFin.mes - 1, configFin.dia, configFin.hora, configFin.min, configFin.seg).getTime();
