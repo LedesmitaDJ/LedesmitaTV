@@ -1420,61 +1420,61 @@
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
 
     <script>
-        // Tus credenciales reales de Firebase
-        const firebaseConfig = {
-            apiKey: "AIzaSyCLvm5K1NA_Py5cVIeX5bcuvxc7zgbwYq0",
-            authDomain: "ledesmita-tv.firebaseapp.com",
-            databaseURL: "https://ledesmita-tv-default-rtdb.firebaseio.com",
-            projectId: "ledesmita-tv",
-            storageBucket: "ledesmita-tv.firebasestorage.app",
-            messagingSenderId: "15472268710",
-            appId: "1:15472268710:web:a09ee6f84aa38c4e54eb67"
-        };
+    // Tus credenciales oficiales de Firebase
+    const firebaseConfig = {
+        apiKey: "AIzaSyCLvm5K1NA_Py5cVIeX5bcuvxc7zgbwYq0",
+        authDomain: "ledesmita-tv.firebaseapp.com",
+        databaseURL: "https://ledesmita-tv-default-rtdb.firebaseio.com",
+        projectId: "ledesmita-tv",
+        storageBucket: "ledesmita-tv.firebasestorage.app",
+        messagingSenderId: "15472268710",
+        appId: "1:15472268710:web:a09ee6f84aa38c4e54eb67"
+    };
 
-        // Inicialización
-        if (!firebase.apps.length) {
-            firebase.initializeApp(firebaseConfig);
+    // Inicialización del sistema de Google
+    if (!firebase.apps.length) {
+        firebase.initializeApp(firebaseConfig);
+    }
+    const database = firebase.database();
+
+    const referenciaContador = database.ref("usuarios_activos");
+    const elementoContador = document.getElementById('usuarios_activos');
+
+    // 1. ESCUCHA DE INTERFAZ: Muestra el número guardado en la base de datos
+    referenciaContador.on('value', (snapshot) => {
+        const cantidad = snapshot.val() || 0;
+        // Si marca 0 o menos, forzamos a mostrar 1 (que eres tú navegando)
+        const activosReales = cantidad <= 0 ? 1 : cantidad;
+        elementoContador.innerText = `${activosReales} Espectadores`;
+    });
+
+    // 2. LÓGICA DE PRESENCIA ESTABLE (Conteo por nodos hijos únicos)
+    const conexionRef = database.ref(".info/connected");
+    
+    conexionRef.on("value", (snapshot) => {
+        if (snapshot.val() === true) {
+            
+            // Creamos una sesión única basada en el ID aleatorio de Firebase
+            const miSesionRef = database.ref("sesiones").push();
+
+            // Configuración de desconexión: Al cerrar la pestaña, borra de inmediato este ID
+            miSesionRef.onDisconnect().remove();
+            
+            // Registramos la conexión guardando el estado activo
+            miSesionRef.set({
+                activo: true,
+                hora: firebase.database.ServerValue.TIMESTAMP
+            });
         }
-        const database = firebase.database();
+    });
 
-        const referenciaContador = database.ref("usuarios_activos");
-        const elementoContador = document.getElementById('usuarios_activos');
-
-        // 1. ESCUCHAR EN TIEMPO REAL (Solo lectura para mostrar en pantalla)
-        referenciaContador.on('value', (snapshot) => {
-            const cantidad = snapshot.val() || 0;
-            // Evitamos marcar 0 si tú estás navegando dentro de la app
-            const activosReales = cantidad <= 0 ? 1 : cantidad;
-            elementoContador.innerText = `${activosReales} Espectadores`;
-        });
-
-        // 2. LÓGICA DE PRESENCIA INDIVIDUAL (Suma y resta usando transacciones seguras)
-        const conexionRef = database.ref(".info/connected");
-
-        // Creamos una referencia única para la sesión de ESTA pestaña
-        const miSesionRef = database.ref("sesiones").push();
-
-        conexionRef.on("value", (snapshot) => {
-            if (snapshot.val() === true) {
-
-                // Cuando el usuario se desconecte o cierre la pestaña:
-                // Primero: Borra su sesión individual
-                miSesionRef.onDisconnect().remove();
-                // Segundo: Resta 1 del contador global de forma segura
-                referenciaContador.onDisconnect().transaction((currentCount) => {
-                    return (currentCount || 0) - 1;
-                });
-
-                // Cuando el usuario se conecta con éxito:
-                miSesionRef.set(true).then(() => {
-                    // Suma 1 al contador global usando una transacción (evita colisiones)
-                    referenciaContador.transaction((currentCount) => {
-                        return (currentCount || 0) + 1;
-                    });
-                });
-            }
-        });
-    </script>
+    // 3. ACTUALIZADOR GLOBAL AUTOMÁTICO (Solo un escucha maestro para contar la lista)
+    database.ref("sesiones").on("value", (sesionesSnapshot) => {
+        const totalSesiones = sesionesSnapshot.numChildren();
+        // Guarda el conteo exacto de dispositivos en el nodo principal
+        referenciaContador.set(totalSesiones);
+    });
+</script>
     <!-- ==========================================================================
        LÓGICA JAVASCRIPT DEL BANNER Y DEL MODAL DINÁMICO
        ========================================================================== -->
