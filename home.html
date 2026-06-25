@@ -1028,6 +1028,187 @@
                 height: 100px;
             }
         }
+
+        /* --- ESTILOS INTERFAZ OTT --- */
+        .epg-ott-container {
+            background: #111111;
+            color: #ffffff;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            max-width: 1000px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.8);
+        }
+
+        .epg-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            flex-wrap: inherit;
+            gap: 10px;
+        }
+
+        .epg-title {
+            font-size: 1.25rem;
+            margin: 0;
+            color: var(--accent-color);
+        }
+
+        .format-toggle-btn {
+            background: #333333;
+            color: #ffffff;
+            border: 1px solid #444444;
+            padding: 6px 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            transition: background 0.2s;
+        }
+
+        .format-toggle-btn:hover {
+            background: var(--accent-gradient);
+            color: #000000;
+            border-color: var(--accent-gradient);
+        }
+
+        .epg-date-selector {
+            display: flex;
+            gap: 10px;
+            overflow-x: auto;
+            padding-bottom: 10px;
+            margin-bottom: 15px;
+        }
+
+        .date-btn {
+            background: #222222;
+            color: #bbbbbb;
+            border: 1px solid #333333;
+            padding: 8px 16px;
+            border-radius: 20px;
+            cursor: pointer;
+            white-space: nowrap;
+            transition: all 0.3s ease;
+        }
+
+        .date-btn.active,
+        .date-btn:hover {
+            background: var(--accent-gradient);
+            color: #000000;
+            font-weight: bold;
+            border-color: var(--accent-gradient);
+        }
+
+        .epg-grid-wrapper {
+            position: relative;
+            overflow-x: auto;
+            background: #181818;
+            border-radius: 8px;
+            border: 1px solid #2a2a2a;
+            scroll-behavior: smooth;
+        }
+
+        .epg-current-time-line {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: #ff3333;
+            z-index: 20;
+            box-shadow: 0 0 8px #ff3333;
+            pointer-events: none;
+        }
+
+        .epg-current-time-line::before {
+            content: "• EN VIVO";
+            position: absolute;
+            top: -2px;
+            left: -32px;
+            background: #ff3333;
+            color: white;
+            font-size: 0.65rem;
+            font-weight: bold;
+            padding: 1px 4px;
+            border-radius: 3px;
+            white-space: nowrap;
+        }
+
+        .epg-timeline {
+            display: flex;
+            background: #222222;
+            border-bottom: 2px solid #333333;
+            height: 40px;
+            align-items: center;
+            width: 2880px;
+        }
+
+        .time-slot {
+            width: 120px;
+            min-width: 120px;
+            text-align: left;
+            padding-left: 10px;
+            box-sizing: border-box;
+            font-size: 0.85rem;
+            color: #888888;
+            font-weight: bold;
+            border-right: 1px dashed #333333;
+        }
+
+        .epg-programs-row {
+            display: flex;
+            position: relative;
+            padding: 15px 0;
+            min-height: 90px;
+            width: 2880px;
+        }
+
+        .program-card {
+            position: absolute;
+            height: 65px;
+            background: linear-gradient(145deg, #2a2a2a, #222222);
+            border: 1px solid #3a3a3a;
+            border-left: 4px solid var(--accent-color);
+            border-radius: 6px;
+            padding: 8px;
+            box-sizing: border-box;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            transition: transform 0.2s;
+        }
+
+        .program-card:hover {
+            transform: scale(1.01);
+            background: #333333;
+            z-index: 10;
+        }
+
+        .program-title {
+            font-size: 0.9rem;
+            font-weight: bold;
+            margin: 0;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .program-time {
+            font-size: 0.75rem;
+            color: #aaaaaa;
+            margin-top: 2px;
+        }
+
+        .epg-no-program {
+            text-align: center;
+            padding: 40px 20px;
+            background: #181818;
+            border-radius: 8px;
+            color: #888888;
+            font-size: 1.1rem;
+            border: 1px dashed #333333;
+        }
     </style>
 </head>
 
@@ -1158,7 +1339,31 @@
             </div>
         </div>
 
-        <div class="specs-section" id="specsSection">
+        <div class="epg-ott-container">
+            <div class="epg-header">
+                <h2 class="epg-title">Guía de Programación</h2>
+                <button class="format-toggle-btn" id="format-toggle-btn" onclick="toggleFormatoHora()">
+                    🕒 Cambiar a AM/PM
+                </button>
+            </div>
+
+            <div class="epg-date-selector" id="epg-date-selector"></div>
+
+            <div class="epg-grid-wrapper" id="epg-grid-wrapper">
+                <div class="epg-current-time-line" id="epg-current-time-line" style="display: none;"></div>
+
+                <div class="epg-timeline" id="epg-timeline">
+                </div>
+                <div class="epg-programs-row" id="epg-programs-row">
+                </div>
+            </div>
+
+            <div class="epg-no-program" id="epg-no-program" style="display: none;">
+                📺 No hay programación disponible para hoy. ¡Regresa más tarde!
+            </div>
+        </div>
+
+        <div class="specs-section" id="specsSection" hidden>
             <div class="specs-title">
                 <i class="ri-file-list-3-line"></i> Ficha Técnica de la Transmisión
             </div>
@@ -1412,6 +1617,206 @@
         </div>
     </div>
 
+    <script>
+        // --- Base de Datos Temática de tu Programación ---
+        // Si una fecha futura NO está en esta lista, su botón NO aparecerá arriba.
+        const baseDeDatosEPG = {
+
+            // Prueba
+            "2026-06-24": [
+                { titulo: "🛠️ Señal de Prueba", inicio: "18:00", fin: "20:00" }
+            ],
+
+            // Mundial 2026
+            "2026-06-27": [
+                { titulo: "⚽ Previa: Colombia Vs Portugal (Mundial 2026 - Fecha 3)", inicio: "17:30", fin: "18:30" },
+                { titulo: "⚽ Colombia Vs Portugal (Mundial 2026 - Fecha 3)", inicio: "18:30", fin: "20:30" },
+            ],
+
+            // Evento especial
+            "2026-07-25": [
+                { titulo: "🥊 La Velada del Año 6", inicio: "13:00", fin: "20:00" }
+            ],
+
+            // Evento Año Nuevo
+            "2026-12-31": [
+                { titulo: "✨🥂🎊🎆 Times Square New Year´s Eve 2027", inicio: "16:00", fin: "23:59" }
+            ],
+
+            "2027-01-01": [
+                { titulo: "✨🥂🎊🎆 Times Square New Year´s Eve 2027", inicio: "00:00", fin: "00:30" }
+            ],
+        };
+
+        const ANCHO_HORA = 120;
+        let formato24h = true;
+
+        function obtenerFechaFormato(date) {
+            const year = date.getFullYear();
+            const month = String(date.getMonth() + 1).padStart(2, '0');
+            const day = String(date.getDate()).padStart(2, '0');
+            return `${year}-${month}-${day}`;
+        }
+
+        const hoyObj = new Date();
+        const stringHoy = obtenerFechaFormato(hoyObj);
+        let fechaSeleccionada = stringHoy;
+
+        function toggleFormatoHora() {
+            formato24h = !formato24h;
+            document.getElementById('format-toggle-btn').innerText = formato24h ? "🕒 Cambiar a AM/PM" : "🕒 Cambiar a 24 Horas";
+            renderizarEPG(false);
+        }
+
+        function formatearHoraVista(horaString) {
+            if (formato24h) return horaString;
+            let [horas, minutos] = horaString.split(':').map(Number);
+            const ampm = horas >= 12 ? 'PM' : 'AM';
+            horas = horas % 12;
+            horas = horas ? horas : 12;
+            return `${String(horas).padStart(2, '0')}:${String(minutos).padStart(2, '0')} ${ampm}`;
+        }
+
+        // --- SELECTOR DE FECHAS DINÁMICO SIN LÍMITES CORREGIDO ---
+        function inicializarSelectorFechas() {
+            const selector = document.getElementById('epg-date-selector');
+            selector.innerHTML = '';
+
+            // 1. Añadir el botón "Hoy" de forma OBLIGATORIA
+            const botonHoy = document.createElement('button');
+            botonHoy.classList.add('date-btn');
+            if (fechaSeleccionada === stringHoy) botonHoy.classList.add('active');
+            botonHoy.innerText = "Hoy";
+            botonHoy.onclick = () => {
+                marcarBotonActivo(botonHoy);
+                fechaSeleccionada = stringHoy;
+                renderizarEPG(true); // Activa el scroll e indicador en vivo
+            };
+            selector.appendChild(botonHoy);
+
+            // 2. Extraer TODAS las fechas de la base de datos, ordenarlas y pintarlas si son futuras
+            // Object.keys nos da una lista: ["2026-06-27", "2026-07-25", "2026-12-31", "2027-01-01"]
+            const todasLasFechas = Object.keys(baseDeDatosEPG).sort();
+
+            todasLasFechas.forEach(fechaString => {
+                // Ignoramos la fecha si es igual a "Hoy" (porque ya pusimos el botón manual arriba)
+                // Y solo mostramos fechas que sean estrictamente mayores (futuras) a hoy
+                if (fechaString > stringHoy) {
+
+                    // Convertimos el string "AAAA-MM-DD" a un objeto de fecha real para darle un formato bonito
+                    // Usamos el reemplazo de guiones por barras para evitar desfases de zona horaria en navegadores
+                    const fechaObjeto = new Date(fechaString.replace(/-/g, '\/'));
+
+                    let opciones = { weekday: 'short', day: 'numeric', month: 'short' };
+                    let textoBoton = fechaObjeto.toLocaleDateString('es-CO', opciones);
+
+                    const botonFuturo = document.createElement('button');
+                    botonFuturo.classList.add('date-btn');
+                    if (fechaSeleccionada === fechaString) botonFuturo.classList.add('active');
+                    botonFuturo.innerText = textoBoton;
+
+                    botonFuturo.onclick = () => {
+                        marcarBotonActivo(botonFuturo);
+                        fechaSeleccionada = fechaString;
+                        renderizarEPG(false); // Días futuros no requieren centrado en vivo ni línea roja
+                    };
+                    selector.appendChild(botonFuturo);
+                }
+            });
+        }
+
+        function marcarBotonActivo(boton) {
+            document.querySelectorAll('.date-btn').forEach(b => b.classList.remove('active'));
+            boton.classList.add('active');
+        }
+
+        function renderizarEPG(forzarScroll = true) {
+            const timeline = document.getElementById('epg-timeline');
+            const row = document.getElementById('epg-programs-row');
+            const wrapper = document.getElementById('epg-grid-wrapper');
+            const alertaVacio = document.getElementById('epg-no-program');
+            const lineaRoja = document.getElementById('epg-current-time-line');
+
+            timeline.innerHTML = '';
+            row.innerHTML = '';
+
+            const eventos = baseDeDatosEPG[fechaSeleccionada] || [];
+            const esHoy = (fechaSeleccionada === stringHoy);
+
+            // Filtrar programas pasados ÚNICAMENTE en el día de HOY
+            let eventosFiltrados = eventos;
+            if (esHoy) {
+                const ahora = new Date();
+                const horaActualString = `${String(ahora.getHours()).padStart(2, '0')}:${String(ahora.getMinutes()).padStart(2, '0')}`;
+                eventosFiltrados = eventos.filter(ev => ev.fin > horaActualString);
+            }
+
+            // Si hoy no hay nada (o los eventos de hoy ya pasaron), mantenemos tu aviso intacto
+            if (eventosFiltrados.length === 0) {
+                wrapper.style.display = 'none';
+                alertaVacio.style.display = 'block';
+                lineaRoja.style.display = 'none';
+                return;
+            } else {
+                wrapper.style.display = 'block';
+                alertaVacio.style.display = 'none';
+            }
+
+            // Generar línea de tiempo fija
+            for (let h = 0; h < 24; h++) {
+                const slot = document.createElement('div');
+                slot.classList.add('time-slot');
+                slot.innerText = formatearHoraVista(`${String(h).padStart(2, '0')}:00`);
+                timeline.appendChild(slot);
+            }
+
+            // Renderizar tarjetas
+            eventosFiltrados.forEach(ev => {
+                const [hIni, mIni] = ev.inicio.split(':').map(Number);
+                const [hFin, mFin] = ev.fin.split(':').map(Number);
+
+                const minutosDesdeInicio = (hIni * 60) + mIni;
+                const duracionMinutos = ((hFin * 60) + mFin) - minutosDesdeInicio;
+
+                const posicionIzquierda = (minutosDesdeInicio / 60) * ANCHO_HORA;
+                const anchoBloque = (duracionMinutos / 60) * ANCHO_HORA;
+
+                const tarjeta = document.createElement('div');
+                tarjeta.classList.add('program-card');
+                tarjeta.style.left = `${posicionIzquierda}px`;
+                tarjeta.style.width = `${anchoBloque}px`;
+
+                tarjeta.innerHTML = `
+            <p class="program-title">${ev.titulo}</p>
+            <span class="program-time">${formatearHoraVista(ev.inicio)} - ${formatearHoraVista(ev.fin)}</span>
+        `;
+                row.appendChild(tarjeta);
+            });
+
+            // Lógica de centrado e indicador "En Vivo" para Hoy
+            if (esHoy) {
+                const ahora = new Date();
+                const minutosActuales = (ahora.getHours() * 60) + ahora.getMinutes();
+                const posicionLineaPx = (minutosActuales / 60) * ANCHO_HORA;
+
+                lineaRoja.style.left = `${posicionLineaPx}px`;
+                lineaRoja.style.display = 'block';
+
+                if (forzarScroll) {
+                    setTimeout(() => {
+                        wrapper.scrollLeft = posicionLineaPx - 150;
+                    }, 200);
+                }
+            } else {
+                lineaRoja.style.display = 'none';
+            }
+        }
+
+        // Ejecución inicial
+        inicializarSelectorFechas();
+        renderizarEPG(true);
+    </script>
+
     <script src="https://vjs.zencdn.net/8.3.0/video.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
@@ -1420,61 +1825,61 @@
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
 
     <script>
-    // Tus credenciales oficiales de Firebase
-    const firebaseConfig = {
-        apiKey: "AIzaSyCLvm5K1NA_Py5cVIeX5bcuvxc7zgbwYq0",
-        authDomain: "ledesmita-tv.firebaseapp.com",
-        databaseURL: "https://ledesmita-tv-default-rtdb.firebaseio.com",
-        projectId: "ledesmita-tv",
-        storageBucket: "ledesmita-tv.firebasestorage.app",
-        messagingSenderId: "15472268710",
-        appId: "1:15472268710:web:a09ee6f84aa38c4e54eb67"
-    };
+        // Tus credenciales oficiales de Firebase
+        const firebaseConfig = {
+            apiKey: "AIzaSyCLvm5K1NA_Py5cVIeX5bcuvxc7zgbwYq0",
+            authDomain: "ledesmita-tv.firebaseapp.com",
+            databaseURL: "https://ledesmita-tv-default-rtdb.firebaseio.com",
+            projectId: "ledesmita-tv",
+            storageBucket: "ledesmita-tv.firebasestorage.app",
+            messagingSenderId: "15472268710",
+            appId: "1:15472268710:web:a09ee6f84aa38c4e54eb67"
+        };
 
-    // Inicialización del sistema de Google
-    if (!firebase.apps.length) {
-        firebase.initializeApp(firebaseConfig);
-    }
-    const database = firebase.database();
-
-    const referenciaContador = database.ref("usuarios_activos");
-    const elementoContador = document.getElementById('usuarios_activos');
-
-    // 1. ESCUCHA DE INTERFAZ: Muestra el número guardado en la base de datos
-    referenciaContador.on('value', (snapshot) => {
-        const cantidad = snapshot.val() || 0;
-        // Si marca 0 o menos, forzamos a mostrar 1 (que eres tú navegando)
-        const activosReales = cantidad <= 0 ? 1 : cantidad;
-        elementoContador.innerText = `${activosReales} Espectadores`;
-    });
-
-    // 2. LÓGICA DE PRESENCIA ESTABLE (Conteo por nodos hijos únicos)
-    const conexionRef = database.ref(".info/connected");
-    
-    conexionRef.on("value", (snapshot) => {
-        if (snapshot.val() === true) {
-            
-            // Creamos una sesión única basada en el ID aleatorio de Firebase
-            const miSesionRef = database.ref("sesiones").push();
-
-            // Configuración de desconexión: Al cerrar la pestaña, borra de inmediato este ID
-            miSesionRef.onDisconnect().remove();
-            
-            // Registramos la conexión guardando el estado activo
-            miSesionRef.set({
-                activo: true,
-                hora: firebase.database.ServerValue.TIMESTAMP
-            });
+        // Inicialización del sistema de Google
+        if (!firebase.apps.length) {
+            firebase.initializeApp(firebaseConfig);
         }
-    });
+        const database = firebase.database();
 
-    // 3. ACTUALIZADOR GLOBAL AUTOMÁTICO (Solo un escucha maestro para contar la lista)
-    database.ref("sesiones").on("value", (sesionesSnapshot) => {
-        const totalSesiones = sesionesSnapshot.numChildren();
-        // Guarda el conteo exacto de dispositivos en el nodo principal
-        referenciaContador.set(totalSesiones);
-    });
-</script>
+        const referenciaContador = database.ref("usuarios_activos");
+        const elementoContador = document.getElementById('usuarios_activos');
+
+        // 1. ESCUCHA DE INTERFAZ: Muestra el número guardado en la base de datos
+        referenciaContador.on('value', (snapshot) => {
+            const cantidad = snapshot.val() || 0;
+            // Si marca 0 o menos, forzamos a mostrar 1 (que eres tú navegando)
+            const activosReales = cantidad <= 0 ? 1 : cantidad;
+            elementoContador.innerText = `${activosReales} Espectadores`;
+        });
+
+        // 2. LÓGICA DE PRESENCIA ESTABLE (Conteo por nodos hijos únicos)
+        const conexionRef = database.ref(".info/connected");
+
+        conexionRef.on("value", (snapshot) => {
+            if (snapshot.val() === true) {
+
+                // Creamos una sesión única basada en el ID aleatorio de Firebase
+                const miSesionRef = database.ref("sesiones").push();
+
+                // Configuración de desconexión: Al cerrar la pestaña, borra de inmediato este ID
+                miSesionRef.onDisconnect().remove();
+
+                // Registramos la conexión guardando el estado activo
+                miSesionRef.set({
+                    activo: true,
+                    hora: firebase.database.ServerValue.TIMESTAMP
+                });
+            }
+        });
+
+        // 3. ACTUALIZADOR GLOBAL AUTOMÁTICO (Solo un escucha maestro para contar la lista)
+        database.ref("sesiones").on("value", (sesionesSnapshot) => {
+            const totalSesiones = sesionesSnapshot.numChildren();
+            // Guarda el conteo exacto de dispositivos en el nodo principal
+            referenciaContador.set(totalSesiones);
+        });
+    </script>
     <!-- ==========================================================================
        LÓGICA JAVASCRIPT DEL BANNER Y DEL MODAL DINÁMICO
        ========================================================================== -->
