@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="es" class="dark scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="icon" type="image/png" href="img/logo-s.png">
+    
+    <!-- SEO Meta Tags Primarios -->
+    <title>Ledesmita TV - Transmisiones en Vivo, Deportes y Entretenimiento</title>
+    <meta name="title" content="Ledesmita TV - Transmisiones en Vivo, Deportes y Entretenimiento">
+    <meta name="description" content="Sitio oficial de Ledesmita TV. Disfruta de transmisiones en vivo por Kick y descarga la aplicación oficial en Google Play Store para fútbol, eventos especiales y entretenimiento en directo.">
+    <meta name="keywords" content="Ledesmita TV, Ledesmita, Eventos, Ledesmita TV App, transmisiones en vivo, futbol en directo, pelota libre, futbol libre, Kick TV, Ledesmita Google Play">
+    <meta name="robots" content="index, follow">
+    <meta name="language" content="Spanish">
+    <meta name="author" content="Ledesmita TV">
+    <meta name="theme-color" content="#080d1a">
+    <link rel="canonical" href="https://ledesmita.tv/">
+
+    <!-- Open Graph / Facebook / WhatsApp SEO -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://ledesmita.tv/">
+    <meta property="og:site_name" content="Ledesmita TV">
+    <meta property="og:title" content="Ledesmita TV - Transmisiones en Vivo">
+    <meta property="og:description" content="Señal en vivo por Kick y App Oficial en Google Play Store. Sigue todos nuestros eventos deportivos y contenido exclusivo.">
+    <meta property="og:image" content="img/poster-og.png">
+
+    <!-- Twitter Card SEO -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@LedesmitaTV">
+    <meta name="twitter:creator" content="@LedesmitaTV">
+    <meta name="twitter:title" content="Ledesmita TV - Transmisiones en Vivo">
+    <meta name="twitter:description" content="Conéctate a la señal oficial de Ledesmita TV en Kick y descarga la aplicación en Android.">
+    <meta name="twitter:image" content="img/poster-og.png">
+
+    <!-- JSON-LD Structured Data Schema.org para Motores de Búsqueda -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "WebSite",
+          "@id": "https://ledesmita.tv/#website",
+          "url": "https://ledesmita.tv/",
+          "name": "Ledesmita TV",
+          "description": "Plataforma oficial de streaming y canal de transmisiones en vivo de Ledesmita TV.",
+          "publisher": {
+            "@type": "Organization",
+            "name": "Ledesmita TV",
+            "logo": {
+              "@type": "ImageObject",
+              "url": "https://ledesmita.tv/img/logo-s.png"
+            }
+          }
+        },
+        {
+          "@type": "MobileApplication",
+          "name": "Ledesmita TV",
+          "operatingSystem": "Android",
+          "applicationCategory": "EntertainmentApplication",
+          "installUrl": "https://play.google.com/store/apps/details?id=com.ledesmita.tv",
+          "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "USD"
+          }
+        },
+        {
+          "@type": "BroadcastService",
+          "name": "Ledesmita TV Live",
+          "broadcaster": {
+            "@type": "Organization",
+            "name": "Ledesmita TV"
+          },
+          "sameAs": "https://kick.com/ledesmitatv"
+        }
+      ]
+    }
+    </script>
+
+    <!-- Tailwind CSS via CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            bg: '#080d1a',        // Azul muy oscuro para el fondo
+                            card: '#0f172a',      // Azul noche para tarjetas
+                            cardHover: '#1e293b', // Hover azul slate
+                            border: '#1e3a8a33',   // Borde sutil azul
+                            cyan: '#38bdf8',      // Cian brillante
+                            blue: '#2563eb',      // Azul primario
+                            darkBlue: '#1e40af'   // Azul secundario
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        audiowide: ['Audiowide', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Google Fonts: Audiowide & Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Audiowide&family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    
+    <!-- FontAwesome para iconos -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #080d1a;
+            color: #f8fafc;
+        }
+        /* Custom Scrollbar azulado */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #080d1a;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #1e3a8a;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #2563eb;
+        }
+    </style>
+</head>
+<body class="bg-brand-bg text-gray-100 min-h-screen flex flex-col justify-between selection:bg-brand-blue selection:text-white">
+
+    <!-- MAIN HEADER / NAVBAR -->
+    <header class="sticky top-0 z-40 bg-brand-bg/90 backdrop-blur-md border-b border-brand-border">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                
+                <!-- BRAND LOGO -->
+                <a href="/" class="flex items-center gap-3 group font-audiowide text-xl sm:text-2xl text-white tracking-wide" aria-label="Ir al inicio de Ledesmita TV">
+                    <img src="img/logo-s.png" 
+                         alt="Logo de Ledesmita TV" 
+                         class="h-10 sm:h-12 w-auto object-contain transition group-hover:scale-105"
+                         onerror="this.onerror=null; this.src='img/logo-s.png';">
+                    <span>Ledesmita TV</span>
+                </a>
+
+                <!-- Desktop Navigation Links -->
+                <nav class="hidden md:flex items-center space-x-8 text-sm font-medium" aria-label="Navegación principal">
+                    <a href="#reproductor" class="text-white hover:text-brand-cyan transition flex items-center gap-2">
+                        <img src="https://uxwing.com/wp-content/themes/uxwing/download/brands-and-social-media/kick-streaming-platform-logo-icon.png" class="w-3.5 h-3.5 object-contain" alt="Kick Logo">
+                        En Vivo
+                    </a>
+                    <a href="#descargar-app" class="text-gray-300 hover:text-brand-cyan transition flex items-center gap-2">
+                        <i class="fa-solid fa-mobile-screen-button text-xs text-brand-cyan"></i> App Oficial
+                    </a>
+                    <a href="#redes" class="text-gray-300 hover:text-brand-cyan transition flex items-center gap-2">
+                        <i class="fa-solid fa-globe text-xs text-brand-cyan"></i> Redes & Comunidad
+                    </a>
+                </nav>
+
+                <!-- Action Button -->
+                <div class="hidden sm:flex items-center gap-3">
+                    <a href="https://kick.com/ledesmitatv" target="_blank" rel="noopener noreferrer" class="bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-600 hover:to-emerald-700 text-black font-extrabold px-4 py-2 rounded-xl text-xs flex items-center gap-2 transition shadow-lg shadow-green-950/30">
+                        <img src="https://assets.streamlinehq.com/image/private/w_300,h_300,ar_1/f_auto/v1/icons/videos/kick-logo-99g5rc4igpw0ygzleoxf.png/kick-logo-dli3o7f9jkm1yolfj0sm6g.png" class="w-3.5 h-3.5 object-contain" alt="Kick Stream Logo">
+                        Seguir en Kick
+                    </a>
+                </div>
+
+                <!-- Mobile menu button -->
+                <div class="md:hidden flex items-center">
+                    <button id="mobileMenuBtn" aria-label="Abrir menú de navegación" class="text-gray-300 hover:text-white p-2 rounded-lg focus:outline-none">
+                        <i class="fa-solid fa-bars text-xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Navigation Menu Dropdown -->
+        <div id="mobileMenu" class="hidden md:hidden bg-brand-card border-b border-brand-border px-4 pt-2 pb-6 space-y-3">
+            <a href="#reproductor" class="mobile-link block py-2 text-white font-medium hover:text-brand-cyan border-b border-brand-border/50">
+                <i class="fa-solid fa-play text-green-400 mr-2"></i> Transmisión En Vivo (Kick)
+            </a>
+            <a href="#descargar-app" class="mobile-link block py-2 text-gray-300 hover:text-white border-b border-brand-border/50">
+                <i class="fa-solid fa-mobile-screen-button text-brand-cyan mr-2"></i> App Oficial Play Store
+            </a>
+            <a href="#redes" class="mobile-link block py-2 text-gray-300 hover:text-white">
+                <i class="fa-solid fa-globe text-brand-cyan mr-2"></i> Redes Sociales
+            </a>
+            <div class="pt-2">
+                <a href="https://kick.com/ledesmitatv" target="_blank" rel="noopener noreferrer" class="w-full bg-green-500 text-black font-extrabold py-2.5 rounded-xl text-xs flex items-center justify-center gap-2">
+                    <img src="https://uxwing.com/wp-content/themes/uxwing/download/brands-and-social-media/kick-streaming-platform-logo-icon.png" class="w-4 h-4 object-contain" alt="Kick Logo">
+                    Seguir en Kick.com
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <main class="flex-grow">
+        
+        <!-- MAIN STREAMING SECTION (KICK PLAYER EMBED) -->
+        <section id="reproductor" class="py-8 lg:py-12 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+            <div class="space-y-4">
+                
+                <h1 class="sr-only">Ledesmita TV - Señal y Transmisiones Oficiales en Vivo</h1>
+
+                <!-- Main Player Container (Kick Player Embed) -->
+                <div class="relative bg-black rounded-3xl overflow-hidden border border-brand-border shadow-2xl shadow-blue-950/50">
+                    
+                    <!-- Kick Player Screen Wrapper (16:9 Aspect Ratio) -->
+                    <div class="relative aspect-video w-full bg-black flex items-center justify-center">
+                        <iframe id="kickPlayerIframe" 
+                                class="w-full h-full border-0" 
+                                src="https://player.kick.com/ledesmitatv" 
+                                title="Reproductor de Transmisión en Vivo de Ledesmita TV en Kick"
+                                allow="autoplay; fullscreen"
+                                allowfullscreen="true">
+                        </iframe>
+                    </div>
+
+                    <!-- Player Footer Bar -->
+                    <div class="bg-brand-card px-6 py-4 border-t border-brand-border flex flex-col sm:flex-row items-center justify-between gap-4">
+                        <div class="flex items-center gap-3">
+                            <span class="w-3 h-3 bg-green-400 rounded-full animate-pulse"></span>
+                            <div>
+                                <h2 id="currentStreamTitle" class="text-sm sm:text-base font-bold text-white">Canal Oficial Ledesmita TV</h2>
+                                <p class="text-xs text-gray-400">Transmisión en Directo: <a href="https://kick.com/ledesmitatv" target="_blank" rel="noopener noreferrer" class="text-green-400 hover:underline font-semibold">kick.com/ledesmitatv</a></p>
+                            </div>
+                        </div>
+
+                        <div class="flex items-center gap-2 text-xs text-gray-400">
+                            <i class="fa-solid fa-shield-halved text-brand-cyan"></i> Transmisión Oficial Protegida
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </section>
+
+        <!-- SECCIÓN PLAY STORE / APLICACIÓN MÓVIL OFICIAL (HUB CENTRAL DE EVENTOS Y EN VIVO) -->
+        <section id="descargar-app" class="py-16 relative overflow-hidden bg-gradient-to-b from-brand-bg via-brand-card to-brand-bg border-t border-b border-brand-border">
+            <!-- Glow background decorativo -->
+            <div class="absolute -top-24 -left-24 w-96 h-96 bg-brand-blue/20 rounded-full blur-3xl pointer-events-none"></div>
+            <div class="absolute -bottom-24 -right-24 w-96 h-96 bg-brand-cyan/10 rounded-full blur-3xl pointer-events-none"></div>
+
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+                <div class="bg-gradient-to-r from-brand-card to-blue-950/70 rounded-3xl p-8 sm:p-12 border border-brand-border shadow-2xl">
+                    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+                        
+                        <!-- Left Content -->
+                        <div class="lg:col-span-7 space-y-6">
+                            <span class="inline-flex items-center gap-2 bg-brand-blue/30 text-brand-cyan text-xs font-bold px-3 py-1.5 rounded-full border border-brand-cyan/30">
+                                <i class="fa-brands fa-google-play"></i> Ya disponible en Google Play Store
+                            </span>
+
+                            <h2 class="text-3xl sm:text-4xl font-black text-white leading-tight">
+                                Sigue todos los eventos y transmisiones en vivo en la <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-cyan to-blue-400">App Oficial de Ledesmita TV</span>
+                            </h2>
+
+                            <p class="text-gray-300 text-sm sm:text-base leading-relaxed">
+                                Nuestra aplicación para Android es la sede central de Ledesmita TV. Descárgala de manera gratuita para acceder a la agenda completa de próximos eventos, recibir alertas instantáneas cuando iniciemos en vivo y disfrutar del contenido exclusivo donde quiera que estés.
+                            </p>
+
+                            <!-- Feature Badges -->
+                            <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-2">
+                                <div class="bg-brand-bg/80 p-3 rounded-xl border border-brand-border text-center">
+                                    <i class="fa-solid fa-tv text-brand-cyan text-lg mb-1 block"></i>
+                                    <span class="text-xs font-bold text-white">Full HD 1080p</span>
+                                </div>
+                                <div class="bg-brand-bg/80 p-3 rounded-xl border border-brand-border text-center">
+                                    <i class="fa-solid fa-bell text-brand-cyan text-lg mb-1 block"></i>
+                                    <span class="text-xs font-bold text-white">Alertas En Vivo</span>
+                                </div>
+                                <div class="bg-brand-bg/80 p-3 rounded-xl border border-brand-border text-center">
+                                    <i class="fa-solid fa-display text-brand-cyan text-lg mb-1 block"></i>
+                                    <span class="text-xs font-bold text-white">TV en Vivo</span>
+                                </div>
+                                <div class="bg-brand-bg/80 p-3 rounded-xl border border-brand-border text-center">
+                                    <i class="fa-solid fa-calendar-days text-brand-cyan text-lg mb-1 block"></i>
+                                    <span class="text-xs font-bold text-white">Eventos & Agenda</span>
+                                </div>
+                            </div>
+
+                            <!-- CTA Button -->
+                            <div class="pt-4 flex flex-wrap gap-4">
+                                <a href="https://play.google.com/store/apps/details?id=com.ledesmita.tv" target="_blank" rel="noopener noreferrer" 
+                                   class="bg-gradient-to-r from-brand-blue to-cyan-500 hover:from-blue-600 hover:to-brand-cyan text-white px-8 py-4 rounded-2xl font-extrabold text-sm transition shadow-xl shadow-cyan-950/50 flex items-center gap-3 border border-brand-cyan/40">
+                                    <i class="fa-brands fa-google-play text-2xl"></i>
+                                    <div class="text-left">
+                                        <span class="block text-[10px] uppercase font-semibold text-cyan-200">Disponible En</span>
+                                        <span class="text-base font-bold">Google Play Store</span>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+
+                        <!-- Right Graphic Mockup -->
+                        <div class="lg:col-span-5 flex justify-center">
+                            <div class="relative w-64 h-96 bg-gray-950 rounded-[40px] border-4 border-gray-800 p-3 shadow-2xl shadow-blue-950/80">
+                                <div class="w-full h-full bg-brand-bg rounded-[30px] overflow-hidden flex flex-col justify-between p-4 relative border border-brand-border">
+                                    <div class="flex justify-between items-center text-xs text-brand-cyan">
+                                        <span class="font-bold">Ledesmita TV</span>
+                                        <i class="fa-solid fa-wifi"></i>
+                                    </div>
+                                    <div class="my-auto text-center space-y-3">
+                                        <div class="w-16 h-16 bg-brand-card rounded-2xl mx-auto flex items-center justify-center shadow-lg border border-brand-cyan/40">
+                                            <img src="img/logo-s.png" alt="Icono Ledesmita TV" class="h-10 w-auto object-contain">
+                                        </div>
+                                        <h3 class="text-white font-black text-sm">Ledesmita TV</h3>
+                                        <span class="inline-block bg-brand-cyan text-gray-950 font-black text-[10px] px-2.5 py-0.5 rounded-full uppercase">App Oficial</span>
+                                    </div>
+                                    <a href="https://play.google.com/store/apps/details?id=com.ledesmita.tv" target="_blank" rel="noopener noreferrer" class="w-full bg-brand-blue hover:bg-blue-600 py-2.5 rounded-xl text-center text-xs font-bold text-white transition flex items-center justify-center gap-2">
+                                        <i class="fa-brands fa-google-play text-sm"></i> Descargar Aplicación
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECCIÓN REDES SOCIALES & COMUNIDAD -->
+        <section id="redes" class="py-12 bg-brand-bg">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-8">
+                    <span class="text-xs font-bold uppercase tracking-wider text-brand-cyan">Únete a la Comunidad</span>
+                    <h2 class="text-2xl sm:text-3xl font-black text-white mt-1">Nuestras Redes Oficiales</h2>
+                </div>
+
+                <!-- Social Grid (Kick, X/Twitter, TikTok, YouTube, Discord) -->
+                <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4">
+                    
+                    <!-- Kick -->
+                    <a href="https://kick.com/ledesmitatv" target="_blank" rel="noopener noreferrer" class="bg-brand-card hover:bg-brand-cardHover border border-brand-border p-5 rounded-2xl transition group flex flex-col items-center justify-center">
+                        <img src="https://uxwing.com/wp-content/themes/uxwing/download/brands-and-social-media/kick-streaming-platform-logo-icon.png" class="w-8 h-8 group-hover:scale-110 transition object-contain" alt="Logo Kick Stream">
+                        <span class="text-xs font-bold text-white mt-2">Kick</span>
+                    </a>
+
+                    <!-- X / Twitter -->
+                    <a href="https://x.com/LedesmitaTV" target="_blank" rel="noopener noreferrer" class="bg-brand-card hover:bg-brand-cardHover border border-brand-border p-5 rounded-2xl transition group flex flex-col items-center justify-center">
+                        <svg class="w-8 h-8 fill-white group-hover:scale-110 transition" viewBox="0 0 24 24" aria-hidden="true">
+                            <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+                        </svg>
+                        <span class="text-xs font-bold text-white mt-2">X (Twitter)</span>
+                    </a>
+
+                    <!-- TikTok -->
+                    <a href="https://tiktok.com/@ledesmitatv" target="_blank" rel="noopener noreferrer" class="bg-brand-card hover:bg-brand-cardHover border border-brand-border p-5 rounded-2xl transition group flex flex-col items-center justify-center">
+                        <i class="fa-brands fa-tiktok text-cyan-400 text-3xl group-hover:scale-110 transition"></i>
+                        <span class="text-xs font-bold text-white mt-2">TikTok</span>
+                    </a>
+
+                    <!-- YouTube -->
+                    <a href="https://youtube.com/@LedesmitaTV" target="_blank" rel="noopener noreferrer" class="bg-brand-card hover:bg-brand-cardHover border border-brand-border p-5 rounded-2xl transition group flex flex-col items-center justify-center">
+                        <i class="fa-brands fa-youtube text-red-500 text-3xl group-hover:scale-110 transition"></i>
+                        <span class="text-xs font-bold text-white mt-2">YouTube</span>
+                    </a>
+
+                    <!-- Discord -->
+                    <a href="https://discord.gg/bXsWP2PVXm" target="_blank" rel="noopener noreferrer" class="bg-brand-card hover:bg-brand-cardHover border border-brand-border p-5 rounded-2xl transition group flex flex-col items-center justify-center">
+                        <i class="fa-brands fa-discord text-indigo-400 text-3xl group-hover:scale-110 transition"></i>
+                        <span class="text-xs font-bold text-white mt-2">Discord</span>
+                    </a>
+
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="bg-brand-card border-t border-brand-border py-8 text-xs text-gray-400">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4">
+            <div class="flex items-center gap-3">
+                <img src="img/logo-s.png" 
+                     alt="Logo de Ledesmita TV" 
+                     class="h-7 w-auto object-contain"
+                     onerror="this.onerror=null; this.src='img/logo-s.png';">
+                <span>&copy; <span id="year"></span> Ledesmita TV. Todos los derechos reservados.</span>
+            </div>
+            
+            <div class="flex items-center gap-6">
+                <a href="/dmca" target="_blank" rel="noopener noreferrer" class="hover:text-brand-cyan transition">DMCA</a>
+                <a href="/terminos-condiciones-uso" target="_blank" rel="noopener noreferrer" class="hover:text-brand-cyan transition">Términos y Condiciones de Uso</a>
+                <a href="/aviso-legal" target="_blank" rel="noopener noreferrer" class="hover:text-brand-cyan transition">Aviso Legal</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- SCRIPT DE NAVEGACIÓN Y CONFIGURACIÓN -->
+    <script>
+        // Establecer año actual dinámicamente
+        document.getElementById("year").textContent = new Date().getFullYear();
+
+        // Mobile menu toggle logic
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const mobileMenu = document.getElementById('mobileMenu');
+        
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        document.querySelectorAll('.mobile-link').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
+            });
+        });
+    </script>
+</body>
+</html>
